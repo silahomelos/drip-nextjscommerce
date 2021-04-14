@@ -187,7 +187,7 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
             <div>
               <Tabs>
-                <div label="Gator">
+                {/* <div label="Gator">
                   See ya later, <em>Alligator</em>!
                 </div>
                 <div label="Croc">
@@ -195,7 +195,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 </div>
                 <div label="Sarcosuchus">
                   Nothing to see here, this tab is <em>extinct</em>!
-                </div>
+                </div> */}
               </Tabs>
             </div>
           </section>
