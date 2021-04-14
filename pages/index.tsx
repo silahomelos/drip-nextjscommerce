@@ -1,6 +1,8 @@
 import { Layout } from '@components/common'
-import { Grid, Marquee, Hero } from '@components/ui'
-import { ProductCard } from '@components/product'
+import { Grid, GridContainer, Hero } from '@components/ui'
+import { ProductCard, ProductItem } from '@components/product'
+import TextContent from '@components/ui/TextContent'
+
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
@@ -42,19 +44,20 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Grid>
-        {products.slice(0, 3).map((product, i) => (
-          <ProductCard
+      <TextContent />
+      <GridContainer>
+        {products.slice(0, 5).map((product, i) => (
+          <ProductItem
             key={product.id}
             product={product}
             imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
+              width: 540,
+              height: 540,
             }}
           />
         ))}
-      </Grid>
-      <Marquee variant="secondary">
+      </GridContainer>
+      {/* <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard
             key={product.id}
@@ -66,8 +69,8 @@ export default function Home({
             }}
           />
         ))}
-      </Marquee>
-      <Hero
+      </Marquee> */}
+      {/* <Hero
         headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
         description="
         The Yeezy BOOST 350 V2 lineup continues to grow. We recently had the
@@ -76,8 +79,8 @@ export default function Home({
         shoe was originally called ‘Abez’, which translated to ‘Tin’ in
         Hebrew. It’s now undergone a name change, and will be referred to as
         ‘Natural’."
-      />
-      <Grid layout="B">
+      /> */}
+      {/* <Grid layout="B">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard
             key={product.id}
@@ -88,8 +91,8 @@ export default function Home({
             }}
           />
         ))}
-      </Grid>
-      <Marquee>
+      </Grid> */}
+      {/* <Marquee>
         {products.slice(0, 3).map((product, i) => (
           <ProductCard
             key={product.id}
@@ -101,7 +104,7 @@ export default function Home({
             }}
           />
         ))}
-      </Marquee>
+      </Marquee> */}
       {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}

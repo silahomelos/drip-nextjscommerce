@@ -11,7 +11,7 @@ import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
 
-const ProductSlider: FC = ({ children }) => {
+const ProductSlider: FC = ({ children, imageId }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
@@ -58,6 +58,12 @@ const ProductSlider: FC = ({ children }) => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (slider) {
+      slider.moveToSlideRelative(imageId)
+    }
+  }, [imageId])
 
   return (
     <div className={s.root} ref={sliderContainerRef}>
