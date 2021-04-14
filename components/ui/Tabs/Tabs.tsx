@@ -2,18 +2,28 @@ import React, {
   Children,
   isValidElement,
   InputHTMLAttributes,
+  DetailedHTMLProps,
   useState,
+  HTMLAttributes,
   useEffect,
+  ReactNode,
 } from 'react'
 import Tab from '../Tab'
 import cn from 'classnames'
 import s from './Tab.module.scss'
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  className?: string
+export interface SubProps {
+  props: {
+    children: (string | Element)[]
+    label: any
+  }
 }
 
-const Tabs: React.FC = ({ children }) => {
+export interface Props {
+  children: Array<SubProps>
+}
+
+const Tabs: React.FC<Props> = ({ children }) => {
   const [activeTab, setActiveTab] = useState(children[0].props.label)
 
   const onClickTabItem = (tab: string) => {

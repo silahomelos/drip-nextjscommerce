@@ -3,6 +3,7 @@ import React, {
   Children,
   FC,
   isValidElement,
+  InputHTMLAttributes,
   useState,
   useRef,
   useEffect,
@@ -11,7 +12,12 @@ import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
 
-const ProductSlider: FC = ({ children, imageId }) => {
+export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  className?: string
+  imageId: number
+}
+
+const ProductSlider: FC<Props> = ({ children, imageId }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
