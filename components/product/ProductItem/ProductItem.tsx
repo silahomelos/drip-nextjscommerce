@@ -67,7 +67,7 @@ const ProductItem: FC<Props> = ({
         </span>
         <div className={s.btnPrice}>
           <p>Open Collection</p>
-          <button>BUY NOW</button>
+          <a href={`/product/${product.slug}`}>BUY NOW</a>
         </div>
       </div>
     </div>

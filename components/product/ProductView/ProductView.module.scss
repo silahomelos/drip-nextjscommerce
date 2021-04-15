@@ -1,5 +1,6 @@
 .root {
   display: flex;
+  flex-wrap: wrap;
   padding-top: 100px;
   padding-bottom: 190px;
 }
@@ -7,6 +8,13 @@
 .leftSide{
   height: 100%;
   flex-basis: 50%;
+  margin: auto;
+  margin-bottom: 100px;
+
+  @media (max-width: 780px) {
+    flex-basis: 100%;
+  }
+
 }
 
 .productDisplay {
@@ -44,6 +52,16 @@
   -webkit-transform: rotateX(180deg);
   float: left;
   filter: drop-shadow(10px -5px 5px #999);
+  
+  @media (max-width: 1240px) {
+    width: 50%;
+  }
+
+  @media (max-width: 540px) {
+    width: 60%;
+    border-bottom: 40px solid white;
+    border-right: 40px solid transparent;
+  }
 
   & .name {
     position: absolute;
@@ -59,6 +77,15 @@
     text-transform: uppercase;
     -webkit-transform: rotateX(-180deg);
     color: #999999;
+    @media (max-width: 540px) {
+      height: 40px;
+      line-height: 40px;
+    }
+
+    @media (max-width: 430px) {
+      font-size: 12px;
+    }
+  
   }
 
   @screen lg {
@@ -74,6 +101,12 @@
     @apply col-span-6 justify-between;
   }
   flex-basis: 50%;
+  @media (max-width: 780px) {
+    flex-basis: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
 }
 
 .sliderContainer {
@@ -100,7 +133,11 @@
   max-width: 300px;
 
   @screen sm {
-    min-width: 300px;
+    min-width: 200px;
+  }
+  @media (max-width: 540px) {
+    max-width: 300px;
+    margin: auto;
   }
 }
 
@@ -116,6 +153,11 @@
 .productViewContainer{
   max-width: 1440px;
   margin: auto;
+  
+  @media (max-width: 1540px) {
+    max-width: 90%;
+    margin: auto;
+  }
 }
 
 .productName{
@@ -124,6 +166,15 @@
   font-weight: 900;
   font-size: 48px;
   line-height: 48px;
+
+  @media (max-width: 994px) {
+    font-size: 38px;
+    line-height: 38px;
+  }
+  @media (max-width: 540px) {
+    font-size: 24px;
+    line-height: 25px;
+  }
 }
 
 .userSection{
@@ -161,10 +212,17 @@
   color: #999999;
   margin-top: 30px;
   margin-bottom: 50px;
+
+  @media (max-width: 540px) {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
 }
 
 .productAttrs{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .optionTitle{
@@ -184,6 +242,10 @@
   line-height: 33px;
   color: #999999;
   margin-bottom: 10px;
+
+  @media (max-width: 540px) {
+    font-size: 20px;
+  }
 }
 
 

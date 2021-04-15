@@ -1,5 +1,5 @@
 import { Layout } from '@components/common'
-import { Grid, GridContainer, Hero } from '@components/ui'
+import { Grid, GridContainer, Hero, Container } from '@components/ui'
 import { ProductCard, ProductItem } from '@components/product'
 import TextContent from '@components/ui/TextContent'
 
@@ -44,19 +44,21 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <TextContent />
-      <GridContainer>
-        {products.slice(0, 5).map((product, i) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: 540,
-              height: 540,
-            }}
-          />
-        ))}
-      </GridContainer>
+      <Container>
+        <TextContent />
+        <GridContainer>
+          {products.slice(0, 5).map((product, i) => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              imgProps={{
+                width: 540,
+                height: 540,
+              }}
+            />
+          ))}
+        </GridContainer>
+      </Container>
       {/* <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard

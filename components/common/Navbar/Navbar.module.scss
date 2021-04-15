@@ -4,6 +4,12 @@
 
 .link {
   @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-primary;
+
+  @media (max-width: 984px) {
+      font-size: 12px;
+      line-height: 13px;
+      text-align: center;
+  }
 }
 
 .link:hover {
@@ -31,6 +37,10 @@
   width: 90%;
   margin-right: 20px;
   justify-content: flex-end;
+
+  @media (max-width: 780px) {
+    display: none;
+  }
 }
 
 .branding {

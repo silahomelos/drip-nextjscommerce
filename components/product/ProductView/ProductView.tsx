@@ -182,7 +182,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 Buy Now
               </Button>
             </div>
-            <div className="pb-14 break-words w-full max-w-xl">
+            <div className="pb-14 pt-4 break-words w-full max-w-xl">
               <Text html={product.description} />
             </div>
             <div>

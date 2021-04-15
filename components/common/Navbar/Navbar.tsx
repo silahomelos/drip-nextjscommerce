@@ -22,7 +22,7 @@ const Navbar: FC = () => (
           </div>
           <nav className={`${s.navItems} hidden ml-6 space-x-4 lg:block`}>
             <Link href="/search">
-              <a className={s.link}>REP YOUR STLE IRL</a>
+              <a className={s.link}>SUIT UP IN YOUR GAME SKINS</a>
             </Link>
             <Link href="/search?q=clothes">
               <a className={s.link}>OG MARKETPLACE</a>
