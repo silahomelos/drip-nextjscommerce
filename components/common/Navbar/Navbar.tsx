@@ -20,21 +20,26 @@ const Navbar: FC = () => (
               </a>
             </Link>
           </div>
-          <nav className={`${s.navItems} hidden ml-6 space-x-4 lg:block`}>
-            <Link href="/search">
-              <a className={s.link}>SUIT UP IN YOUR GAME SKINS</a>
+          <nav className={`${s.navItems} hidden ml-6 space-x-6 lg:block`}>
+            <Link href="https://skins.digitalax.xyz">
+              <a className={s.link} target="_blank">
+                SUIT UP IN YOUR GAME SKINS
+              </a>
             </Link>
-            <Link href="/search?q=clothes">
-              <a className={s.link}>OG MARKETPLACE</a>
+            <Link href="https://marketplace.digitalax.xyz">
+              <a className={s.link} target="_blank">
+                OG MARKETPLACE
+              </a>
             </Link>
-            <Link href="/search?q=accessories">
-              <a className={s.link}>GLOBAL DESIGNER NETWORK</a>
+            <Link href="https://marketplace.digitalax.xyz/global/">
+              <a className={s.link} target="_blank">
+                GLOBAL DESIGNER NETWORK
+              </a>
             </Link>
-            <Link href="/search?q=shoes">
-              <a className={s.link}>TOKEN SWAP </a>
-            </Link>
-            <Link href="/search?q=shoes">
-              <a className={s.link}>MATIC-ETH BRIDGE </a>
+            <Link href="https://espa.digitalax.xyz">
+              <a className={s.link} target="_blank">
+                ESPA ESPORTS TOURNAMENTS{' '}
+              </a>
             </Link>
           </nav>
         </div>
