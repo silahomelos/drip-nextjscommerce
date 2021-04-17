@@ -5,7 +5,7 @@ import { FC, useState } from 'react'
 import s from './ProductView.module.scss'
 
 import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text, useUI, Tabs } from '@components/ui'
+import { Button, Container, Text, useUI, Tabs, Tab } from '@components/ui'
 
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
@@ -34,6 +34,16 @@ const ProductView: FC<Props> = ({ product }) => {
     color: null,
   })
   const [curImgIndex, setCurImgIndex] = useState(0)
+  const [isTab, setIsTab] = useState(false)
+  const [tabContent, setTabContent] = useState(() => {
+    try {
+      setIsTab(true)
+      return JSON.parse(product.description)
+    } catch (e) {
+      setIsTab(false)
+      return product.description
+    }
+  })
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
@@ -182,21 +192,40 @@ const ProductView: FC<Props> = ({ product }) => {
                 Buy Now
               </Button>
             </div>
-            <div className="pb-14 pt-4 break-words w-full max-w-xl">
-              <Text html={product.description} />
-            </div>
-            <div>
-              {/* <Tabs>
-                <div label="Gator">
-                  See ya later, <em>Alligator</em>!
-                </div>
-                <div label="Croc">
-                  After 'while, <em>Crocodile</em>!
-                </div>
-                <div label="Sarcosuchus">
-                  Nothing to see here, this tab is <em>extinct</em>!
-                </div>
-              </Tabs> */}
+
+            {/* descripton section */}
+            {!isTab && <div className={s.flatDescription}>{tabContent}</div>}
+
+            <div className={s.tabSection}>
+              <Tabs>
+                {isTab &&
+                  tabContent.map((tabItem: any) => {
+                    return (
+                      <Tab title={tabItem.title}>
+                        <div>{tabItem.description}</div>
+                        <br />
+                        <hr />
+                        <br />
+                        <div className={s.tabListContent}>
+                          <div>
+                            <h3 className={s.tabListContentTitle}>PHYSICAL</h3>
+                            {tabItem.physical &&
+                              tabItem.physical.map((list: string) => {
+                                return <li>{list}</li>
+                              })}
+                          </div>
+                          <div>
+                            <h3 className={s.tabListContentTitle}>DIGITAL</h3>
+                            {tabItem.digital &&
+                              tabItem.digital.map((dlist: string) => {
+                                return <li>{dlist}</li>
+                              })}
+                          </div>
+                        </div>
+                      </Tab>
+                    )
+                  })}
+              </Tabs>
             </div>
           </section>
         </div>

@@ -1,5 +1,5 @@
 import React, {
-  Children,
+  ReactElement,
   isValidElement,
   InputHTMLAttributes,
   DetailedHTMLProps,
@@ -10,51 +10,34 @@ import React, {
 } from 'react'
 import Tab from '../Tab'
 import cn from 'classnames'
-import s from './Tab.module.scss'
+import s from './Tabs.module.scss'
+import TabTitle from '../TabTitle/TabTitle'
+import { set } from 'js-cookie'
 
-export interface SubProps {
-  props: {
-    children: (string | Element)[]
-    label: any
-  }
-}
-
-export interface Props {
-  children: Array<SubProps>
+type Props = {
+  children: ReactElement[]
 }
 
 const Tabs: React.FC<Props> = ({ children }) => {
-  const [activeTab, setActiveTab] = useState(children[0].props.label)
-
-  const onClickTabItem = (tab: string) => {
-    setActiveTab(tab)
-  }
+  const [selectedTab, setSelectedTab] = useState(0)
 
   return (
-    <div className="tabs">
-      <ol className="tab-list">
-        {Children.map(children, (child) => {
-          if (isValidElement(child)) {
-            const { label } = child.props
+    <div className={s.tabTitleContainer}>
+      <ul className={s.tabTitleList}>
+        {children &&
+          children.map((item, index) => {
             return (
-              <Tab
-                activeTab={activeTab}
-                key={label}
-                label={label}
-                onClick={onClickTabItem}
+              <TabTitle
+                key={index}
+                title={item.props.title}
+                index={index}
+                activeTabIndex={selectedTab}
+                setSelectedTab={setSelectedTab}
               />
             )
-          }
-        })}
-      </ol>
-      <div className="tab-content">
-        {Children.map(children, (child) => {
-          if (isValidElement(child)) {
-            if (child.props.label !== activeTab) return undefined
-            return child.props.children
-          }
-        })}
-      </div>
+          })}
+      </ul>
+      {children[selectedTab]}
     </div>
   )
 }

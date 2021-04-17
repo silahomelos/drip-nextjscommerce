@@ -46,6 +46,54 @@
 
 .nameBox {
   @apply absolute top-6 left-0 z-20;
+  background-color: white;
+
+  filter: drop-shadow(5px 2px 4px #333);
+
+  & .name {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 50px;
+    padding-left: 15px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999999;
+  }
+
+  @media (max-width: 540px) {
+    & .name {
+      font-size: 13px;
+      line-height: 40px;
+    }
+  }
+}
+
+.nameBox:after{
+  content: "";
+  position: absolute;
+  width:0;
+  height:0;
+  top: 0%;
+  right: -50px;
+  border-top: solid 50px #fff;
+  border-left: solid 0px transparent;
+  border-right: solid 50px transparent;
+  border-bottom: solid 0px transparent;
+
+  @media (max-width: 540px) {
+      right: -40px;
+      border-top: solid 40px #fff;
+      border-left: solid 0px transparent;
+      border-right: solid 40px transparent;
+      border-bottom: solid 0px transparent;
+  }
+}
+
+.nameBox1 {
+  @apply absolute top-6 left-0 z-20;
   width: 40%;
   border-bottom: 50px solid white;
   border-right: 50px solid transparent;
@@ -256,5 +304,41 @@
   margin-top: 12px;
   .previewImg{
     margin-left: 12px;
+  }
+}
+
+.flatDescription{
+  background: #F7F7F7;
+  margin-top: 20px;
+  padding: 50px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.tabSection{
+  margin-top: 20px;
+}
+
+.tabListContent{
+  display: flex;
+  flex-wrap: wrap;
+  flex: auto;
+
+  & > div{
+    flex: 1;
+  }
+
+  .tabListContentTitle{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 24px;
+    /* identical to box height, or 240% */
+    text-transform: uppercase;
+    color: #999999;
   }
 }
