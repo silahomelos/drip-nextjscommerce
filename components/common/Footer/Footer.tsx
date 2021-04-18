@@ -69,7 +69,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                   className={s.instagramIcon}
                 />
               </a>
-              <a href="https://www.tiktok.com/@digitalax?" target="_blank">
+              <a href="https://www.tiktok.com/@digitalax_" target="_blank">
                 <img src="/images/tiktok.svg" alt="" className={s.tiktokIcon} />
               </a>
               <a href="https://www.twitch.tv/digitalax" target="_blank">
