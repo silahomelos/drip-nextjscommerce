@@ -1,0 +1,344 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 100px;
+  padding-bottom: 190px;
+}
+
+.leftSide{
+  height: 100%;
+  flex-basis: 50%;
+  margin: auto;
+  margin-bottom: 100px;
+
+  @media (max-width: 780px) {
+    flex-basis: 100%;
+  }
+
+}
+
+.productDisplay {
+  @apply relative flex px-0 pb-0 box-border col-span-1 bg-violet;
+  min-height: 790px;
+  max-width: 600px;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  flex-direction: column;
+
+  // @screen md {
+  //   min-height: 700px;
+  //   max-height: 790px;
+  // }
+
+  // @screen lg {
+  //   margin-right: -2rem;
+  //   margin-left: -2rem;
+    
+  //   min-height: 100%;
+  //   max-height: 590px;
+  // }
+}
+
+.squareBg {
+  @apply absolute inset-0 bg-violet z-0 h-full;
+}
+
+.nameBox {
+  @apply absolute top-6 left-0 z-20;
+  background-color: white;
+
+  filter: drop-shadow(5px 2px 4px #333);
+
+  & .name {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 50px;
+    padding-left: 15px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999999;
+  }
+
+  @media (max-width: 540px) {
+    & .name {
+      font-size: 13px;
+      line-height: 40px;
+    }
+  }
+}
+
+.nameBox:after{
+  content: "";
+  position: absolute;
+  width:0;
+  height:0;
+  top: 0%;
+  right: -50px;
+  border-top: solid 50px #fff;
+  border-left: solid 0px transparent;
+  border-right: solid 50px transparent;
+  border-bottom: solid 0px transparent;
+
+  @media (max-width: 540px) {
+      right: -40px;
+      border-top: solid 40px #fff;
+      border-left: solid 0px transparent;
+      border-right: solid 40px transparent;
+      border-bottom: solid 0px transparent;
+  }
+}
+
+.nameBox1 {
+  @apply absolute top-6 left-0 z-20;
+  width: 40%;
+  border-bottom: 50px solid white;
+  border-right: 50px solid transparent;
+  -webkit-transform: rotateX(180deg);
+  float: left;
+  filter: drop-shadow(10px -5px 5px #999);
+  
+  @media (max-width: 1240px) {
+    width: 50%;
+  }
+
+  @media (max-width: 540px) {
+    width: 60%;
+    border-bottom: 40px solid white;
+    border-right: 40px solid transparent;
+  }
+
+  & .name {
+    position: absolute;
+    height: 50px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 50px;
+    padding-left: 16px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    -webkit-transform: rotateX(-180deg);
+    color: #999999;
+    @media (max-width: 540px) {
+      height: 40px;
+      line-height: 40px;
+    }
+
+    @media (max-width: 430px) {
+      font-size: 12px;
+    }
+  
+  }
+
+  @screen lg {
+    & .name,
+    & .price {
+    }
+  }
+}
+
+.sidebar {
+  @apply flex flex-col col-span-1 mx-auto max-w-8xl px-6 w-full h-full;
+  @screen lg {
+    @apply col-span-6 justify-between;
+  }
+  flex-basis: 50%;
+  @media (max-width: 780px) {
+    flex-basis: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+}
+
+.sliderContainer {
+  @apply z-10 inset-0 flex items-center justify-center overflow-x-hidden;
+  height: 100%;
+}
+
+.imageContainer {
+  & > div {
+    @apply h-full;
+    & > div {
+      @apply h-full;
+    }
+  }
+}
+
+.img {
+  @apply w-full h-auto max-h-full object-cover;
+}
+
+.button {
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+
+  @screen sm {
+    min-width: 200px;
+  }
+  @media (max-width: 540px) {
+    max-width: 300px;
+    margin: auto;
+  }
+}
+
+.wishlistButton {
+  @apply absolute z-30 top-6 right-0 bg-primary text-primary w-10 h-10 flex items-center justify-center font-semibold leading-6 cursor-pointer;
+
+  @screen lg {
+    @apply right-12 text-white bg-violet;
+  }
+}
+
+
+.productViewContainer{
+  max-width: 1320px;
+  margin: auto;
+  
+  @media (max-width: 1440px) {
+    max-width: 90%;
+    margin: auto;
+  }
+}
+
+.productName{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 48px;
+  line-height: 48px;
+
+  @media (max-width: 994px) {
+    font-size: 38px;
+    line-height: 38px;
+  }
+  @media (max-width: 540px) {
+    font-size: 24px;
+    line-height: 25px;
+  }
+}
+
+.userSection{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 30px;
+
+  & > div{
+      border-radius: 18px;
+  }
+
+  img{
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+  }
+
+  p{
+      margin-left: 15px;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 17px;
+  }
+}
+
+.price {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 27px;
+  line-height: 33px;
+  color: #999999;
+  margin-top: 30px;
+  margin-bottom: 50px;
+
+  @media (max-width: 540px) {
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+}
+
+.productAttrs{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.optionTitle{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #999999;
+}
+
+.openCollection{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 27px;
+  line-height: 33px;
+  color: #999999;
+  margin-bottom: 10px;
+
+  @media (max-width: 540px) {
+    font-size: 20px;
+  }
+}
+
+
+.previewImages{
+  display: flex;
+  z-index: 30;
+  position: relative;
+  margin-top: 12px;
+  .previewImg{
+    margin-left: 12px;
+  }
+}
+
+.flatDescription{
+  background: #F7F7F7;
+  margin-top: 20px;
+  padding: 50px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.tabSection{
+  margin-top: 20px;
+}
+
+.tabListContent{
+  display: flex;
+  flex-wrap: wrap;
+  flex: auto;
+
+  & > div{
+    flex: 1;
+  }
+
+  .tabListContentTitle{
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 24px;
+    /* identical to box height, or 240% */
+    text-transform: uppercase;
+    color: #999999;
+  }
+}

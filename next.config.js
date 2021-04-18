@@ -1,4 +1,5 @@
 const commerce = require('./commerce.config.json')
+const path = require('path')
 const {
   withCommerceConfig,
   getProviderName,
@@ -13,6 +14,9 @@ module.exports = withCommerceConfig({
   i18n: {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
   rewrites() {
     return [

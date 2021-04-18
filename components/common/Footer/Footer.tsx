@@ -7,7 +7,7 @@ import getSlug from '@lib/get-slug'
 import { Github, Vercel } from '@components/icons'
 import { Logo, Container } from '@components/ui'
 import { I18nWidget } from '@components/common'
-import s from './Footer.module.css'
+import s from './Footer.module.scss'
 
 interface Props {
   className?: string
@@ -22,98 +22,105 @@ const Footer: FC<Props> = ({ className, pages }) => {
   const rootClassName = cn(className)
 
   return (
-    <footer className={rootClassName}>
+    <footer className={`${rootClassName} ${s.footer}`}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12 text-primary bg-primary transition-colors duration-150">
-          <div className="col-span-1 lg:col-span-2">
-            <Link href="/">
-              <a className="flex flex-initial items-center font-bold md:mr-24">
-                <span className="rounded-full border border-gray-700 mr-2">
-                  <Logo />
-                </span>
-                <span>ACME</span>
+        <div className={`${s.footerWrapper}`}>
+          <div className={s.heading}>STAY UP TO DATE</div>
+          <div className={s.description}>
+            Check out our Medium and join our Discord community to stay up to
+            date!
+          </div>
+          <div className={s.centerWrapper}>
+            <div className={`${s.dFlex} ${s.aboutLine}`}>
+              <a href="https://drive.google.com/file/d/1zG8h4GnodW7uWm_OsUY3g4I4RpOx6bMH/view?usp=sharing">
+                ABOUT DIGITALAX
               </a>
-            </Link>
-          </div>
-          <div className="col-span-1 lg:col-span-2">
-            <ul className="flex flex-initial flex-col md:flex-1">
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
-                  <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Home
-                  </a>
-                </Link>
-              </li>
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
-                  <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Careers
-                  </a>
-                </Link>
-              </li>
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/blog">
-                  <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                    Blog
-                  </a>
-                </Link>
-              </li>
-              {sitePages.map((page) => (
-                <li key={page.url} className="py-3 md:py-0 md:pb-4">
-                  <Link href={page.url!}>
-                    <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                      {page.name}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="col-span-1 lg:col-span-2">
-            <ul className="flex flex-initial flex-col md:flex-1">
-              {legalPages.map((page) => (
-                <li key={page.url} className="py-3 md:py-0 md:pb-4">
-                  <Link href={page.url!}>
-                    <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                      {page.name}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
-            <div className="flex space-x-6 items-center h-10">
+              <a href="https://digitalax.gitbook.io/digitalax/" target="_blank">
+                DOCUMENTATION
+              </a>
+              <a href="https://drive.google.com/file/d/1oFiBGBr_CN0-mUuuEp_g6wDBr-mNA0Uh/view?usp=sharing">
+                READ ABOUT ESPA
+              </a>
+            </div>
+            <img
+              src="/white-logo.svg"
+              alt="white-logo"
+              className={s.whiteLogo}
+            />
+            <div className={`${s.dFlex} ${s.iconsLine}`}>
+              <a href="https://www.facebook.com/digitalax1" target="_blank">
+                <img
+                  src="/images/facebook.svg"
+                  alt=""
+                  className={s.facebookIcon}
+                />
+              </a>
+              <a href="https://twitter.com/DIGITALAX_" target="_blank">
+                <img
+                  src="/images/twitter.svg"
+                  alt=""
+                  className={s.twitterIcon}
+                />
+              </a>
+              <a href="https://www.instagram.com/digitalax_" target="_blank">
+                <img
+                  src="/images/instagram.svg"
+                  alt=""
+                  className={s.instagramIcon}
+                />
+              </a>
+              <a href="https://www.tiktok.com/@digitalax?" target="_blank">
+                <img src="/images/tiktok.svg" alt="" className={s.tiktokIcon} />
+              </a>
+              <a href="https://www.twitch.tv/digitalax" target="_blank">
+                <img src="/images/twitch.svg" alt="" className={s.twitchIcon} />
+              </a>
+              <a href="https://discord.com/invite/DKbSqRGtKv" target="_blank">
+                <img
+                  src="/images/discord.svg"
+                  alt=""
+                  className={s.discordIcon}
+                />
+              </a>
+              <a href="https://www.reddit.com/r/DIGITALAX/" target="_blank">
+                <img src="/images/reddit.svg" alt="" className={s.redditIcon} />
+              </a>
               <a
-                aria-label="Github Repository"
-                href="https://github.com/vercel/commerce"
-                className={s.link}
+                href="https://www.youtube.com/channel/UCE26XV44aaYe1zlPnDbiz5Q"
+                target="_blank"
               >
-                <Github />
+                <img
+                  src="/images/youtube.svg"
+                  alt=""
+                  className={s.youtubeIcon}
+                />
               </a>
-              <I18nWidget />
+              <a href="https://digitalax.medium.com/" target="_blank">
+                <img
+                  src="/images/medium-small.png"
+                  alt=""
+                  className={s.mediumIcon}
+                />
+              </a>
+            </div>
+            <div className={`${s.dFlex} ${s.faqLine}`}>
+              <a
+                href="https://digitalax.gitbook.io/digitalax/faq"
+                target="_blank"
+              >
+                FAQs
+              </a>
+              <a href="https://marketplace.digitalax.xyz/" target="_blank">
+                Digital Fashion Auctions
+              </a>
+              <a href="https://staking.digitalax.xyz" target="_blank">
+                Staking
+              </a>
             </div>
           </div>
         </div>
-        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
-          <div>
-            <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
-          </div>
-          <div className="flex items-center text-primary">
-            <span className="text-primary">Crafted by</span>
-            <a
-              rel="noopener"
-              href="https://vercel.com"
-              aria-label="Vercel.com Link"
-              target="_blank"
-              className="text-primary"
-            >
-              <Vercel
-                className="inline-block h-6 ml-4 text-primary"
-                alt="Vercel.com Logo"
-              />
-            </a>
-          </div>
+        <div className={s.textHiring}>
+          <a href="/careers">WE ARE HIRING!</a>
         </div>
       </Container>
     </footer>
