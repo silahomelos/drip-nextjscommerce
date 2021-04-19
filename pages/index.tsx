@@ -10,6 +10,7 @@ import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
+import getAllCollections from '@framework/product/get-all-collections'
 
 export async function getStaticProps({
   preview,
@@ -23,12 +24,17 @@ export async function getStaticProps({
     preview,
   })
 
+  const collections = await getAllCollections({
+    config,
+  })
+
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
 
   return {
     props: {
       products,
+      collections,
       categories,
       brands,
       pages,
@@ -39,9 +45,12 @@ export async function getStaticProps({
 
 export default function Home({
   products,
+  collections,
   brands,
   categories,
+  pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  console.log(collections)
   return (
     <>
       <Container>
