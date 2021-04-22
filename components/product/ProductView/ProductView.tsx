@@ -206,20 +206,60 @@ const ProductView: FC<Props> = ({ product }) => {
                         <br />
                         <hr />
                         <br />
-                        <div className={s.tabListContent}>
-                          <div>
-                            <h3 className={s.tabListContentTitle}>PHYSICAL</h3>
-                            {tabItem.physical &&
-                              tabItem.physical.map((list: string) => {
-                                return <li>{list}</li>
-                              })}
+                        <div className={s.tabContentWrapper}>
+                          <div className={s.arrowWrapper}>
+                            <span className={s.clock}> ⏱ </span>
+                            <div className={s.arrow} />
                           </div>
-                          <div>
-                            <h3 className={s.tabListContentTitle}>DIGITAL</h3>
-                            {tabItem.digital &&
-                              tabItem.digital.map((dlist: string) => {
-                                return <li>{dlist}</li>
-                              })}
+                          <div className={s.tabListContent}>
+                            <div className={s.leftTab}>
+                              <h3 className={s.tabListContentTitle}>
+                                {tabItem.left?.title}
+                              </h3>
+                              <div className={s.tabListContentItems}>
+                                {tabItem.left?.items &&
+                                  tabItem.left.items.map((item: any) => {
+                                    return (
+                                      <div
+                                        className={s.tabListContentItemWrapper}
+                                      >
+                                        <div className={s.tabListContentItem}>
+                                          <p>{item?.main}</p>
+                                        </div>
+                                        <div
+                                          className={s.tabListContentItemSub}
+                                        >
+                                          {item.sub}
+                                        </div>
+                                      </div>
+                                    )
+                                  })}
+                              </div>
+                            </div>
+                            <div className={s.rightTab}>
+                              <h3 className={s.tabListContentTitle}>
+                                {tabItem.right?.title}
+                              </h3>
+                              <div className={s.tabListContentItems}>
+                                {tabItem.right?.items &&
+                                  tabItem.right.items.map((item: any) => {
+                                    return (
+                                      <div
+                                        className={s.tabListContentItemWrapper}
+                                      >
+                                        <div className={s.tabListContentItem}>
+                                          <p>{item.main}</p>
+                                        </div>
+                                        <div
+                                          className={s.tabListContentItemSub}
+                                        >
+                                          {item.sub}
+                                        </div>
+                                      </div>
+                                    )
+                                  })}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </Tab>
