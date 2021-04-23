@@ -18,3 +18,9 @@
 .shadow-magical{
   background-color: white;
 }
+
+@media (max-width: 768px) {
+  .bg-mobile-contact {
+    background-color: #ff98ff;
+  }
+}
