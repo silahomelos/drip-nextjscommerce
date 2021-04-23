@@ -24,17 +24,12 @@ export async function getStaticProps({
     preview,
   })
 
-  const collections = await getAllCollections({
-    config,
-  })
-
   const { categories, brands } = await getSiteInfo({ config, preview })
   const { pages } = await getAllPages({ config, preview })
 
   return {
     props: {
       products,
-      collections,
       categories,
       brands,
       pages,
@@ -45,16 +40,13 @@ export async function getStaticProps({
 
 export default function Home({
   products,
-  collections,
   brands,
   categories,
   pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(collections)
   return (
     <>
       <Container>
-        <TextContent />
         <GridContainer>
           {products.slice(0, 5).map((product, i) => (
             <ProductItem

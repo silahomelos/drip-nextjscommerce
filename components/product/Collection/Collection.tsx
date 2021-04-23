@@ -22,28 +22,27 @@ const Collection: FC<Props> = ({
   <div className={s.collectionItemContainer}>
     <div className="flex flex-row justify-between box-border w-full">
       <div className="">
-        <h3 className={s.productTitle}>
+        <h3 className={s.collectionTitle}>
           <span>{collection.name}</span>
         </h3>
         <div className={s.userSection}>
           <div className="user-avatar">
-            <img src={collection.image.url || placeholderImg} alt="" />
+            <img src={`/logo.jpg` || placeholderImg} alt="" />
           </div>
-          <p>DigitalAX</p>
+          <p>DIGITALAX</p>
         </div>
       </div>
     </div>
-    <div className={s.productContent}>
+    <div className={s.collectionContent}>
       <Link href={`/product/${collection.slug}`} {...props}>
         <a className={cn(s.root, className)}>
           <>
             <div className={s.squareBg} />
-
             <div className={s.imageContainer}>
-              {collection?.images && (
+              {collection?.image && (
                 <Image
-                  alt={collection.name || 'Product Image'}
-                  className={s.productImage}
+                  alt={collection.name || 'Collection Image'}
+                  className={s.collectionImage}
                   src={collection.image.url || placeholderImg}
                   height={540}
                   width={540}
@@ -56,11 +55,11 @@ const Collection: FC<Props> = ({
           </>
         </a>
       </Link>
-      <div className={s.productPriceSection}>
-        <span className={s.productPrice}></span>
+      <div className={s.collectionPriceSection}>
+        <span className={s.collectionPrice}></span>
         <div className={s.btnPrice}>
           <p>Open Collection</p>
-          <a href={`/collection/${collection.slug}`}>VIEW COLLECTION</a>
+          <a href={`/collection${collection.path}`}>VIEW COLLECTION</a>
         </div>
       </div>
     </div>

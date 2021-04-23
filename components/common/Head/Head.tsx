@@ -16,6 +16,12 @@ const Head: FC = () => {
           as="font"
           crossOrigin=""
         />
+        <link
+          rel="preload"
+          href="/fonts/Roboto-Blod.ttf"
+          as="font"
+          crossOrigin=""
+        />
       </NextHead>
     </>
   )

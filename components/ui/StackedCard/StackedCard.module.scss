@@ -1,9 +1,13 @@
 .cardContainer{
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 550px;
     max-width: 1320px;
     margin: auto;
+
+    @media (max-width: 540px) {
+        height: 350px;
+    }
 }
 
 .stackedCard{
@@ -15,44 +19,55 @@
     justify-content: center;
     align-items: center;
 
-    h1{
-        width: 60%;
+
+    @media (max-width: 540px) {
+        width: 250px;
+        height: 170px;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 }
 
 .card1{
     left: 0px;
-    top: 133px;
+    top: 103px;
     opacity: 0.3;
     transform: rotate(3deg);
 }
 
 .card2{
-    left: 55px;
-    top: 103px;
+    left: 25px;
+    top: 73px;
     opacity: 0.6;
     transform: rotate(-3deg);
 }
 
 .card3{
-    left: 102px;
-    top: 133px;
+    left: 52px;
+    top: 103px;
     opacity: 0.8;
     transform: rotate(-5deg);
 }
 
 .card4{
-    left: 195px;
-    top: 133px;
+    left: 88px;
+    top: 90px;
     transform: rotate(13deg);
 }
 
 
 .cardText{
+    width: 60%;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 27px;
     line-height: 32px;
     color: #FFFFFF;
+
+    @media (max-width: 540px) {
+        width: 60%;
+        font-size: 18px;
+        line-height: 20px;
+    }
 }

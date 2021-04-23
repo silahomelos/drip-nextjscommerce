@@ -53,7 +53,6 @@ export default function Home({
   pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [cardTextIndex, setCardTextIndex] = useState(0)
-
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)
   }
