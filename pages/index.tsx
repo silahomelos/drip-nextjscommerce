@@ -16,6 +16,7 @@ const Home = () => {
         'Content-Type': 'application/json',
         'X-API-KEY': API_KEY,
       },
+      body: JSON.stringify({ email }),
     }).then((res) => {
       console.log(res)
     })
@@ -23,12 +24,14 @@ const Home = () => {
   return (
     <>
       <div className="relative bg-black">
-        <img src="/landing.png" className="w-full hidden md:block" />
+        <video className="w-full hidden md:block" autoPlay muted loop>
+          <source src="/landing-video.mp4" type="video/mp4" />
+        </video>
         <div className="relative md:absolute top-0 w-full">
           <LandingNavbar />
           <div className="mx-0 my-0 py-10 md:mx-20 md:my-20 md:w-1/3">
             <div className="mx-10 md:m-0">
-              <img src="/landing-logo.png" className="relative mx-auto" />
+              <img src="/landing-logo.png" className="relative m-0" />
               <h1 className="text-white font-bold text-center md:text-left xl:text-2xl 2xl:text-3xl relative my-3">
                 {' '}
                 Crossover Into The Digi-Fizzy Realms.
@@ -36,7 +39,9 @@ const Home = () => {
                 Rep Your DRIP IRL.{' '}
               </h1>
             </div>
-            <img src="/landing.png" className="w-screen block md:hidden" />
+            <video className="w-screen block md:hidden" autoPlay muted loop>
+              <source src="/landing-video.mp4" type="video/mp4" />
+            </video>
             <div className="bg-transparent text-center text-center py-10 md:text-left md:p-0">
               <button
                 type="button"
