@@ -1,128 +1,85 @@
-import { Layout } from '@components/common'
-import { Grid, GridContainer, Hero, Container } from '@components/ui'
-import { ProductCard, ProductItem } from '@components/product'
-import TextContent from '@components/ui/TextContent'
+import { Footer } from '@components/common'
+import LandingNavbar from '@components/common/LandingNavbar'
+import { useState } from 'react'
 
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+const endpoint =
+  'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/save-drip-emails'
+const API_KEY = 'FqpxJ2kNva6d3saeCZgx653qn6wcKGpG95lUgI7K'
 
-import { getConfig } from '@framework/api'
-import getAllProducts from '@framework/product/get-all-products'
-import getSiteInfo from '@framework/common/get-site-info'
-import getAllPages from '@framework/common/get-all-pages'
-import getAllCollections from '@framework/product/get-all-collections'
-
-export async function getStaticProps({
-  preview,
-  locale,
-}: GetStaticPropsContext) {
-  const config = getConfig({ locale })
-
-  const { products } = await getAllProducts({
-    variables: { first: 12 },
-    config,
-    preview,
-  })
-
-  const collections = await getAllCollections({
-    config,
-  })
-
-  const { categories, brands } = await getSiteInfo({ config, preview })
-  const { pages } = await getAllPages({ config, preview })
-
-  return {
-    props: {
-      products,
-      collections,
-      categories,
-      brands,
-      pages,
-    },
-    revalidate: 14400,
+const Home = () => {
+  const [email, setEmail] = useState('')
+  const addEmail = () => {
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-API-KEY': API_KEY,
+      },
+      body: JSON.stringify({ email }),
+    }).then((res) => {
+      console.log(res)
+    })
   }
-}
-
-export default function Home({
-  products,
-  collections,
-  brands,
-  categories,
-  pages,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  console.log(collections)
   return (
     <>
-      <Container>
-        <TextContent />
-        <GridContainer>
-          {products.slice(0, 5).map((product, i) => (
-            <ProductItem
-              key={product.id}
-              product={product}
-              imgProps={{
-                width: 540,
-                height: 540,
-              }}
-            />
-          ))}
-        </GridContainer>
-      </Container>
-      {/* <Marquee variant="secondary">
-        {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
-        ))}
-      </Marquee> */}
-      {/* <Hero
-        headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
-        description="
-        The Yeezy BOOST 350 V2 lineup continues to grow. We recently had the
-        ‘Carbon’ iteration, and now release details have been locked in for
-        this ‘Natural’ joint. Revealed by Yeezy Mafia earlier this year, the
-        shoe was originally called ‘Abez’, which translated to ‘Tin’ in
-        Hebrew. It’s now undergone a name change, and will be referred to as
-        ‘Natural’."
-      /> */}
-      {/* <Grid layout="B">
-        {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-            }}
-          />
-        ))}
-      </Grid> */}
-      {/* <Marquee>
-        {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
-        ))}
-      </Marquee> */}
-      {/* <HomeAllProductsGrid
-        newestProducts={products}
-        categories={categories}
-        brands={brands}
-      /> */}
+      <div className="relative bg-black">
+        <video className="w-full hidden md:block" autoPlay muted loop>
+          <source src="/landing-video.mp4" type="video/mp4" />
+        </video>
+        <div className="relative md:absolute top-0 w-full">
+          <LandingNavbar />
+          <div className="mx-0 my-0 py-10 md:mx-20 md:my-20 md:w-1/3">
+            <div className="mx-10 md:m-0">
+              <img src="/landing-logo.png" className="relative m-0" />
+              <h1 className="text-white font-bold text-center md:text-left xl:text-2xl 2xl:text-3xl relative my-3">
+                {' '}
+                Crossover Into The Digi-Fizzy Realms.
+                <br />
+                Rep Your DRIP IRL.{' '}
+              </h1>
+            </div>
+            <video className="w-screen block md:hidden" autoPlay muted loop>
+              <source src="/landing-video.mp4" type="video/mp4" />
+            </video>
+            <div className="bg-transparent text-center text-center py-10 md:text-left md:p-0">
+              <button
+                type="button"
+                className="bg-white text-black rounded py-1 px-4 md:mt-2 md:mb-20 font-bold"
+              >
+                {' '}
+                {'READ MORE >'}{' '}
+              </button>
+            </div>
+            <div className="md:bg-transparent py-10 text-center md:p-0 bg-mobile-contact">
+              <div
+                className="flex items-center mx-auto md:ml-0 py-2 px-4 border border-white border-solid rounded-lg"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(255, 255, 255, 0.23) 0%, #000000 100%)',
+                  width: '300px',
+                }}
+              >
+                <input
+                  className="flex-grow bg-transparent border-0 outline-none text-white placeholder-white"
+                  placeholder="EMAIL ADDRESS"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <img
+                  src="/landing-send.png"
+                  className="cursor-pointer"
+                  style={{ width: '1rem' }}
+                  onClick={addEmail}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer pages={[]} />
     </>
   )
 }
 
-Home.Layout = Layout
+export default Home
