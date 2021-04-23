@@ -1,7 +1,25 @@
 import { Footer } from '@components/common'
 import LandingNavbar from '@components/common/LandingNavbar'
+import { useState } from 'react'
+
+const endpoint =
+  'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/save-drip-emails'
+const API_KEY = 'FqpxJ2kNva6d3saeCZgx653qn6wcKGpG95lUgI7K'
 
 const Home = () => {
+  const [email, setEmail] = useState('')
+  const addEmail = () => {
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-API-KEY': API_KEY,
+      },
+    }).then((res) => {
+      console.log(res)
+    })
+  }
   return (
     <>
       <div className="relative bg-black">
@@ -40,12 +58,14 @@ const Home = () => {
                 <input
                   className="flex-grow bg-transparent border-0 outline-none text-white placeholder-white"
                   placeholder="EMAIL ADDRESS"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <img
                   src="/landing-send.png"
                   className="cursor-pointer"
                   style={{ width: '1rem' }}
-                  onClick={() => {}}
+                  onClick={addEmail}
                 />
               </div>
             </div>
