@@ -1,0 +1,58 @@
+.cardContainer{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    max-width: 1320px;
+    margin: auto;
+}
+
+.stackedCard{
+    position: absolute;
+    width: 398px;
+    height: 266px;
+    background-image: url("/images/my_nft.jpg"); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1{
+        width: 60%;
+    }
+}
+
+.card1{
+    left: 0px;
+    top: 133px;
+    opacity: 0.3;
+    transform: rotate(3deg);
+}
+
+.card2{
+    left: 55px;
+    top: 103px;
+    opacity: 0.6;
+    transform: rotate(-3deg);
+}
+
+.card3{
+    left: 102px;
+    top: 133px;
+    opacity: 0.8;
+    transform: rotate(-5deg);
+}
+
+.card4{
+    left: 195px;
+    top: 133px;
+    transform: rotate(13deg);
+}
+
+
+.cardText{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 27px;
+    line-height: 32px;
+    color: #FFFFFF;
+}
