@@ -1,14 +1,14 @@
 {
-  "title": "DIGITALAX | MOD YOUR WAY INTO METAVERSE FASHION & GAMING",
-  "titleTemplate": "%s - DIGITAL Storefront",
-  "description": "MOD YOUR WAY INTO METAVERSE FASHION & GAMING",
+  "title": "DIGITALAX | REP YOUR STYLE IRL",
+  "titleTemplate": "%s - The First Hybrid Digital Physical NFT Fashion Line",
+  "description": "The First Hybrid Digital Physical NFT Fashion Line",
   "openGraph": {
-    "title": "ACME Storefront | Powered by Next.js Commerce",
-    "description": "Next.js Commerce - https://www.nextjs.org/commerce",
+    "title": "REP YOUR STYLE IRL",
+    "description": "The First Hybrid Digital Physical NFT Fashion Line",
     "type": "website",
     "locale": "en_IE",
-    "url": "https://nextjs.org/commerce",
-    "site_name": "Next.js Commerce",
+    "url": "https://drip.digitalax.xyz",
+    "site_name": "REP YOUR STYLE IRL",
     "images": [
       {
         "url": "/card.png",
