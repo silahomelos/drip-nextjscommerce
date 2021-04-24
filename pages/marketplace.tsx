@@ -5,6 +5,7 @@ import { ProductCard, ProductItem, Collection } from '@components/product'
 import TextContent from '@components/ui/TextContent'
 import Banner from '@components/ui/Banner'
 import StackedCard from '@components/ui/StackedCard'
+import SliderTicker from '@components/common/SliderTicker'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
@@ -53,6 +54,13 @@ export default function Home({
   pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [cardTextIndex, setCardTextIndex] = useState(0)
+  const sticker1 = [
+    'MONA PRICE',
+    'DITALAX NEW POST TITLE',
+    'DRIP PRODUCT TITLE',
+    'DIGIFIZZY FEATURE',
+    'DRIP PRODUCT TITLE',
+  ]
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)
   }
@@ -65,6 +73,7 @@ export default function Home({
           <StackedCard index={cardTextIndex} />
         </Container>
       </Banner>
+      <SliderTicker sliderList={sticker1} />
       <Container>
         <GridContainer>
           {collections.slice(0, 5).map((collection, i) => (
@@ -79,6 +88,7 @@ export default function Home({
           ))}
         </GridContainer>
       </Container>
+      <SliderTicker sliderList={sticker1} />
     </>
   )
 }

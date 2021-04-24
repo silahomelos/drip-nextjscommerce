@@ -212,11 +212,13 @@
         color: white;
         line-height: 40px;
         text-align: center;
+        font-weight: 700;
+        font-size: 12px;
 
         @media (max-width: 540px) {
           width: 118px;
           height: 35px;
-          font-size: 15px;
+          font-size: 12px;
         }
     }
 }
