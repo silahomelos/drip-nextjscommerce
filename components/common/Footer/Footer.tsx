@@ -116,9 +116,6 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </div>
           </div>
         </div>
-        <div className={s.textHiring}>
-          <a href="/careers">WE ARE HIRING!</a>
-        </div>
       </Container>
     </footer>
   )
