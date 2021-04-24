@@ -1,6 +1,8 @@
-import { Footer } from '@components/common'
-import LandingNavbar from '@components/common/LandingNavbar'
 import { useState } from 'react'
+import { Footer } from '@components/common'
+import { ToastContainer, toast } from 'react-toastify'
+import LandingNavbar from '@components/common/LandingNavbar'
+import 'react-toastify/dist/ReactToastify.css'
 
 const endpoint =
   'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/save-drip-emails'
@@ -18,9 +20,30 @@ const Home = () => {
       },
       body: JSON.stringify({ email }),
     }).then((res) => {
-      console.log(res)
+      if (res.status === 200) {
+        toast.success("You're successfully registered!", {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      } else {
+        toast.error('Email already exists!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
     })
   }
+
   return (
     <>
       <div className="relative bg-black">
@@ -78,6 +101,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
       <Footer pages={[]} />
     </>
   )
