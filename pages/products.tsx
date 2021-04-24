@@ -54,7 +54,6 @@ export default function Home({
   return (
     <>
       <Container>
-        <TextContent />
         <GridContainer>
           {products.slice(0, 5).map((product, i) => (
             <ProductItem
