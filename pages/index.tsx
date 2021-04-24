@@ -1,6 +1,8 @@
-import { Footer } from '@components/common'
-import LandingNavbar from '@components/common/LandingNavbar'
 import { useState } from 'react'
+import { Footer } from '@components/common'
+import { ToastContainer, toast } from 'react-toastify'
+import LandingNavbar from '@components/common/LandingNavbar'
+import 'react-toastify/dist/ReactToastify.css'
 
 const endpoint =
   'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/save-drip-emails'
@@ -18,9 +20,30 @@ const Home = () => {
       },
       body: JSON.stringify({ email }),
     }).then((res) => {
-      console.log(res)
+      if (res.status === 200) {
+        toast.success("You're successfully registered!", {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      } else {
+        toast.error('Email already exists!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
     })
   }
+
   return (
     <>
       <div className="relative bg-black">
@@ -43,13 +66,14 @@ const Home = () => {
               <source src="/landing-video.mp4" type="video/mp4" />
             </video>
             <div className="bg-transparent text-center text-center py-10 md:text-left md:p-0">
-              <button
+              <a
+                href="https://blog.digitalax.xyz/digitalax-x-polygon-take-on-fashion-sustainability-mass-adoption-w-the-first-real-digifizzy-dcd814bd7a42"
                 type="button"
                 className="bg-white text-black rounded py-1 px-4 md:mt-2 md:mb-20 font-bold"
               >
                 {' '}
                 {'READ MORE >'}{' '}
-              </button>
+              </a>
             </div>
             <div className="md:bg-transparent py-10 text-center md:p-0 bg-mobile-contact">
               <div
@@ -77,6 +101,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
       <Footer pages={[]} />
     </>
   )
