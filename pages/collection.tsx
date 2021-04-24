@@ -1,13 +1,17 @@
 import cn from 'classnames'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
 import { Container, GridContainer } from '@components/ui'
 import { ProductItem } from '@components/product'
+import Banner from '@components/ui/Banner'
+import StackedCard from '@components/ui/StackedCard'
+import SliderTicker from '@components/common/SliderTicker'
+import TextContent from '@components/ui/TextContent'
 
 import { getConfig } from '@framework/api'
 import useSearch from '@framework/product/use-search'
@@ -26,6 +30,7 @@ import {
   useSearchMeta,
 } from '@lib/search'
 import { Product } from '@commerce/types'
+import products from '@framework/api/catalog/products'
 
 export async function getStaticProps({
   preview,
@@ -54,6 +59,18 @@ export default function Collectionpage({
   const { asPath } = router
   const { category } = useSearchMeta(asPath)
 
+  const [cardTextIndex, setCardTextIndex] = useState(0)
+  const sticker1 = [
+    'MONA PRICE',
+    'DITALAX NEW POST TITLE',
+    'DRIP PRODUCT TITLE',
+    'DIGIFIZZY FEATURE',
+    'DRIP PRODUCT TITLE',
+  ]
+  const onSelectCard = (index: number) => {
+    setCardTextIndex(index)
+  }
+
   const activeCategory = categories.find(
     (cat) => getSlug(cat.path) === category
   )
@@ -64,22 +81,51 @@ export default function Collectionpage({
     // TODO: Shopify - Fix this typ
   })
 
+  const [countProductGroup, setCountProductGroup] = useState<Array<number>>()
+
+  useEffect(() => {
+    let arr = new Array<number>(0)
+    if (data && data.products) {
+      for (let i = 0; i < data.products.length / 4; i++) {
+        arr.push(i)
+      }
+    }
+    setCountProductGroup(arr)
+  }, [data])
+
   return (
-    <Container>
-      <GridContainer>
-        {data &&
-          data.products.slice(0, 5).map((product, i) => (
-            <ProductItem
-              key={product.id}
-              product={product}
-              imgProps={{
-                width: 540,
-                height: 540,
-              }}
-            />
-          ))}
-      </GridContainer>
-    </Container>
+    <>
+      <Banner>
+        <Container>
+          <TextContent onSelectText={onSelectCard} />
+          <StackedCard index={cardTextIndex} />
+        </Container>
+      </Banner>
+      {countProductGroup &&
+        countProductGroup.map((item, index) => (
+          <div>
+            <SliderTicker sliderList={sticker1} />
+            <Container>
+              <GridContainer>
+                {data &&
+                  data.products
+                    .slice(index * 4, (index + 1) * 4)
+                    .map((product, i) => (
+                      <ProductItem
+                        key={product.id}
+                        product={product}
+                        imgProps={{
+                          width: 540,
+                          height: 540,
+                        }}
+                      />
+                    ))}
+              </GridContainer>
+            </Container>
+          </div>
+        ))}
+      <SliderTicker sliderList={sticker1} />
+    </>
   )
 }
 

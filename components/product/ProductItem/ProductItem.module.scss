@@ -113,9 +113,12 @@
     font-family: Inter;
     font-style: normal;
     font-weight: 900;
-    font-size: 24px;
-    line-height: 24px;
-    letter-spacing: 0.4px;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-top: 30px;
   
     & span {
       @apply bg-primary text-primary;
@@ -140,11 +143,14 @@
   }
   
 
-.userSection{
+.descriptionSection{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    margin-top: 14px;
+    justify-content: center;
+    margin: auto;
+    margin-top: 21px;
+    width: 90%;
+    text-align: center;
 
     & > div{
         border-radius: 18px;
@@ -157,7 +163,15 @@
     }
 
     p{
-        margin-left: 15px;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 18px;
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #707070;
     }
 }
 
@@ -170,8 +184,11 @@
 .productPriceSection{
     margin-top: 20px;
     width: 100%;
-    background-color: white;
+    background-color: #F7F7F7;
     padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .productPrice {
@@ -192,19 +209,6 @@
     justify-content: space-between;
     margin-top: 10px;
 
-    &> p {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 22px;
-        line-height: 27px;
-        color: #999;
-
-        @media (max-width: 540px) {
-          font-size: 15px;
-          line-height: 25px;
-        }
-    }
     & > a{
         width: 188px;
         height: 40px;
@@ -212,11 +216,18 @@
         color: white;
         line-height: 40px;
         text-align: center;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
 
         @media (max-width: 540px) {
           width: 118px;
           height: 35px;
-          font-size: 15px;
+          font-size: 12px;
+          line-height: 35px;
         }
     }
 }

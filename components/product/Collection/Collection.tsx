@@ -34,7 +34,7 @@ const Collection: FC<Props> = ({
       </div>
     </div>
     <div className={s.collectionContent}>
-      <Link href={`/product/${collection.slug}`} {...props}>
+      <Link href={`/collection${collection.path}`} {...props}>
         <a className={cn(s.root, className)}>
           <>
             <div className={s.squareBg} />
