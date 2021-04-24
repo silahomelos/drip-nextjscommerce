@@ -107,7 +107,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               <a href="https://blog.digitalax.xyz" target="_blank">
                 FAQs
               </a>
-              <a href="https://marketplace.digitalax.xyz/" target="_blank">
+              <a href="https://digitalax.xyz/marketplace" target="_blank">
                 Digital Fashion Auctions
               </a>
               <a href="https://staking.digitalax.xyz" target="_blank">
