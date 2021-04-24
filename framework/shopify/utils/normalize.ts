@@ -1,7 +1,8 @@
-import { Product } from '@commerce/types'
+import { Product, Collection } from '@commerce/types'
 
 import {
   Product as ShopifyProduct,
+  Collection as ShopifyCollection,
   Checkout,
   CheckoutLineItemEdge,
   SelectedOption,
@@ -101,6 +102,40 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
   }
 
   return product
+}
+
+export function normalizeCollection(
+  collectionNode: ShopifyCollection
+): Collection {
+  // const {
+  //   id,
+  //   title: name,
+  //   image,
+  //   description,
+  //   handle,
+  //   ...rest
+  // } = collectionNode
+
+  // const collect = {
+  //   id,
+  //   name,
+  //   image: normalizeImage(image),
+  //   description,
+  //   path: `/${handle}`,
+  //   slug: handle?.replace(/^\/+|\/+$/g, ''),
+  //   ...rest,
+  // }
+
+  return {
+    id: collectionNode.id,
+    name: collectionNode.title,
+    description: collectionNode.description,
+    path: `/${collectionNode.handle}`,
+    image: {
+      url: collectionNode.image?.originalSrc,
+      alt: collectionNode.image?.altText ?? '',
+    },
+  }
 }
 
 export function normalizeCart(checkout: Checkout): Cart {

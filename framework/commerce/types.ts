@@ -172,6 +172,14 @@ export interface Product extends Entity {
   sku?: string
 }
 
+export interface Collection extends Entity {
+  name: string
+  description: string
+  slug?: string
+  path?: string
+  image: ProductImage
+}
+
 interface ProductOption extends Entity {
   displayName: string
   values: ProductOptionValues[]
