@@ -65,10 +65,10 @@ const Home = () => {
             <video className="w-screen block md:hidden" autoPlay muted loop>
               <source src="/landing-video.mp4" type="video/mp4" />
             </video>
-            <div className="bg-transparent text-center text-center py-10 md:text-left md:p-0">
+            <div className="bg-transparent text-center text-center py-10 md:mt-2 md:mb-20 md:text-left md:p-0">
               <button
                 type="button"
-                className="bg-white text-black rounded py-1 px-4 md:mt-2 md:mb-20 font-bold"
+                className="bg-white text-black rounded py-1 px-4 font-bold"
               >
                 {' '}
                 {'READ MORE >'}{' '}
