@@ -44,6 +44,11 @@ module.exports = withCommerceConfig({
         source: '/search/:category',
         destination: '/search',
       },
+      {
+        // This rewrite will also handle `/search/designers`
+        source: '/collection/:category',
+        destination: '/collection',
+      },
     ].filter((x) => x)
   },
 })

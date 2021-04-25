@@ -14,7 +14,7 @@ const LandingNavbar: FC = () => {
     >
       <div className={`w-full flex items-center justify-between px-4`}>
         <div className={s.branding}>
-          <Link href="/">
+          <Link href="https://digitalax.xyz">
             <a className={s.logo} aria-label="Logo">
               <span className={`${s.brand} text--uppercase fw-normal`}>
                 Digitalax{' '}
