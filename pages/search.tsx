@@ -50,7 +50,7 @@ export async function getStaticProps({
   }
 }
 
-export default function Search({
+export default function SearchPage({
   categories,
   brands,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -469,4 +469,4 @@ export default function Search({
   )
 }
 
-Search.Layout = Layout
+SearchPage.Layout = Layout
