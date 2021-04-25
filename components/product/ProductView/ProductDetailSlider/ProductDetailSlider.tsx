@@ -35,10 +35,13 @@ const ProductDetailSlider: FC<Props> = ({ content }) => {
       <div ref={ref} className="keen-slider h-full">
         {content.map((item: any) => {
           return (
-            <div className="flex keen-slider__slide w-full">
-              <img src={item.img} className={s.detialImage} />
-              <div className={s.spacer} />
-              <div className={s.description}>{item.description}</div>
+            <div className="block md:flex keen-slider__slide w-full">
+              <img src={item} className={`${s.detialImage}`} />
+              <div className={s.description}>
+                One of a kind 1155 minted memetic patch NFT, inventory claim
+                ticket, XP points for ESPA and a dynamic NFT that becomes unique
+                overtime. Read more below!
+              </div>
             </div>
           )
         })}

@@ -36,15 +36,11 @@
 }
 
 .detialImage {
-  width: 90px;
-  height: 90px;
-
+  width: 100%;
+  margin-bottom: 1rem;
   @screen md {
     width: 140px;
     height: 140px;
+    margin-right: 1rem;
   }
-}
-
-.spacer {
-  width: 1rem;
 }
