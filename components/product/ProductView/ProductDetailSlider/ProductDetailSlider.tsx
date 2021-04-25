@@ -38,9 +38,10 @@ const ProductDetailSlider: FC<Props> = ({ content }) => {
             <div className="block md:flex keen-slider__slide w-full">
               <img src={item} className={`${s.detialImage}`} />
               <div className={s.description}>
-                One of a kind 1155 minted memetic patch NFT, inventory claim
-                ticket, XP points for ESPA and a dynamic NFT that becomes unique
-                overtime. Read more below!
+                Each fashion item comes with a unique memetic patch print
+                (Minted as an 1155 NFT), inventory claim ticket, XP points for
+                ESPA and a dynamic NFT that becomes unique overtime. Read more
+                below!
               </div>
             </div>
           )

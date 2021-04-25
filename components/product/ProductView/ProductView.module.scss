@@ -148,7 +148,8 @@
     @apply col-span-6 justify-between;
   }
   flex-basis: 50%;
-  @media (max-width: 780px) {
+  @media (max-width: 1200px) {
+    overflow: unset;
     flex-basis: 100%;
     padding-left: 0px;
     padding-right: 0px;
