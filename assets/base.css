@@ -196,7 +196,7 @@ a {
   to{
     top: 103px;
     opacity: 1;
-    transform: scale(1, 1) rotate(3deg);
+    transform: scale(.9, .9) rotate(3deg);
   }
 }
 
@@ -209,7 +209,7 @@ a {
   to{
     top: 73px;
     opacity: 1;
-    transform: scale(1, 1) rotate(-3deg);
+    transform: scale(.9, .9) rotate(-3deg);
   }
 }
 
@@ -223,7 +223,7 @@ a {
   to{
     top: 103px;
     opacity: 1;
-    transform: scale(1, 1) rotate(-5deg);
+    transform: scale(.9, .9) rotate(-5deg);
   }
 }
 
@@ -236,7 +236,7 @@ a {
   to{
     top: 90px;
     opacity: 1;
-    transform: scale(1, 1) rotate(7deg);
+    transform: scale(.9, .9) rotate(7deg);
   }
 }
 
