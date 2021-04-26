@@ -108,6 +108,43 @@ a {
   animation-name: fadeIn;
 }
 
+.layer0{
+  left: 0px;
+  top: 103px;
+  opacity: 0.3;
+}
+.layer1{
+  left: 25px;
+  top: 73px;
+  opacity: 0.6;
+}
+.layer2{
+  left: 52px;
+  top: 103px;
+  opacity: 0.8;
+}
+.layer3{
+  left: 88px;
+  top: 90px;
+  opacity: 1;
+}
+
+.card1{
+  transform: rotate(3deg);
+}
+
+.card2{
+  transform: rotate(-3deg);
+}
+
+.card3{
+  transform: rotate(-5deg);
+}
+
+.card4{
+  transform: rotate(7deg);
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
