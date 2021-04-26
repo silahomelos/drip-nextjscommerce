@@ -1,11 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState, DOMAttributes } from 'react'
+import * as React from 'react'
 import Draggable from 'react-draggable'
+import shortid from 'shortid'
+import ReactCSSTransitionGroup from 'react-transition-group'
 import cn from 'classnames'
 import s from './StackedCard.module.scss'
+import { Key } from 'node:readline'
+
+declare module 'react' {
+  interface HTMLAttributes<T> extends DOMAttributes<T> {
+    wobble?: number
+  }
+}
+
 type Props = {
   index: number
+  random: String
 }
-const StackedCard: React.FC<Props> = ({ index }) => {
+const StackedCard: React.FC<Props> = ({ index, random }) => {
   const textList = [
     { index: 1, text: 'DYNAMIC NFT MINI DESCRIPTION GOES HERE' },
     { index: 2, text: 'HYBRID FASHION NFTs' },
@@ -13,44 +25,36 @@ const StackedCard: React.FC<Props> = ({ index }) => {
     { index: 4, text: 'DYNAMIC NFT MINI DESCRIPTION Text' },
   ]
   const [stackTexts, setStackTexts] = useState(textList)
+  const [wobble, setWobble] = useState(0)
   useEffect(() => {
+    setWobble(1)
     const [movedItem] = stackTexts.filter((item) => item.index == index + 1)
     setStackTexts([
-      ...stackTexts.filter((item) => item.index !== index + 1),
-      movedItem,
+      ...stackTexts,
+      { index: (stackTexts.length % 4) + 1, text: movedItem.text },
     ])
-  }, [index])
+  }, [index, random])
 
-  const handleStop = (index: number) => {
-    const [movedItem] = stackTexts.filter((item) => item.index == index)
-    setStackTexts([
-      movedItem,
-      ...stackTexts.filter((item) => item.index !== index),
-    ])
+  const getRandomKey = (): number => {
+    console.log(shortid.generate())
+    return 1
   }
 
   return (
-    <div className={s.cardContainer}>
-      {stackTexts.map((item, index) => {
-        if (index == 3) {
-          return (
-            <Draggable
-              axis="x"
-              defaultPosition={{ x: 0, y: 0 }}
-              position={{ x: 0, y: 0 }}
-              scale={1}
-              onStop={() => handleStop(item.index)}
-            >
-              <div className={cn(s.draggableCard, 'layer' + index)}>
-                <div className={cn(s.stackedCard, 'card' + item.index)}>
-                  <h1 className={s.cardText}>{item.text}</h1>
-                </div>
-              </div>
-            </Draggable>
-          )
-        } else {
-          return (
+    <Draggable
+      axis="both"
+      defaultPosition={{ x: 0, y: 0 }}
+      scale={1}
+      bounds="parent"
+    >
+      <div className={s.cardContainer}>
+        {stackTexts
+          .slice(stackTexts.length - 4, stackTexts.length)
+          .map((item, index) => (
             <div
+              key={index}
+              onAnimationEnd={() => setWobble(0)}
+              wobble={wobble}
               className={cn(
                 s.stackedCard,
                 'card' + item.index,
@@ -59,10 +63,9 @@ const StackedCard: React.FC<Props> = ({ index }) => {
             >
               <h1 className={s.cardText}>{item.text}</h1>
             </div>
-          )
-        }
-      })}
-    </div>
+          ))}
+      </div>
+    </Draggable>
   )
 }
 

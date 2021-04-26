@@ -12,6 +12,7 @@ import Banner from '@components/ui/Banner'
 import StackedCard from '@components/ui/StackedCard'
 import SliderTicker from '@components/common/SliderTicker'
 import TextContent from '@components/ui/TextContent'
+import shortid from 'shortid'
 
 import { getConfig } from '@framework/api'
 import useSearch from '@framework/product/use-search'
@@ -69,6 +70,7 @@ export default function Collectionpage({
   ]
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)
+    setRandomStr(shortid.generate())
   }
 
   const activeCategory = categories.find(
@@ -82,7 +84,7 @@ export default function Collectionpage({
   })
 
   const [countProductGroup, setCountProductGroup] = useState<Array<number>>()
-
+  const [randomStr, setRandomStr] = useState('')
   useEffect(() => {
     let arr = new Array<number>(0)
     if (data && data.products) {
@@ -98,7 +100,7 @@ export default function Collectionpage({
       <Banner>
         <Container>
           <TextContent onSelectText={onSelectCard} />
-          <StackedCard index={cardTextIndex} />
+          <StackedCard index={cardTextIndex} random={randomStr} />
         </Container>
       </Banner>
       {countProductGroup &&

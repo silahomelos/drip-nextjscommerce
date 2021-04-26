@@ -6,6 +6,7 @@ import TextContent from '@components/ui/TextContent'
 import Banner from '@components/ui/Banner'
 import StackedCard from '@components/ui/StackedCard'
 import SliderTicker from '@components/common/SliderTicker'
+import shortid from 'shortid'
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
@@ -54,6 +55,10 @@ export default function Home({
   pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [cardTextIndex, setCardTextIndex] = useState(0)
+  const [randomStr, setRandomStr] = useState('')
+  const getRandomKey = (): String => {
+    return shortid.generate()
+  }
   const sticker1 = [
     'MONA PRICE',
     'DITALAX NEW POST TITLE',
@@ -63,6 +68,7 @@ export default function Home({
   ]
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)
+    setRandomStr(shortid.generate())
   }
 
   return (
@@ -70,7 +76,7 @@ export default function Home({
       <Banner>
         <Container>
           <TextContent onSelectText={onSelectCard} />
-          <StackedCard index={cardTextIndex} />
+          <StackedCard index={cardTextIndex} random={randomStr} />
         </Container>
       </Banner>
       <SliderTicker sliderList={sticker1} />

@@ -110,39 +110,179 @@ a {
 
 .layer0{
   left: 0px;
-  top: 103px;
   opacity: 0.3;
 }
 .layer1{
-  left: 25px;
-  top: 73px;
+  left: 25px; 
   opacity: 0.6;
 }
 .layer2{
   left: 52px;
-  top: 103px;
   opacity: 0.8;
 }
+
 .layer3{
-  left: 88px;
-  top: 90px;
+  left: 88px; 
   opacity: 1;
+}
+
+
+.layer0[wobble='1']{
+  animation-name: layer0;
+  animation-duration: 1s;
+}
+
+.layer1[wobble='1']{
+  animation-name: layer1;
+  animation-duration: 1s;
+}
+
+.layer2[wobble='1']{
+  animation-name: layer2;
+  animation-duration: 1s;
+}
+
+.layer3[wobble='1']{
+  animation-name: layer3;
+  animation-duration: 1.5s;
+}
+
+.card1.layer3[wobble='1']{
+  animation-name: card1;
+  animation-duration: 1.5s;
+}
+
+.card2.layer3[wobble='1']{
+  animation-name: card2;
+  animation-duration: 1.5s;
+}
+
+.card3.layer3[wobble='1']{
+  animation-name: card3;
+  animation-duration: 1.5s;
+}
+
+.card4.layer3[wobble='1']{
+  animation-name: card4;
+  animation-duration: 1.5s;
 }
 
 .card1{
   transform: rotate(3deg);
+  top: 103px;
 }
 
 .card2{
   transform: rotate(-3deg);
+  top: 73px;
 }
 
 .card3{
   transform: rotate(-5deg);
+  top: 103px;
 }
 
 .card4{
   transform: rotate(7deg);
+  top: 90px;
+}
+
+@keyframes card1 {
+  from{
+    top: 70px;
+    opacity: 0.7;
+    transform: scale(2, 2);
+  }
+  to{
+    top: 103px;
+    opacity: 1;
+    transform: scale(1, 1) rotate(3deg);
+  }
+}
+
+@keyframes card2 {
+  from{
+    top: 70px;
+    opacity: 0.7;
+    transform: scale(2, 2);
+  }
+  to{
+    top: 73px;
+    opacity: 1;
+    transform: scale(1, 1) rotate(-3deg);
+  }
+}
+
+
+@keyframes card3 {
+  from{
+    top: 70px;
+    opacity: 0.7;
+    transform: scale(2, 2);
+  }
+  to{
+    top: 103px;
+    opacity: 1;
+    transform: scale(1, 1) rotate(-5deg);
+  }
+}
+
+@keyframes card4 {
+  from{
+    top: 70px;
+    opacity: 0.7;
+    transform: scale(2, 2);
+  }
+  to{
+    top: 90px;
+    opacity: 1;
+    transform: scale(1, 1) rotate(7deg);
+  }
+}
+
+
+@keyframes layer0 {
+  from {
+    left: 25px;
+    opacity: 0.6;
+  }
+  to {
+    left: 0px;
+    opacity: 0.3;
+  }
+}
+
+@keyframes layer1 {
+  from {
+    left: 52px;
+    opacity: 0.8;
+  }
+  to {
+    left: 25px;
+    opacity: 0.6;
+  }
+}
+
+@keyframes layer2 {
+  from {
+    left: 88px;
+    opacity: 1;
+  }
+  to {
+    left: 52px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes layer3 {
+  from {
+    opacity: 0.7;
+    transform: scale(1.5, 1.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
 }
 
 @-webkit-keyframes fadeIn {
