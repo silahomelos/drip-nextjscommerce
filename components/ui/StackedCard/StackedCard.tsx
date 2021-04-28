@@ -103,8 +103,7 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
       ]
     preImage.classList.remove('animated')
     let image: HTMLImageElement = contentRef.current.children[imgPosition]
-    image.style.bottom =
-      (image.height / 2 - deltaPosition.y).toString().replace('-', '') + 'px'
+    image.style.bottom = deltaPosition.y.toString().replace('-', '') + 'px'
     image.style.left = (xsideOffset + deltaPosition.x).toString() + 'px'
     image.classList.add('animated')
   }
