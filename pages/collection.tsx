@@ -1,11 +1,8 @@
-import cn from 'classnames'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 
 import { Layout } from '@components/common'
-import { ProductCard } from '@components/product'
 import { Container, GridContainer } from '@components/ui'
 import { ProductItem } from '@components/product'
 import Banner from '@components/ui/Banner'
@@ -19,19 +16,10 @@ import useSearch from '@framework/product/use-search'
 import getAllPages from '@framework/common/get-all-pages'
 import getSiteInfo from '@framework/common/get-site-info'
 
-import rangeMap from '@lib/range-map'
-
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
 
-import {
-  filterQuery,
-  getCategoryPath,
-  getDesignerPath,
-  useSearchMeta,
-} from '@lib/search'
-import { Product } from '@commerce/types'
-import products from '@framework/api/catalog/products'
+import { useSearchMeta } from '@lib/search'
 
 export async function getStaticProps({
   preview,
@@ -62,11 +50,11 @@ export default function Collectionpage({
 
   const [cardTextIndex, setCardTextIndex] = useState(0)
   const sticker1 = [
-    'MONA PRICE',
-    'DITALAX NEW POST TITLE',
-    'DRIP PRODUCT TITLE',
-    'DIGIFIZZY FEATURE',
-    'DRIP PRODUCT TITLE',
+    'Rep Your Style IRL',
+    'Crossover the DigiFizzy Realms',
+    'Unlockable NFTs',
+    'DeCo',
+    'Hybrid Fashion',
   ]
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)
@@ -85,6 +73,8 @@ export default function Collectionpage({
 
   const [countProductGroup, setCountProductGroup] = useState<Array<number>>()
   const [randomStr, setRandomStr] = useState('')
+  const contentEl = useRef(null)
+
   useEffect(() => {
     let arr = new Array<number>(0)
     if (data && data.products) {
@@ -99,8 +89,91 @@ export default function Collectionpage({
     <>
       <Banner>
         <Container>
+          <div className="contentContainer">
+            <div className="content" ref={contentEl}>
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+            </div>
+          </div>
           <TextContent onSelectText={onSelectCard} />
-          <StackedCard index={cardTextIndex} random={randomStr} />
+          <StackedCard
+            index={cardTextIndex}
+            random={randomStr}
+            contentRef={contentEl}
+          />
         </Container>
       </Banner>
       {countProductGroup &&

@@ -7,11 +7,7 @@ type Props = {
 }
 
 const TextContent: React.FC<Props> = ({ onSelectText }) => {
-  const subTitleList = [
-    'CROSS DIGI-FIZZY REALMS',
-    'HYBRID FASHION NFTs',
-    'UNLOCKABLE CONTENT',
-  ]
+  const subTitleList = ['DECO', 'REP YOUR STYLE IRL', 'UNLOCKABLE NFTS']
   const selectText = (index: number) => {
     onSelectText(index)
   }

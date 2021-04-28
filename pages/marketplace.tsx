@@ -58,11 +58,11 @@ export default function Home({
   const [randomStr, setRandomStr] = useState('')
   const contentEl = useRef(null)
   const sticker1 = [
-    'MONA PRICE',
-    'DITALAX NEW POST TITLE',
-    'DRIP PRODUCT TITLE',
-    'DIGIFIZZY FEATURE',
-    'DRIP PRODUCT TITLE',
+    'Rep Your Style IRL',
+    'Crossover the DigiFizzy Realms',
+    'Unlockable NFTs',
+    'DeCo',
+    'Hybrid Fashion',
   ]
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)

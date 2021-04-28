@@ -401,3 +401,9 @@ a {
     transform: scale(0.2, 0.2);
   }
 }
+
+.blankSpace{
+  width: 60%;
+  height: 20px;
+  float: left;
+}

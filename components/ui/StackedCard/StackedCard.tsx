@@ -1,4 +1,4 @@
-import { useEffect, useState, DOMAttributes } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import * as React from 'react'
 import Draggable from 'react-draggable'
 import shortid from 'shortid'
@@ -34,6 +34,7 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 })
   const [cacheMousePos, setCacheMousePos] = useState({ x: 0, y: 0 })
+  const dragRef = useRef()
 
   useEffect(() => {
     console.log(contentRef)
@@ -72,7 +73,7 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
 
   const handleDrag = (e: any, ui: any) => {
     removeOldCard()
-    console.log(stackTexts)
+    console.log(ui)
     const { x, y } = deltaPosition
     setDeltaPosition({
       x: x + ui.deltaX,
@@ -102,8 +103,7 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
       ]
     preImage.classList.remove('animated')
     let image: HTMLImageElement = contentRef.current.children[imgPosition]
-    image.style.bottom =
-      (image.height / 2 - deltaPosition.y).toString().replace('-', '') + 'px'
+    image.style.bottom = deltaPosition.y.toString().replace('-', '') + 'px'
     image.style.left = deltaPosition.x.toString() + 'px'
     image.classList.add('animated')
   }
@@ -111,7 +111,7 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
   return (
     <Draggable
       axis="both"
-      defaultPosition={{ x: 0, y: 0 }}
+      defaultPosition={{ x: 500, y: 0 }}
       scale={1}
       bounds="parent"
       onDrag={handleDrag}
