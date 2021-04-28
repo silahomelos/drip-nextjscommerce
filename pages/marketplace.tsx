@@ -1,5 +1,5 @@
 import { Layout } from '@components/common'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Grid, GridContainer, Hero, Container } from '@components/ui'
 import { ProductCard, ProductItem, Collection } from '@components/product'
 import TextContent from '@components/ui/TextContent'
@@ -56,9 +56,7 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [cardTextIndex, setCardTextIndex] = useState(0)
   const [randomStr, setRandomStr] = useState('')
-  const getRandomKey = (): String => {
-    return shortid.generate()
-  }
+  const contentEl = useRef(null)
   const sticker1 = [
     'MONA PRICE',
     'DITALAX NEW POST TITLE',
@@ -75,8 +73,91 @@ export default function Home({
     <>
       <Banner>
         <Container>
+          <div className="contentContainer">
+            <div className="content" ref={contentEl}>
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/my_nft.jpg"
+                alt="Some image"
+              />
+            </div>
+          </div>
           <TextContent onSelectText={onSelectCard} />
-          <StackedCard index={cardTextIndex} random={randomStr} />
+          <StackedCard
+            index={cardTextIndex}
+            random={randomStr}
+            contentRef={contentEl}
+          />
         </Container>
       </Banner>
       <SliderTicker sliderList={sticker1} />
