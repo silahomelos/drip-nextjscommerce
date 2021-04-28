@@ -57,11 +57,11 @@ const Layout: FC<Props> = ({
     modalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'en-US' } = useRouter()
+  const { locale = 'en-US', pathname } = useRouter()
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <Navbar />
+        {!pathname.includes('ambassadors') ? <Navbar /> : null}
         <main className="fit">{children}</main>
         <Footer pages={pageProps.pages} />
 
