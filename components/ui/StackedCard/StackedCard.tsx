@@ -34,15 +34,15 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 })
   const [cacheMousePos, setCacheMousePos] = useState({ x: 0, y: 0 })
+  const [xsideOffset, setXsideOffset] = useState<number>(0)
   const dragRef = useRef()
 
   useEffect(() => {
-    console.log(contentRef)
-    // setDom({content: document.querySelector('.content')})
-    // array of Image objs, one per image element
-    // console.log("dom:", document)
+    const { innerWidth: width, innerHeight: height } = window
+    setXsideOffset(width * 0.6)
+    console.log(xsideOffset)
     setImages(contentRef.current.children)
-  }, [])
+  })
 
   useEffect(() => {
     setWobble(1)
@@ -103,39 +103,44 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
       ]
     preImage.classList.remove('animated')
     let image: HTMLImageElement = contentRef.current.children[imgPosition]
-    image.style.bottom = deltaPosition.y.toString().replace('-', '') + 'px'
-    image.style.left = deltaPosition.x.toString() + 'px'
+    image.style.bottom =
+      (image.height / 2 - deltaPosition.y).toString().replace('-', '') + 'px'
+    image.style.left = (xsideOffset + deltaPosition.x).toString() + 'px'
     image.classList.add('animated')
   }
 
   return (
-    <Draggable
-      axis="both"
-      defaultPosition={{ x: 500, y: 0 }}
-      scale={1}
-      bounds="parent"
-      onDrag={handleDrag}
-    >
-      <div className={s.cardContainer}>
-        {stackTexts.slice(stackTexts.length - 4, stackTexts.length).map(
-          (item, index) =>
-            item.visible && (
-              <div
-                key={index}
-                onAnimationEnd={() => setWobble(0)}
-                wobble={wobble}
-                className={cn(
-                  s.stackedCard,
-                  'card' + item.index,
-                  'layer' + index
-                )}
-              >
-                <h1 className={s.cardText}>{item.text}</h1>
-              </div>
-            )
-        )}
-      </div>
-    </Draggable>
+    <>
+      {xsideOffset && (
+        <Draggable
+          axis="both"
+          defaultPosition={{ x: xsideOffset, y: 0 }}
+          scale={1}
+          bounds="parent"
+          onDrag={handleDrag}
+        >
+          <div className={s.cardContainer}>
+            {stackTexts.slice(stackTexts.length - 4, stackTexts.length).map(
+              (item, index) =>
+                item.visible && (
+                  <div
+                    key={index}
+                    onAnimationEnd={() => setWobble(0)}
+                    wobble={wobble}
+                    className={cn(
+                      s.stackedCard,
+                      'card' + item.index,
+                      'layer' + index
+                    )}
+                  >
+                    <h1 className={s.cardText}>{item.text}</h1>
+                  </div>
+                )
+            )}
+          </div>
+        </Draggable>
+      )}
+    </>
   )
 }
 
