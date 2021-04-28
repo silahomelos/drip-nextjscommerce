@@ -22,6 +22,7 @@ const Head: FC = () => {
           as="font"
           crossOrigin=""
         />
+        <script src="/js/TweenMax.min.js"></script>
       </NextHead>
     </>
   )

@@ -1,4 +1,27 @@
 .root {
-  @apply h-full bg-primary mx-auto transition-colors duration-150;
+  @apply h-full bg-black mx-auto transition-colors duration-150;
   max-width: 2460px;
+  position: relative;
+  z-index: 100;
+
+}
+
+.mainWrapper {
+  background-image: url('../../../public/images/perfect_sky.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+}
+
+@media (max-width: 576px) {
+  .mainWrapper {
+    background-size: 100vw 100vh;
+  }
+}
+
+.backgroundImage {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  opacity: 0;
 }

@@ -2,7 +2,7 @@ import cn from 'classnames'
 import dynamic from 'next/dynamic'
 import s from './Layout.module.css'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
@@ -58,11 +58,35 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname } = useRouter()
+
+  useEffect(() => {
+    window.onscroll = scrollEvent
+  }, [])
+
+  const scrollEvent = () => {
+    const imageRate = 1.6125
+    const total: any = document.getElementById('mainWrapper')
+    const totalHeight: any = total?.clientHeight
+    const backgroundImageHeight = window.innerWidth * imageRate
+    if (totalHeight < backgroundImageHeight) return
+    if (window.scrollY + window.innerHeight <= backgroundImageHeight) {
+      total.style.backgroundPosition = 'top'
+    } else if (window.scrollY + window.innerHeight >= totalHeight) {
+      total.style.backgroundPosition = 'bottom'
+    } else {
+      total.style.backgroundPosition = `bottom ${
+        totalHeight - window.scrollY - innerHeight
+      }px right 0px`
+    }
+  }
+
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        {!pathname.includes('ambassadors') ? <Navbar /> : null}
-        <main className="fit">{children}</main>
+        <div id="mainWrapper" className={s.mainWrapper}>
+          {!pathname.includes('ambassadors') ? <Navbar /> : null}
+          <main className="fit">{children}</main>
+        </div>
         <Footer pages={pageProps.pages} />
 
         <Modal open={displayModal} onClose={closeModal}>
