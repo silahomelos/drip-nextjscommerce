@@ -13,6 +13,8 @@ import { useAddItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
+import ProductDetailSlider from './ProductDetailSlider'
+import ProductDetailTabs from './ProductDetailTabs'
 
 interface Props {
   className?: string
@@ -48,6 +50,8 @@ const ProductView: FC<Props> = ({ product }) => {
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
 
+  console.log('this is productdetailslider', ProductDetailSlider)
+
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
   }
@@ -65,6 +69,8 @@ const ProductView: FC<Props> = ({ product }) => {
       setLoading(false)
     }
   }
+
+  console.log(tabContent)
 
   return (
     <Container className={`${s.productViewContainer}`} clean>
@@ -192,41 +198,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 Buy Now
               </Button>
             </div>
-
-            {/* descripton section */}
-            {!isTab && <div className={s.flatDescription}>{tabContent}</div>}
-
-            <div className={s.tabSection}>
-              <Tabs>
-                {isTab &&
-                  tabContent.map((tabItem: any) => {
-                    return (
-                      <Tab title={tabItem.title}>
-                        <div>{tabItem.description}</div>
-                        <br />
-                        <hr />
-                        <br />
-                        <div className={s.tabListContent}>
-                          <div>
-                            <h3 className={s.tabListContentTitle}>PHYSICAL</h3>
-                            {tabItem.physical &&
-                              tabItem.physical.map((list: string) => {
-                                return <li>{list}</li>
-                              })}
-                          </div>
-                          <div>
-                            <h3 className={s.tabListContentTitle}>DIGITAL</h3>
-                            {tabItem.digital &&
-                              tabItem.digital.map((dlist: string) => {
-                                return <li>{dlist}</li>
-                              })}
-                          </div>
-                        </div>
-                      </Tab>
-                    )
-                  })}
-              </Tabs>
-            </div>
+            <ProductDetailTabs />
           </section>
         </div>
         {/* {process.env.COMMERCE_WISHLIST_ENABLED && (

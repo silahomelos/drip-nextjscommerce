@@ -121,7 +121,7 @@
     padding-top: 30px;
   
     & span {
-      @apply bg-primary text-primary;
+      @apply bg-transparent text-primary;
       font-size: inherit;
       letter-spacing: inherit;
       box-decoration-break: clone;
