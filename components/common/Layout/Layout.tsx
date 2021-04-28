@@ -57,7 +57,7 @@ const Layout: FC<Props> = ({
     modalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'en-US' } = useRouter()
+  const { locale = 'en-US', pathname } = useRouter()
 
   useEffect(() => {
     window.onscroll = scrollEvent
@@ -84,7 +84,7 @@ const Layout: FC<Props> = ({
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
         <div id="mainWrapper" className={s.mainWrapper}>
-          <Navbar />
+          {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
         </div>
         <Footer pages={pageProps.pages} />
