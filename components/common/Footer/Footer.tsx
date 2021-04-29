@@ -19,16 +19,21 @@ const LEGAL_PAGES = ['terms-of-use', 'shipping-returns', 'privacy-policy']
 
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages, legalPages } = usePages(pages)
+  const router = useRouter()
+  const isAmbassadors = router.pathname.includes('ambassadors')
   const rootClassName = cn(className)
 
   return (
     <footer className={`${rootClassName} ${s.footer}`}>
       <Container>
         <div className={`${s.footerWrapper}`}>
-          <div className={s.heading}>STAY UP TO DATE</div>
+          <div className={s.heading}>
+            {isAmbassadors ? 'GET IN TOUCH' : 'STAY UP TO DATE'}
+          </div>
           <div className={s.description}>
-            Check out our Medium and join our Discord community to stay up to
-            date!
+            {isAmbassadors
+              ? 'Contact us through contact@digitalax.xyz or reach out on any of our social media channels. We would love to hear from you. '
+              : 'Check out our Medium and join our Discord community to stay up to date!'}
           </div>
           <div className={s.centerWrapper}>
             <div className={`${s.dFlex} ${s.aboutLine}`}>
@@ -114,6 +119,13 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 Staking
               </a>
             </div>
+          </div>
+          <div className="flex justify-end my-4">
+            <Link href="/ambassadors">
+              <a className={`uppercase text-3xl font-bold ${s.ambassadorText}`}>
+                apply for ambassadors!
+              </a>
+            </Link>
           </div>
         </div>
       </Container>
