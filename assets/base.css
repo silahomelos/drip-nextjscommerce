@@ -361,7 +361,7 @@ a {
 }
 
 .contentContainer{
-  height: 100vh;
+  height: 910px;
 	overflow: hidden;
   position: absolute;
 	display: flex;
