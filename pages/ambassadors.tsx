@@ -1,8 +1,7 @@
-import { FC } from 'react'
 import { AmbassadorsBoard } from '@components/ambassadors'
 import { Layout } from '@components/common'
 
-const Ambassadors: FC = () => {
+function Ambassadors() {
   return (
     <div>
       <AmbassadorsBoard />
