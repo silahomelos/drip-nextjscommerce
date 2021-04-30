@@ -6,7 +6,8 @@
     cursor: pointer;
     display: flex;
     @media (max-width: 540px) {
-        height: 350px;
+        width: 100px;
+        height: 50px;
     }
 }
 
@@ -21,8 +22,8 @@
 
 
     @media (max-width: 540px) {
-        width: 250px;
-        height: 170px;
+        width: 200px;
+        height: 150px;
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -61,17 +62,19 @@
 
 
 .cardText{
-    width: 60%;
+    width: 70%;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 27px;
     line-height: 32px;
     color: #FFFFFF;
+    text-align: center;
 
     @media (max-width: 540px) {
-        width: 60%;
-        font-size: 18px;
+        width: 70%;
+        font-size: 14px;
         line-height: 20px;
+        
     }
 }
