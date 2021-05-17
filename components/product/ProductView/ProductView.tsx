@@ -15,6 +15,7 @@ import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
 import ProductDetailSlider from './ProductDetailSlider'
 import ProductDetailTabs from './ProductDetailTabs'
+import ProductTopBanner from '@components/common/ProductTopBanner'
 
 interface Props {
   className?: string
@@ -73,143 +74,146 @@ const ProductView: FC<Props> = ({ product }) => {
   console.log(tabContent)
 
   return (
-    <Container className={`${s.productViewContainer}`} clean>
-      <NextSeo
-        title={product.name}
-        description={product.description}
-        openGraph={{
-          type: 'website',
-          title: product.name,
-          description: product.description,
-          images: [
-            {
-              url: product.images[0]?.url!,
-              width: 800,
-              height: 600,
-              alt: product.name,
-            },
-          ],
-        }}
-      />
-      <div className={cn(s.root, 'fit')}>
-        <div className={s.leftSide}>
-          <div className={cn(s.productDisplay, 'fit')}>
-            <div className={s.nameBox}>
-              <h1 className={s.name}>{product.name}</h1>
-            </div>
-
-            <div className={s.sliderContainer}>
-              <ProductSlider key={product.id} imageId={curImgIndex}>
-                {product.images.map((image, i) => (
-                  <div key={image.url} className={s.imageContainer}>
-                    <Image
-                      className={s.img}
-                      src={image.url!}
-                      alt={image.alt || 'Product Image'}
-                      width={780}
-                      height={1000}
-                      priority={i === 0}
-                      quality="85"
-                    />
-                  </div>
-                ))}
-              </ProductSlider>
-            </div>
-          </div>
-
-          <div className={s.previewImages}>
-            {product.images.map((image, i) => (
-              <div key={image.url} className={s.previewImg}>
-                <Image
-                  className={s.img}
-                  src={image.url!}
-                  alt={image.alt || 'Product Image'}
-                  width={88}
-                  height={119}
-                  priority={i === 0}
-                  quality="85"
-                  onClick={() => handleOnclick(i)}
-                />
+    <>
+      <ProductTopBanner />
+      <Container className={`${s.productViewContainer}`} clean>
+        <NextSeo
+          title={product.name}
+          description={product.description}
+          openGraph={{
+            type: 'website',
+            title: product.name,
+            description: product.description,
+            images: [
+              {
+                url: product.images[0]?.url!,
+                width: 800,
+                height: 600,
+                alt: product.name,
+              },
+            ],
+          }}
+        />
+        <div className={cn(s.root, 'fit')}>
+          <div className={s.leftSide}>
+            <div className={cn(s.productDisplay, 'fit')}>
+              <div className={s.nameBox}>
+                <h1 className={s.name}>{product.name}</h1>
               </div>
-            ))}
-          </div>
-        </div>
 
-        <div className={s.sidebar}>
-          <section>
-            <div>
-              <h1 className={s.productName}>{product.name}</h1>
-              <div className={s.userSection}>
-                <div className="user-avatar">
-                  <img src={product.images[0].url} alt="" />
-                </div>
-                <p>Chamila Hetti</p>
-              </div>
-              <div className={s.price}>
-                {price}
-                {` `}
-                {product.price?.currencyCode}
+              <div className={s.sliderContainer}>
+                <ProductSlider key={product.id} imageId={curImgIndex}>
+                  {product.images.map((image, i) => (
+                    <div key={image.url} className={s.imageContainer}>
+                      <Image
+                        className={s.img}
+                        src={image.url!}
+                        alt={image.alt || 'Product Image'}
+                        width={780}
+                        height={1000}
+                        priority={i === 0}
+                        quality="85"
+                      />
+                    </div>
+                  ))}
+                </ProductSlider>
               </div>
             </div>
-            <div className={s.productAttrs}>
-              {product.options?.map((opt) => (
-                <div className="pb-4 pr-6" key={opt.displayName}>
-                  <h2 className={`${s.optionTitle} uppercase font-medium`}>
-                    {opt.displayName}
-                  </h2>
-                  <div className="flex flex-row py-4">
-                    {opt.values.map((v, i: number) => {
-                      const active = (choices as any)[
-                        opt.displayName.toLowerCase()
-                      ]
 
-                      return (
-                        <Swatch
-                          key={`${opt.id}-${i}`}
-                          active={v.label.toLowerCase() === active}
-                          variant={opt.displayName}
-                          color={v.hexColors ? v.hexColors[0] : ''}
-                          label={v.label}
-                          onClick={() => {
-                            setChoices((choices) => {
-                              return {
-                                ...choices,
-                                [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
-                              }
-                            })
-                          }}
-                        />
-                      )
-                    })}
-                  </div>
+            <div className={s.previewImages}>
+              {product.images.map((image, i) => (
+                <div key={image.url} className={s.previewImg}>
+                  <Image
+                    className={s.img}
+                    src={image.url!}
+                    alt={image.alt || 'Product Image'}
+                    width={88}
+                    height={119}
+                    priority={i === 0}
+                    quality="85"
+                    onClick={() => handleOnclick(i)}
+                  />
                 </div>
               ))}
             </div>
-            <div>
-              <p className={s.openCollection}>Open Collection</p>
-              <Button
-                aria-label="Add to Cart"
-                type="button"
-                className={s.button}
-                onClick={addToCart}
-                loading={loading}
-                disabled={!variant && product.options.length > 0}
-              >
-                Buy Now
-              </Button>
-            </div>
-            <ProductDetailTabs />
-          </section>
+          </div>
+
+          <div className={s.sidebar}>
+            <section>
+              <div>
+                <h1 className={s.productName}>{product.name}</h1>
+                <div className={s.userSection}>
+                  <div className="user-avatar">
+                    <img src={product.images[0].url} alt="" />
+                  </div>
+                  <p>Chamila Hetti</p>
+                </div>
+                <div className={s.price}>
+                  {price}
+                  {` `}
+                  {product.price?.currencyCode}
+                </div>
+              </div>
+              <div className={s.productAttrs}>
+                {product.options?.map((opt) => (
+                  <div className="pb-4 pr-6" key={opt.displayName}>
+                    <h2 className={`${s.optionTitle} uppercase font-medium`}>
+                      {opt.displayName}
+                    </h2>
+                    <div className="flex flex-row py-4">
+                      {opt.values.map((v, i: number) => {
+                        const active = (choices as any)[
+                          opt.displayName.toLowerCase()
+                        ]
+
+                        return (
+                          <Swatch
+                            key={`${opt.id}-${i}`}
+                            active={v.label.toLowerCase() === active}
+                            variant={opt.displayName}
+                            color={v.hexColors ? v.hexColors[0] : ''}
+                            label={v.label}
+                            onClick={() => {
+                              setChoices((choices) => {
+                                return {
+                                  ...choices,
+                                  [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
+                                }
+                              })
+                            }}
+                          />
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <p className={s.openCollection}>Open Collection</p>
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className={s.button}
+                  onClick={addToCart}
+                  loading={loading}
+                  disabled={!variant && product.options.length > 0}
+                >
+                  Buy Now
+                </Button>
+              </div>
+              <ProductDetailTabs />
+            </section>
+          </div>
+          {/* {process.env.COMMERCE_WISHLIST_ENABLED && (
+            <WishlistButton
+              className={s.wishlistButton}
+              productId={product.id}
+              variant={product.variants[0]! as any}
+            />
+          )} */}
         </div>
-        {/* {process.env.COMMERCE_WISHLIST_ENABLED && (
-          <WishlistButton
-            className={s.wishlistButton}
-            productId={product.id}
-            variant={product.variants[0]! as any}
-          />
-        )} */}
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
 

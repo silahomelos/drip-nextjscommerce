@@ -1,4 +1,4 @@
-import { Layout } from '@components/common'
+import { Layout, TextSlider } from '@components/common'
 import { Grid, GridContainer, Hero, Container } from '@components/ui'
 import { ProductCard, ProductItem } from '@components/product'
 import TextContent from '@components/ui/TextContent'
@@ -11,6 +11,7 @@ import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
 import getAllCollections from '@framework/product/get-all-collections'
+import ProductTopBanner from '@components/common/ProductTopBanner'
 
 export async function getStaticProps({
   preview,
@@ -53,6 +54,7 @@ export default function Home({
   console.log(collections)
   return (
     <>
+      <ProductTopBanner />
       <Container>
         <GridContainer>
           {products.slice(0, 5).map((product, i) => (

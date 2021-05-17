@@ -3,7 +3,7 @@
 }
 
 .link {
-  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-primary;
+  @apply inline-flex items-center text-white leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-white;
 
   @media (max-width: 984px) {
       font-size: 12px;
@@ -53,7 +53,7 @@
     font-family: "Internal Rainbows";
     font-size: 22px;
     line-height: 23px;
-    color: #000;
+    color: white;
     text-transform: uppercase;
   }
   & .subBrand {

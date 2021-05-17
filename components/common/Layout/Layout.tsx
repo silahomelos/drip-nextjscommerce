@@ -4,7 +4,7 @@ import s from './Layout.module.css'
 import { useRouter } from 'next/router'
 import React, { FC, useEffect } from 'react'
 import { useUI } from '@components/ui/context'
-import { Navbar, Footer } from '@components/common'
+import { Navbar, Footer, TextSlider } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import CartSidebarView from '@components/cart/CartSidebarView'
@@ -59,26 +59,26 @@ const Layout: FC<Props> = ({
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname } = useRouter()
 
-  useEffect(() => {
-    window.onscroll = scrollEvent
-  }, [])
+  // useEffect(() => {
+  //   window.onscroll = scrollEvent
+  // }, [])
 
-  const scrollEvent = () => {
-    const imageRate = 1.6125
-    const total: any = document.getElementById('mainWrapper')
-    const totalHeight: any = total?.clientHeight
-    const backgroundImageHeight = window.innerWidth * imageRate
-    if (totalHeight < backgroundImageHeight) return
-    if (window.scrollY + window.innerHeight <= backgroundImageHeight) {
-      total.style.backgroundPosition = 'top'
-    } else if (window.scrollY + window.innerHeight >= totalHeight) {
-      total.style.backgroundPosition = 'bottom'
-    } else {
-      total.style.backgroundPosition = `bottom ${
-        totalHeight - window.scrollY - innerHeight
-      }px right 0px`
-    }
-  }
+  // const scrollEvent = () => {
+  //   const imageRate = 1.6125
+  //   const total: any = document.getElementById('mainWrapper')
+  //   const totalHeight: any = total?.clientHeight
+  //   const backgroundImageHeight = window.innerWidth * imageRate
+  //   if (totalHeight < backgroundImageHeight) return
+  //   if (window.scrollY + window.innerHeight <= backgroundImageHeight) {
+  //     total.style.backgroundPosition = 'top'
+  //   } else if (window.scrollY + window.innerHeight >= totalHeight) {
+  //     total.style.backgroundPosition = 'bottom'
+  //   } else {
+  //     total.style.backgroundPosition = `bottom ${
+  //       totalHeight - window.scrollY - innerHeight
+  //     }px right 0px`
+  //   }
+  // }
 
   return (
     <CommerceProvider locale={locale}>
@@ -87,6 +87,7 @@ const Layout: FC<Props> = ({
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
         </div>
+        <TextSlider black />
         <Footer pages={pageProps.pages} />
 
         <Modal open={displayModal} onClose={closeModal}>
