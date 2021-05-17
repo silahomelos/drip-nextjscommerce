@@ -157,7 +157,7 @@ const ProductDetailTabs: FC = () => {
             </div>
           </div>
         </Tab>
-        <Tab title="MORE INFORMATION">
+        <Tab title="Memes for the Metaverse">
           <ProductDetailSlider content={memeImages} />
           <hr className="my-6" />
           <div className="flex justify-between">
