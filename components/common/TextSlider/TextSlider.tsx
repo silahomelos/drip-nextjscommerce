@@ -7,11 +7,10 @@ interface Props {
 
 const TextSlider: FC<Props> = ({ black }) => {
   const items = [
-    'MONA PRICE',
-    'DIGITALAX NEW POST TITLE',
-    'DRIP PRODUCT TITLE',
-    'DIGIFIZZY FEATURE',
-    'DRIP PRODUCT TITLE',
+    'DECENTRALIZED COMMERCE',
+    'HYBRID DIGI-FIZZY',
+    'DYNAMIC NFTS',
+    'REP YOUR DRIP IRL',
   ]
 
   return (
