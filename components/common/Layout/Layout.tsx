@@ -86,8 +86,8 @@ const Layout: FC<Props> = ({
         <div id="mainWrapper" className={s.mainWrapper}>
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
+          <TextSlider black />
         </div>
-        <TextSlider black />
         <Footer pages={pageProps.pages} />
 
         <Modal open={displayModal} onClose={closeModal}>

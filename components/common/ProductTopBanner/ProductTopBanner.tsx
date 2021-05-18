@@ -1,40 +1,118 @@
-import { FC, useState } from 'react'
+import { Banner } from '@components/ui'
+import { FC, useRef, useState } from 'react'
 import { TextSlider } from '..'
+import TextContent from '@components/ui/TextContent'
+import Container from '@components/ui/Container'
+import StackedCard from '@components/ui/StackedCard'
 import styles from './ProductTopBanner.module.scss'
+import shortid from 'shortid'
 
-const ProductTopBanner: FC = () => {
-  const [type, setType] = useState(0)
-  const description = [
-    'BRINGING DECENTRALISED COMMERCE #DECO TO METAVERSAL FASHION',
-    'STITCHING THE FABRIC FOR GATEMAKERS IN BOTH THE PHYSICAL & DIGITAL REALMS',
-    'DYNAMIC NFTs CHANGE AS YOU GROW YOUR METAVERSE TRIBES',
-  ]
+interface Props {
+  showSlider: boolean
+}
+
+const ProductTopBanner: FC<Props> = ({ showSlider }) => {
+  const contentEl = useRef(null)
+  const [cardTextIndex, setCardTextIndex] = useState(0)
+  const [randomStr, setRandomStr] = useState('')
+
+  const onSelectCard = (index: number) => {
+    setCardTextIndex(index)
+    setRandomStr(shortid.generate())
+  }
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.text}>
-        {' '}
-        MOD YOUR WAY INTO METAVERSE FASHION & GAMING{' '}
-      </div>
-      <div className={styles.buttonGroup}>
-        <button type="button" onClick={() => setType(1)}>
-          {' '}
-          DECO{' '}
-        </button>
-        <button type="button" onClick={() => setType(2)}>
-          {' '}
-          REP YOUR STYLE IRL{' '}
-        </button>
-        <button type="button" onClick={() => setType(0)}>
-          {' '}
-          UNLOCKABLE NFTS{' '}
-        </button>
-      </div>
-      <div className={styles.displayer}>
-        <img src="/images/Group 1136.png" className={styles.image} />
-        <div className={styles.content}> {description[type]} </div>
-      </div>
-      <TextSlider black={false} />
+      <Banner>
+        <Container>
+          <div className="contentContainer">
+            <div className="content" ref={contentEl}>
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+              <img
+                className="content__img"
+                src="/images/tile.png"
+                alt="Some image"
+              />
+            </div>
+          </div>
+          <TextContent onSelectText={onSelectCard} />
+          <StackedCard
+            index={cardTextIndex}
+            random={randomStr}
+            contentRef={contentEl}
+          />
+        </Container>
+      </Banner>
+      {showSlider && <TextSlider black={false} />}
     </div>
   )
 }

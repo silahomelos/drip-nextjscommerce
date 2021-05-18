@@ -7,16 +7,12 @@ import React, { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
-import TextContent from '@components/ui/TextContent'
-import Banner from '@components/ui/Banner'
-import Container from '@components/ui/Container'
-import StackedCard from '@components/ui/StackedCard'
-import shortid from 'shortid'
 
 import { getConfig } from '@framework/api'
 import getProduct from '@framework/product/get-product'
 import getAllPages from '@framework/common/get-all-pages'
 import getAllProductPaths from '@framework/product/get-all-product-paths'
+import ProductTopBanner from '@components/common/ProductTopBanner'
 
 export async function getStaticProps({
   params,
@@ -64,115 +60,12 @@ export async function getStaticPaths({ locales }: GetStaticPathsContext) {
 export default function Slug({
   product,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [cardTextIndex, setCardTextIndex] = useState(0)
-  const [randomStr, setRandomStr] = useState('')
   const router = useRouter()
-  const contentEl = useRef(null)
-  const sticker1 = [
-    'Rep Your Style IRL',
-    'Crossover the DigiFizzy Realms',
-    'Unlockable NFTs',
-    'DeCo',
-    'Hybrid Fashion',
-  ]
-  const onSelectCard = (index: number) => {
-    setCardTextIndex(index)
-    setRandomStr(shortid.generate())
-  }
 
   return router.isFallback ? (
     <h1>Loading...</h1> // TODO (BC) Add Skeleton Views
   ) : (
     <>
-      <Banner>
-        <Container>
-          <div className="contentContainer">
-            <div className="content" ref={contentEl}>
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-            </div>
-          </div>
-          <TextContent onSelectText={onSelectCard} />
-          <StackedCard
-            index={cardTextIndex}
-            random={randomStr}
-            contentRef={contentEl}
-          />
-        </Container>
-      </Banner>
       <ProductView product={product as any} />
     </>
   )

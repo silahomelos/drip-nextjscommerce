@@ -52,12 +52,13 @@ export default function Home({
   pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   console.log(collections)
+  console.log(products)
   return (
     <>
-      <ProductTopBanner />
+      <ProductTopBanner showSlider />
       <Container>
         <GridContainer>
-          {products.slice(0, 5).map((product, i) => (
+          {products.map((product, i) => (
             <ProductItem
               key={product.id}
               product={product}

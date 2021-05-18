@@ -69,7 +69,7 @@ const ProductItem: FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-center align-center box-border w-full">
+      <div className="flex flex-row justify-center mt-4 bg-white align-center box-border w-full">
         <div className="">
           <h3 className={s.productTitle}>
             <span>{product.name}</span>

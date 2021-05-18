@@ -150,11 +150,11 @@
   flex-basis: 50%;
   border: 1px solid #999999;
   
-  @media (max-width: 1200px) {
+  @media (max-width: 1444px) {
     overflow: unset;
     flex-basis: 100%;
-    padding-left: 0px;
-    padding-right: 0px;
+    // padding-left: 0px;
+    // padding-right: 0px;
   }
 
   @media (max-width: 540px) {
@@ -305,6 +305,7 @@
   z-index: 30;
   position: relative;
   margin-top: 12px;
+  max-width: 600px;
   .previewImg {
     margin-left: 12px;
 

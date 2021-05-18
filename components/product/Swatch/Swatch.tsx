@@ -34,6 +34,7 @@ const Swatch: FC<Omit<ButtonProps, 'variant'> & Props> = ({
     },
     className
   )
+  console.log('this is color', color)
 
   return (
     <Button
