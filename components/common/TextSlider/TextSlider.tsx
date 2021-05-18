@@ -15,18 +15,11 @@ const TextSlider: FC<Props> = ({ black }) => {
   ]
 
   return (
-    <div
-      className={styles.wrapper}
-      style={{ backgroundColor: black ? 'white' : 'transparent' }}
-    >
+    <div className={styles.wrapper}>
       <div className={styles.animationForm}>
         <div className={styles.node}>
           {items.map((item, index) => (
-            <div
-              className={styles.item}
-              key={index}
-              style={{ color: black ? 'black' : 'white' }}
-            >
+            <div className={styles.item} key={index}>
               {' '}
               {item}{' '}
             </div>
@@ -34,11 +27,7 @@ const TextSlider: FC<Props> = ({ black }) => {
         </div>
         <div className={styles.node}>
           {items.map((item, index) => (
-            <div
-              className={styles.item}
-              key={index}
-              style={{ color: black ? 'black' : 'white' }}
-            >
+            <div className={styles.item} key={index}>
               {' '}
               {item}{' '}
             </div>
@@ -46,11 +35,7 @@ const TextSlider: FC<Props> = ({ black }) => {
         </div>
         <div className={styles.node}>
           {items.map((item, index) => (
-            <div
-              className={styles.item}
-              key={index}
-              style={{ color: black ? 'black' : 'white' }}
-            >
+            <div className={styles.item} key={index}>
               {' '}
               {item}{' '}
             </div>
@@ -58,11 +43,7 @@ const TextSlider: FC<Props> = ({ black }) => {
         </div>
         <div className={styles.node}>
           {items.map((item, index) => (
-            <div
-              className={styles.item}
-              key={index}
-              style={{ color: black ? 'black' : 'white' }}
-            >
+            <div className={styles.item} key={index}>
               {' '}
               {item}{' '}
             </div>

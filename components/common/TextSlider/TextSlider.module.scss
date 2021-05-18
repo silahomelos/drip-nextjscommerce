@@ -9,6 +9,7 @@
     border-right: 0;
     width: 100%;
     overflow: hidden;
+    background: transparent;
 
     .animationForm {
         display: flex;
@@ -19,6 +20,8 @@
             align-items: center;
 
             .item {
+                background: transparent;
+                color: white;
                 padding: 1rem 3rem;
                 background: transparent;
                 font-family: "Inter";

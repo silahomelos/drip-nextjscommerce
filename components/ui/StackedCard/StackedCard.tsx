@@ -20,10 +20,22 @@ type Props = {
 }
 const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
   const textList = [
-    { index: 1, text: 'DYNAMIC NFT MINI DESCRIPTION GOES HERE', visible: true },
-    { index: 2, text: 'HYBRID FASHION NFTs', visible: true },
-    { index: 3, text: 'UNLOCKABLE CONTENT', visible: true },
-    { index: 4, text: 'DYNAMIC NFT MINI DESCRIPTION Text', visible: true },
+    {
+      index: 1,
+      text: 'BRINGING DECENTRALISED COMMERCE #DECO TO METAVERSAL FASHION',
+      visible: true,
+    },
+    {
+      index: 2,
+      text:
+        'STITCHING THE FABRIC FOR GATEMAKERS IN BOTH THE PHYSICAL & DIGITAL REALMS',
+      visible: true,
+    },
+    {
+      index: 3,
+      text: 'DYNAMIC NFTs CHANGE AS YOU GROW YOUR METAVERSE TRIBES',
+      visible: true,
+    },
   ]
   const [stackTexts, setStackTexts] = useState(textList)
   const [wobble, setWobble] = useState(0)

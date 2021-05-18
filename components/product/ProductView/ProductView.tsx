@@ -72,10 +72,12 @@ const ProductView: FC<Props> = ({ product }) => {
   }
 
   console.log(tabContent)
+  console.log('this is product', product)
+  console.log(choices)
 
   return (
     <>
-      <ProductTopBanner />
+      <ProductTopBanner showSlider={false} />
       <Container className={`${s.productViewContainer}`} clean>
         <NextSeo
           title={product.name}
