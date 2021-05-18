@@ -285,6 +285,144 @@ a {
   }
 }
 
+@media (max-width: 540px) {
+  .layer0{
+    left: -5px;
+    opacity: 0.3;
+  }
+  .layer1{
+    left: 5px; 
+    opacity: 0.6;
+  }
+  .layer2{
+    left: 15px;
+    opacity: 0.8;
+  }
+  
+  .layer3{
+    left: 38px; 
+    opacity: 1;
+  }
+
+
+  @keyframes layer0 {
+    from {
+      left: 5px;
+      opacity: 0.6;
+    }
+    to {
+      left: -5px;
+      opacity: 0.3;
+    }
+  }
+  
+  @keyframes layer1 {
+    from {
+      left: 15px;
+      opacity: 0.8;
+    }
+    to {
+      left: 5px;
+      opacity: 0.6;
+    }
+  }
+  
+  @keyframes layer2 {
+    from {
+      left: 38px;
+      opacity: 1;
+    }
+    to {
+      left: 15px;
+      opacity: 0.8;
+    }
+  }
+  
+  @keyframes layer3 {
+    from {
+      opacity: 0.7;
+      transform: scale(1.5, 1.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
+
+  .card1{
+    transform: rotate(3deg);
+    top: 53px;
+  }
+  
+  .card2{
+    transform: rotate(-3deg);
+    top: 23px;
+  }
+  
+  .card3{
+    transform: rotate(-5deg);
+    top: 53px;
+  }
+  
+  .card4{
+    transform: rotate(7deg);
+    top: 40px;
+  }
+
+  @keyframes card1 {
+    from{
+      top: 20px;
+      opacity: 0.7;
+      transform: scale(2, 2);
+    }
+    to{
+      top: 53px;
+      opacity: 1;
+      transform: scale(.9, .9) rotate(3deg);
+    }
+  }
+  
+  @keyframes card2 {
+    from{
+      top: 20px;
+      opacity: 0.7;
+      transform: scale(2, 2);
+    }
+    to{
+      top: 23px;
+      opacity: 1;
+      transform: scale(.9, .9) rotate(-3deg);
+    }
+  }
+  
+  
+  @keyframes card3 {
+    from{
+      top: 20px;
+      opacity: 0.7;
+      transform: scale(2, 2);
+    }
+    to{
+      top: 53px;
+      opacity: 1;
+      transform: scale(.9, .9) rotate(-5deg);
+    }
+  }
+  
+  @keyframes card4 {
+    from{
+      top: 20px;
+      opacity: 0.7;
+      transform: scale(2, 2);
+    }
+    to{
+      top: 40px;
+      opacity: 1;
+      transform: scale(.9, .9) rotate(7deg);
+    }
+  }
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
@@ -371,6 +509,12 @@ a {
   z-index: 0;
 }
 
+@media (max-width: 540px) {
+  .contentContainer{
+    height: 650px;
+  }
+}
+
 .content{
   position: relative;
   width: 100%;
@@ -383,6 +527,13 @@ a {
 	opacity: 0;
 	will-change: transform;
 	filter: var(--filter-img);
+}
+
+@media (max-width: 540px) {
+  .content__img{
+    width: 200px;
+    height: 150px;
+  }
 }
 
 .content__img.animated{

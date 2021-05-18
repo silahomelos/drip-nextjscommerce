@@ -39,8 +39,11 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
 
   useEffect(() => {
     const { innerWidth: width, innerHeight: height } = window
-    setXsideOffset(width * 0.6)
-    console.log(xsideOffset)
+    if (width > 540) {
+      setXsideOffset(width * 0.6)
+    } else {
+      setXsideOffset(-width * 0.01)
+    }
     setImages(contentRef.current.children)
   })
 
@@ -73,7 +76,6 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
 
   const handleDrag = (e: any, ui: any) => {
     removeOldCard()
-    console.log(ui)
     const { x, y } = deltaPosition
     setDeltaPosition({
       x: x + ui.deltaX,
@@ -104,7 +106,8 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
     preImage.classList.remove('animated')
     let image: HTMLImageElement = contentRef.current.children[imgPosition]
     image.style.bottom = deltaPosition.y.toString().replace('-', '') + 'px'
-    image.style.left = (xsideOffset + deltaPosition.x).toString() + 'px'
+    image.style.left =
+      (deltaPosition.x + xsideOffset + image.width / 4).toString() + 'px'
     image.classList.add('animated')
   }
 
