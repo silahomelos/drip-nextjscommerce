@@ -34,16 +34,16 @@ const memeImages = [
   '/productDetails/27.png',
 ]
 
-const ProductDetailTabs: FC = () => {
+interface Props {
+  description: string
+}
+
+const ProductDetailTabs: FC<Props> = ({ description }) => {
   return (
     <div className={s.tabSection}>
       <Tabs>
         <Tab title="REP YOUR DRIP">
-          <div>
-            We are seeking a logo and graphic designer. I really like your
-            resume and hope we can cooperate. Also, mention the word bingo to
-            prove that you read the entire e requirement for the job.
-          </div>
+          <div>{description}</div>
           <br />
           <hr />
           <br />
@@ -161,9 +161,30 @@ const ProductDetailTabs: FC = () => {
           <ProductDetailSlider content={memeImages} />
           <hr className="my-6" />
           <div className="flex justify-between">
-            <div className={s.tabListContentTitle}> MORE ABOUT DIGI-FIZZY </div>
-            <div className={s.tabListContentTitle}> SHIPPING & RETURNS</div>
-            <div className={s.tabListContentTitle}> TERMS OF USE </div>
+            <a
+              target="_blank"
+              href="https://blog.digitalax.xyz/digitalax-x-polygon-take-on-fashion-sustainability-mass-adoption-w-the-first-real-digifizzy-dcd814bd7a42"
+              className={s.tabListContentTitle}
+            >
+              {' '}
+              MORE ABOUT DIGI-FIZZY{' '}
+            </a>
+            <a
+              target="_blank"
+              href="https://blog.digitalax.xyz/from-memes-to-the-metaverse-3900ee517a25"
+              className={s.tabListContentTitle}
+            >
+              {' '}
+              MEMES + METAVERSE{' '}
+            </a>
+            <a
+              target="_blank"
+              href="https://blog.digitalax.xyz/counter-propaganda-memetic-patches-hybrid-digital-physical-fashion-nft-drip-launch-ea725cef4f2e"
+              className={s.tabListContentTitle}
+            >
+              {' '}
+              MEMETIC PATCHES{' '}
+            </a>
           </div>
         </Tab>
       </Tabs>
