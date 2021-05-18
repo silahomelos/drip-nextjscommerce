@@ -74,10 +74,6 @@ const ProductItem: FC<Props> = ({
           <h3 className={s.productTitle}>
             <span>{product.name}</span>
           </h3>
-          <div className={s.descriptionSection}>
-            {!isJson && <p>{descContent}</p>}
-            {isJson && <p>{descContent[0].description}</p>}
-          </div>
         </div>
       </div>
     </div>

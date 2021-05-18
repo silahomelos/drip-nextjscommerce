@@ -20,6 +20,7 @@ import getSiteInfo from '@framework/common/get-site-info'
 import getSlug from '@lib/get-slug'
 
 import { useSearchMeta } from '@lib/search'
+import ProductTopBanner from '@components/common/ProductTopBanner'
 
 export async function getStaticProps({
   preview,
@@ -87,99 +88,10 @@ export default function Collectionpage({
 
   return (
     <>
-      <Banner>
-        <Container>
-          <div className="contentContainer">
-            <div className="content" ref={contentEl}>
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/my_nft.jpg"
-                alt="Some image"
-              />
-            </div>
-          </div>
-          <TextContent onSelectText={onSelectCard} />
-          <StackedCard
-            index={cardTextIndex}
-            random={randomStr}
-            contentRef={contentEl}
-          />
-        </Container>
-      </Banner>
+      <ProductTopBanner showSlider />
       {countProductGroup &&
         countProductGroup.map((item, index) => (
           <div>
-            <SliderTicker sliderList={sticker1} />
             <Container>
               <GridContainer>
                 {data &&
@@ -199,7 +111,6 @@ export default function Collectionpage({
             </Container>
           </div>
         ))}
-      <SliderTicker sliderList={sticker1} />
     </>
   )
 }

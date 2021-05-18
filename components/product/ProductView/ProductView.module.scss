@@ -1,18 +1,23 @@
 .root {
   display: flex;
-  flex-wrap: wrap;
   padding-top: 100px;
   padding-bottom: 190px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 }
 
 .leftSide {
   height: 100%;
-  flex-basis: 50%;
   margin: auto;
+  margin-top: 0;
   margin-bottom: 100px;
+  margin-right: 85px;
 
-  @media (max-width: 780px) {
-    flex-basis: 100%;
+  @media (max-width: 1000px) {
+    margin: auto;
+    margin-bottom: 5rem;
   }
 }
 
@@ -144,17 +149,29 @@
 .sidebar {
   @apply flex flex-col col-span-1 mx-auto max-w-8xl p-6 w-full h-full bg-primary;
   overflow: overlay;
-  @screen lg {
-    @apply col-span-6 justify-between;
-  }
-  flex-basis: 50%;
+  min-width: 650px;
   border: 1px solid #999999;
+  width: fit-content;
   
-  @media (max-width: 1444px) {
-    overflow: unset;
-    flex-basis: 100%;
-    // padding-left: 0px;
-    // padding-right: 0px;
+  // @media (max-width: 1444px) {
+  //   overflow: unset;
+  //   flex-basis: 100%;
+  //   // padding-left: 0px;
+  //   // padding-right: 0px;
+  // }
+
+  @media (max-width: 768px) {
+    min-width: unset;
+    max-width: 100vw;
+  }
+
+  section {
+    width: 602px;
+
+    @media (max-width: 768px) {
+      // width: unset;
+      width: calc(90vw - 40px)!important;
+    }
   }
 
   @media (max-width: 540px) {
@@ -246,7 +263,7 @@
   }
 
   p {
-    margin-left: 15px;
+    margin-left: .5rem;
     font-family: Inter;
     font-style: normal;
     font-weight: 900;

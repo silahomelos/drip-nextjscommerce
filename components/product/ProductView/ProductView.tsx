@@ -71,10 +71,6 @@ const ProductView: FC<Props> = ({ product }) => {
     }
   }
 
-  console.log(tabContent)
-  console.log('this is product', product)
-  console.log(choices)
-
   return (
     <>
       <ProductTopBanner showSlider={false} />
@@ -146,9 +142,9 @@ const ProductView: FC<Props> = ({ product }) => {
                 <h1 className={s.productName}>{product.name}</h1>
                 <div className={s.userSection}>
                   <div className="user-avatar">
-                    <img src={product.images[0].url} alt="" />
+                    <img src="/logo.jpg" />
                   </div>
-                  <p>Chamila Hetti</p>
+                  <p>DIGITALAX</p>
                 </div>
                 <div className={s.price}>
                   {price}
@@ -203,7 +199,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   Buy Now
                 </Button>
               </div>
-              <ProductDetailTabs />
+              <ProductDetailTabs description={product.description} />
             </section>
           </div>
           {/* {process.env.COMMERCE_WISHLIST_ENABLED && (
