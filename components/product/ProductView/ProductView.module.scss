@@ -348,6 +348,36 @@
   margin-top: 20px;
 }
 
+.tabListContentTitle {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 24px;
+  /* identical to box height, or 240% */
+  text-transform: uppercase;
+  color: #999999;
+  
+  .desktop {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  @media (max-width: 576px) {
+    .desktop {
+      display: none!important;
+    }
+
+    .mobile {
+      display: block!important;
+    }
+  }
+
+}
+
 .tabContentWrapper {
   position: relative;
 
@@ -385,17 +415,7 @@
     }
   }
 
-  .tabListContentTitle {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 10px;
-    line-height: 24px;
-    /* identical to box height, or 240% */
-    text-transform: uppercase;
-    color: #999999;
-  }
-
+ 
   .arrowWrapperMobile {
     display: flex;
     flex-direction: column;

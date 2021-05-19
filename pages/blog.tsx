@@ -59,19 +59,18 @@ export default function Blog() {
         {/** Replace by HTML Content */}
         <div className="text-lg leading-7 font-medium py-6 text-justify max-w-6xl mx-auto">
           <p className="py-6">
-            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
-            Candy canes bonbon dragée jujubes chocolate bar. Cotton candy gummi
-            bears toffee cake muffin caramels. Gummi bears danish liquorice ice
-            cream pie chocolate cake lemon drops tootsie roll tart. Biscuit
-            gingerbread fruitcake cake powder pudding cotton candy chocolate
-            bar. Sweet donut marshmallow powder gummies jelly tart powder.
-            Cheesecake bonbon caramels cupcake jujubes halvah donut dessert
-            chocolate bar. Jelly gummies liquorice lollipop chocolate bar
-            chocolate cake sugar plum. Lollipop toffee dragée chocolate bar
-            jelly beans biscuit. Halvah danish cheesecake. Tiramisu donut
-            lollipop pie donut caramels tiramisu. Jujubes candy canes pudding
-            danish fruitcake chupa chups jujubes carrot cake bonbon. Halvah
-            donut jelly halvah bonbon.
+            That makes the metaverse sad. Portal your way back home. Candy canes
+            bonbon dragée jujubes chocolate bar. Cotton candy gummi bears toffee
+            cake muffin caramels. Gummi bears danish liquorice ice cream pie
+            chocolate cake lemon drops tootsie roll tart. Biscuit gingerbread
+            fruitcake cake powder pudding cotton candy chocolate bar. Sweet
+            donut marshmallow powder gummies jelly tart powder. Cheesecake
+            bonbon caramels cupcake jujubes halvah donut dessert chocolate bar.
+            Jelly gummies liquorice lollipop chocolate bar chocolate cake sugar
+            plum. Lollipop toffee dragée chocolate bar jelly beans biscuit.
+            Halvah danish cheesecake. Tiramisu donut lollipop pie donut caramels
+            tiramisu. Jujubes candy canes pudding danish fruitcake chupa chups
+            jujubes carrot cake bonbon. Halvah donut jelly halvah bonbon.
           </p>
           <p className="py-6">
             Biscuit sugar plum sweet chocolate cake sesame snaps soufflé
