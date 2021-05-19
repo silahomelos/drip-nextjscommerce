@@ -69,12 +69,13 @@ const Home = () => {
               <a
                 href="https://blog.digitalax.xyz/digitalax-x-polygon-take-on-fashion-sustainability-mass-adoption-w-the-first-real-digifizzy-dcd814bd7a42"
                 type="button"
-                className="bg-white text-black rounded py-1 px-4 font-bold"
+                className="bg-white text-black rounded py-4 px-5 font-bold border-black"
               >
                 {' '}
-                {'READ MORE >'}{' '}
+                {'REP YOUR STYLE IRL >'}{' '}
               </a>
             </div>
+            <div className="text-white py-2 font-bold"> Stay Up to Date! </div>
             <div className="md:bg-transparent py-10 text-center md:p-0 bg-mobile-contact">
               <div
                 className="flex items-center mx-auto md:ml-0 py-2 px-4 border border-white border-solid rounded-lg"

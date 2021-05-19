@@ -36,9 +36,9 @@ const Navbar: FC = () => (
                 GLOBAL DESIGNER NETWORK
               </a>
             </Link>
-            <Link href="https://espa.digitalax.xyz">
+            <Link href="https://drip.digitalax.xyz/shipping-and-returns">
               <a className={s.link} target="_blank">
-                ESPA ESPORTS TOURNAMENTS{' '}
+                SHIPPING AND RETURNS{' '}
               </a>
             </Link>
           </nav>
