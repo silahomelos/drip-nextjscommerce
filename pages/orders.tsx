@@ -28,7 +28,7 @@ export default function Orders() {
           No orders found
         </h2>
         <p className="text-accents-6 px-10 text-center pt-2">
-          Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+          That makes the metaverse sad. Portal your way back home.
         </p>
       </div>
     </Container>

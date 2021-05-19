@@ -166,24 +166,24 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
               href="https://blog.digitalax.xyz/digitalax-x-polygon-take-on-fashion-sustainability-mass-adoption-w-the-first-real-digifizzy-dcd814bd7a42"
               className={s.tabListContentTitle}
             >
-              {' '}
-              MORE ABOUT DIGI-FIZZY{' '}
+              <span className={s.desktop}>MORE ABOUT DIGI-FIZZY</span>
+              <span className={s.mobile}> ABOUT </span>
             </a>
             <a
               target="_blank"
               href="https://blog.digitalax.xyz/from-memes-to-the-metaverse-3900ee517a25"
               className={s.tabListContentTitle}
             >
-              {' '}
-              MEMES + METAVERSE{' '}
+              <span className={s.desktop}>MEMES + METAVERSE</span>
+              <span className={s.mobile}> METAVERSE </span>
             </a>
             <a
               target="_blank"
               href="https://blog.digitalax.xyz/counter-propaganda-memetic-patches-hybrid-digital-physical-fashion-nft-drip-launch-ea725cef4f2e"
               className={s.tabListContentTitle}
             >
-              {' '}
-              MEMETIC PATCHES{' '}
+              <span className={s.desktop}>MEMETIC PATCHES</span>
+              <span className={s.mobile}>MEMES</span>
             </a>
           </div>
         </Tab>
