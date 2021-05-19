@@ -5,7 +5,7 @@ import { Footer, Layout, TextSlider } from '@components/common'
 export default function ShippingAndReturns() {
   return (
     <div className="">
-      <ProductTopBanner />
+      <ProductTopBanner showSlider={false} />
       <div className="container mx-auto my-10 mb-80">
         <h1 className="text-white text-6xl font-bold my-10">
           {' '}
@@ -39,5 +39,3 @@ export default function ShippingAndReturns() {
 }
 
 ShippingAndReturns.Layout = Layout
-
-// export default ShippingAndReturns
