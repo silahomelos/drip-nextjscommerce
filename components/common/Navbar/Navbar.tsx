@@ -36,10 +36,8 @@ const Navbar: FC = () => (
                 GLOBAL DESIGNER NETWORK
               </a>
             </Link>
-            <Link href="https://drip.digitalax.xyz/shipping-and-returns">
-              <a className={s.link} target="_blank">
-                SHIPPING AND RETURNS{' '}
-              </a>
+            <Link href="/shippingandreturns">
+              <a className={s.link}>SHIPPING AND RETURNS </a>
             </Link>
           </nav>
         </div>

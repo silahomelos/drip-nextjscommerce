@@ -67,7 +67,7 @@ const Home = () => {
             </video>
             <div className="bg-transparent text-center text-center py-10 md:mt-2 md:mb-20 md:text-left md:p-0">
               <a
-                href="https://blog.digitalax.xyz/digitalax-x-polygon-take-on-fashion-sustainability-mass-adoption-w-the-first-real-digifizzy-dcd814bd7a42"
+                href="https://drip.digitalax.xyz/marketplace"
                 type="button"
                 className="bg-white text-black rounded py-4 px-5 font-bold border-black"
               >
