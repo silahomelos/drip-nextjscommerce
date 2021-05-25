@@ -86,7 +86,7 @@ const Layout: FC<Props> = ({
         <div id="mainWrapper" className={s.mainWrapper}>
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
-          <TextSlider black />
+          {!pathname.includes('shippingandreturns') && <TextSlider black />}
         </div>
         <Footer pages={pageProps.pages} />
 
