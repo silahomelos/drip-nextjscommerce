@@ -15,11 +15,11 @@ export default function ShippingAndReturns() {
           className="text-white text-xl font-normal"
           style={{ fontFamily: 'Inter' }}
         >
-          FLAT RATE US DOMESTIC AND WORLDWIDE shipping rates apply.
+          FLAT RATE US DOMESTIC AND WORLDWIDE Shipping Rates apply.
           <br />
           <br />
-          FLAT Rate of usd$10 for us domestic orders and usd$15 for
-          international shipping.
+          Flat Rate of USD$10 for US Domestic Orders and USD$15 for
+          International Shipping.
           <br />
           <br />
           There is a 14 day return window UPON DELIVERY. Please email
@@ -30,8 +30,8 @@ export default function ShippingAndReturns() {
           photo).
           <br />
           <br />
-          IF YOU HAVE ALREADY CLAIMED YOUR 1155 MEME NFT THEN RETURNS ARE NO
-          LONGER VALID FOR THAT SAME ITEM.
+          IF YOU HAVE ALREADY CLAIMED YOUR 1155 NFT THEN RETURNS ARE NO
+          LONGER VALID FOR THAT SAME ITEM. All instructions for NFT claiming will be sent over email. 
         </div>
       </div>
     </div>
