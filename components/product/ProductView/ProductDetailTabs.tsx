@@ -79,7 +79,7 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                   <div className={s.tabListContentItems}>
                     <div className={s.tabListContentItemWrapper}>
                       <div className={s.tabListContentItem}>
-                        <p>UNIQUE Memetic ERc1155 NFT</p>
+                        <p>UNIQUE Memetic ERC1155 NFT</p>
                       </div>
                       <div className={s.tabListContentItemSub}>
                         When Inventory is claimed
