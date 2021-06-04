@@ -41,7 +41,7 @@ export default function ShippingAndReturns() {
             FLAT RATE US DOMESTIC AND WORLDWIDE shipping rates apply.
             <br />
             <br />
-            FLAT Rate of usd$10 for us domestic orders and usd$15 for
+            FLAT Rate of usd$15 for us domestic orders and usd$35 for
             international shipping.
             <br />
             <br />
