@@ -31,7 +31,7 @@ const Navbar: FC = () => (
                 OG MARKETPLACE
               </a>
             </Link>
-            <Link href="https://marketplace.digitalax.xyz/global/">
+            <Link href="https://designers.digitalax.xyz/global">
               <a className={s.link} target="_blank">
                 GLOBAL DESIGNER NETWORK
               </a>
