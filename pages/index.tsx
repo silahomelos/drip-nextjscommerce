@@ -3,6 +3,7 @@ import { Footer } from '@components/common'
 import { ToastContainer, toast } from 'react-toastify'
 import LandingNavbar from '@components/common/LandingNavbar'
 import 'react-toastify/dist/ReactToastify.css'
+import Link from '@components/ui/Link'
 
 const endpoint =
   'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/save-drip-emails'
@@ -66,14 +67,15 @@ const Home = () => {
               <source src="/landing-video.mp4" type="video/mp4" />
             </video>
             <div className="bg-transparent text-center text-center py-10 md:mt-2 md:mb-20 md:text-left md:p-0">
-              <a
-                href="https://drip.digitalax.xyz/marketplace"
-                type="button"
-                className="bg-white text-black rounded py-4 px-5 font-bold border-black"
-              >
-                {' '}
-                {'REP YOUR STYLE IRL >'}{' '}
-              </a>
+              <Link href="/marketplace">
+                <a
+                  type="button"
+                  className="bg-white text-black rounded py-4 px-5 font-bold border-black"
+                >
+                  {' '}
+                  {'REP YOUR STYLE IRL >'}{' '}
+                </a>
+              </Link>
             </div>
             <div className="text-white py-2 font-bold"> Stay Up to Date! </div>
             <div className="md:bg-transparent py-10 text-center md:p-0 bg-mobile-contact">
