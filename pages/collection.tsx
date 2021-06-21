@@ -65,7 +65,6 @@ export default function Collectionpage({
   const activeCategory = categories.find(
     (cat) => getSlug(cat.path) === category
   )
-  console.log(asPath)
   const { data } = useSearch({
     // TODO: Shopify - Fix this type
     categoryId: activeCategory?.entityId as any,

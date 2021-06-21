@@ -57,33 +57,18 @@ const Layout: FC<Props> = ({
     modalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { locale = 'en-US', pathname } = useRouter()
-
-  // useEffect(() => {
-  //   window.onscroll = scrollEvent
-  // }, [])
-
-  // const scrollEvent = () => {
-  //   const imageRate = 1.6125
-  //   const total: any = document.getElementById('mainWrapper')
-  //   const totalHeight: any = total?.clientHeight
-  //   const backgroundImageHeight = window.innerWidth * imageRate
-  //   if (totalHeight < backgroundImageHeight) return
-  //   if (window.scrollY + window.innerHeight <= backgroundImageHeight) {
-  //     total.style.backgroundPosition = 'top'
-  //   } else if (window.scrollY + window.innerHeight >= totalHeight) {
-  //     total.style.backgroundPosition = 'bottom'
-  //   } else {
-  //     total.style.backgroundPosition = `bottom ${
-  //       totalHeight - window.scrollY - innerHeight
-  //     }px right 0px`
-  //   }
-  // }
+  const { locale = 'en-US', pathname, asPath } = useRouter()
 
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
-        <div id="mainWrapper" className={s.mainWrapper}>
+        <div
+          id="mainWrapper"
+          className={cn(
+            s.mainWrapper,
+            !asPath.includes('minecraft') ? s.collection1 : s.collection2
+          )}
+        >
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
           {!pathname.includes('shippingandreturns') && <TextSlider black />}
