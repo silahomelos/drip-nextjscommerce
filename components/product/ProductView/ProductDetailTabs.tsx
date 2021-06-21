@@ -192,21 +192,36 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
               <span className={s.desktop}>MORE ABOUT DIGI-FIZZY</span>
               <span className={s.mobile}> ABOUT </span>
             </a>
+            {!asPath.includes('minecraft') ? (
+              <a
+                target="_blank"
+                href="https://blog.digitalax.xyz/from-memes-to-the-metaverse-3900ee517a25"
+                className={s.tabListContentTitle}
+              >
+                <span className={s.desktop}> MEMES + METAVERSE </span>
+                <span className={s.mobile}> METAVERSE </span>
+              </a>
+            ) : (
+              <div className={s.tabListContentTitle}>
+                <span className={s.desktop}> OPEN SOURCE PRINTS </span>
+                <span className={s.mobile}> PRINTS </span>
+              </div>
+            )}
             <a
               target="_blank"
-              href="https://blog.digitalax.xyz/from-memes-to-the-metaverse-3900ee517a25"
+              href={
+                !asPath.includes('minecraft')
+                  ? 'https://blog.digitalax.xyz/counter-propaganda-memetic-patches-hybrid-digital-physical-fashion-nft-drip-launch-ea725cef4f2e'
+                  : 'https://digitalax.xyz/fgo-2'
+              }
               className={s.tabListContentTitle}
             >
-              <span className={s.desktop}>MEMES + METAVERSE</span>
-              <span className={s.mobile}> METAVERSE </span>
-            </a>
-            <a
-              target="_blank"
-              href="https://blog.digitalax.xyz/counter-propaganda-memetic-patches-hybrid-digital-physical-fashion-nft-drip-launch-ea725cef4f2e"
-              className={s.tabListContentTitle}
-            >
-              <span className={s.desktop}>MEMETIC PATCHES</span>
-              <span className={s.mobile}>MEMES</span>
+              <span className={s.desktop}>
+                {!asPath.includes('minecraft') ? 'MEMETIC PATCHES' : 'FGO'}
+              </span>
+              <span className={s.mobile}>
+                {!asPath.includes('minecraft') ? 'MEMES' : 'FGO'}
+              </span>
             </a>
           </div>
         </Tab>
