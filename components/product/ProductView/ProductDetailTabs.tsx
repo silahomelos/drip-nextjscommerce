@@ -3,46 +3,55 @@ import s from './ProductView.module.scss'
 
 import { Tabs, Tab } from '@components/ui'
 import ProductDetailSlider from './ProductDetailSlider'
+import { useRouter } from 'next/router'
 
 const memeImages = [
-  '/productDetails/1.png',
-  '/productDetails/2.png',
-  '/productDetails/3.png',
-  '/productDetails/4.png',
-  '/productDetails/5.png',
-  '/productDetails/6.png',
-  '/productDetails/7.png',
-  '/productDetails/8.png',
-  '/productDetails/9.png',
-  '/productDetails/10.png',
-  '/productDetails/11.png',
-  '/productDetails/12.png',
-  '/productDetails/13.png',
-  '/productDetails/14.png',
-  '/productDetails/15.png',
-  '/productDetails/16.png',
-  '/productDetails/17.png',
-  '/productDetails/18.png',
-  '/productDetails/19.png',
-  '/productDetails/20.png',
-  '/productDetails/21.png',
-  '/productDetails/22.png',
-  '/productDetails/23.png',
-  '/productDetails/24.png',
-  '/productDetails/25.png',
-  '/productDetails/26.png',
-  '/productDetails/27.png',
+  '/productDetails/1/1.png',
+  '/productDetails/1/2.png',
+  '/productDetails/1/3.png',
+  '/productDetails/1/4.png',
+  '/productDetails/1/5.png',
+  '/productDetails/1/6.png',
+  '/productDetails/1/7.png',
+  '/productDetails/1/8.png',
+  '/productDetails/1/9.png',
+  '/productDetails/1/10.png',
+  '/productDetails/1/11.png',
+  '/productDetails/1/12.png',
+  '/productDetails/1/13.png',
+  '/productDetails/1/14.png',
+  '/productDetails/1/15.png',
+  '/productDetails/1/16.png',
+  '/productDetails/1/17.png',
+  '/productDetails/1/18.png',
+  '/productDetails/1/19.png',
+  '/productDetails/1/20.png',
+  '/productDetails/1/21.png',
+  '/productDetails/1/22.png',
+  '/productDetails/1/23.png',
+  '/productDetails/1/24.png',
+  '/productDetails/1/25.png',
+  '/productDetails/1/26.png',
+  '/productDetails/1/27.png',
 ]
+
+const memeImages1 = ['/productDetails/2/1.png', '/productDetails/2/2.png']
 
 interface Props {
   description: string
 }
 
 const ProductDetailTabs: FC<Props> = ({ description }) => {
+  const router = useRouter()
+  const { asPath } = router
   return (
     <div className={s.tabSection}>
       <Tabs>
-        <Tab title="REP YOUR DRIP">
+        <Tab
+          title={
+            !asPath.includes('minecraft') ? 'REP YOUR DRIP' : 'ESPA MINECRAFT'
+          }
+        >
           <div>{description}</div>
           <br />
           <hr />
@@ -62,11 +71,13 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                         <p>Apparel</p>
                       </div>
                     </div>
-                    <div className={s.tabListContentItemWrapper}>
-                      <div className={s.tabListContentItem}>
-                        <p>Proof of Uniqueness on Each Item</p>
+                    {!asPath.includes('minecraft') ? (
+                      <div className={s.tabListContentItemWrapper}>
+                        <div className={s.tabListContentItem}>
+                          <p>Proof of Uniqueness on Each Item</p>
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
                     <div className={s.tabListContentItemWrapper}>
                       <div className={s.tabListContentItem}>
                         <p>Inventory Claim Ticket</p>
@@ -87,7 +98,11 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                     </div>
                     <div className={s.tabListContentItemWrapper}>
                       <div className={s.tabListContentItem}>
-                        <p>DYNAMIC NFT</p>
+                        <p>
+                          {!asPath.includes('minecraft')
+                            ? 'DYNAMIC NFT'
+                            : 'ESPA XP POINTS FOR BATTLE'}
+                        </p>
                       </div>
                       <div className={s.tabListContentItemSub}>
                         4-6 Weeks After Launch
@@ -157,8 +172,16 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
             </div>
           </div>
         </Tab>
-        <Tab title="Memes for the Metaverse">
-          <ProductDetailSlider content={memeImages} />
+        <Tab
+          title={
+            !asPath.includes('minecraft')
+              ? 'Memes for the Metaverse'
+              : 'OPEN SOURCE NFT LIBRARY'
+          }
+        >
+          <ProductDetailSlider
+            content={!asPath.includes('minecraft') ? memeImages : memeImages1}
+          />
           <hr className="my-6" />
           <div className="flex justify-between">
             <a

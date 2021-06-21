@@ -5,8 +5,15 @@
   z-index:10;
 }
 
-.mainWrapper {
+.collection1 {
   background-image: url('../../../public/images/Group 1131.png');
+}
+
+.collection2 {
+  background-image: url('../../../public/images/collection-2.png');
+}
+
+.mainWrapper {
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: top;
