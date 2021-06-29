@@ -35,7 +35,7 @@ const memeImages = [
   '/productDetails/1/27.png',
 ]
 
-const memeImages1 = ['/productDetails/2/1.png', '/productDetails/2/2.png']
+const memeImages1 = ['/productDetails/2/1.png', '/productDetails/2/2.png', '/productDetails/2/3.png']
 
 interface Props {
   description: string
