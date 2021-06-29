@@ -90,7 +90,11 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                   <div className={s.tabListContentItems}>
                     <div className={s.tabListContentItemWrapper}>
                       <div className={s.tabListContentItem}>
-                        <p>UNIQUE Memetic ERC1155 NFT</p>
+                        <p>
+                          {asPath.includes('minecraft')
+                            ? 'ERC1155 NFT'
+                            : 'UNIQUE Memetic ERC1155 NFT'}
+                        </p>
                       </div>
                       <div className={s.tabListContentItemSub}>
                         When Inventory is claimed
@@ -129,11 +133,13 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                           <p>Apparel</p>
                         </div>
                       </div>
-                      <div className={s.tabListContentItemWrapper}>
-                        <div className={s.tabListContentItem}>
-                          <p>Proof of Uniqueness on Each Item</p>
+                      {!asPath.includes('minecraft') ? (
+                        <div className={s.tabListContentItemWrapper}>
+                          <div className={s.tabListContentItem}>
+                            <p>Proof of Uniqueness on Each Item</p>
+                          </div>
                         </div>
-                      </div>
+                      ) : null}
                       <div className={s.tabListContentItemWrapper}>
                         <div className={s.tabListContentItem}>
                           <p>Inventory Claim Ticket</p>
@@ -147,7 +153,11 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                   <div className={s.tabListContentItems}>
                     <div className={s.tabListContentItemWrapper}>
                       <div className={s.tabListContentItem}>
-                        <p>UNIQUE Memetic ERc1155 NFT</p>
+                        <p>
+                          {asPath.includes('minecraft')
+                            ? 'ERC1155 NFT'
+                            : 'UNIQUE Memetic ERC1155 NFT'}
+                        </p>
                         <div className={s.tabListContentItemSub}>
                           When Inventory is claimed
                         </div>
@@ -155,7 +165,11 @@ const ProductDetailTabs: FC<Props> = ({ description }) => {
                     </div>
                     <div className={s.tabListContentItemWrapper}>
                       <div className={s.tabListContentItem}>
-                        <p>DYNAMIC NFT</p>
+                        <p>
+                          {!asPath.includes('minecraft')
+                            ? 'DYNAMIC NFT'
+                            : 'ESPA XP POINTS FOR BATTLE'}
+                        </p>
                         <div className={s.tabListContentItemSub}>
                           4-6 Weeks After Launch
                         </div>
