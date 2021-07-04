@@ -51,8 +51,6 @@ const ProductView: FC<Props> = ({ product }) => {
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
 
-  console.log('this is productdetailslider', ProductDetailSlider)
-
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
   }
