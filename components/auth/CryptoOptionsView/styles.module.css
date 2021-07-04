@@ -1,0 +1,7 @@
+.cryptoIcon > span {
+  opacity: 0;
+}
+
+.cryptoIcon:hover > span {
+  opacity: 1;
+}

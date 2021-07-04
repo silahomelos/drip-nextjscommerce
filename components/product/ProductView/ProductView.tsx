@@ -30,7 +30,7 @@ const ProductView: FC<Props> = ({ product }) => {
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
-  const { openSidebar } = useUI()
+  const { openSidebar, openModal, setModalView } = useUI()
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
@@ -64,7 +64,8 @@ const ProductView: FC<Props> = ({ product }) => {
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
       })
-      openSidebar()
+      setModalView('CRYPTO_SIGNUP_VIEW')
+      openModal()
       setLoading(false)
     } catch (err) {
       setLoading(false)

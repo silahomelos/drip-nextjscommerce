@@ -9,7 +9,12 @@ import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import CartSidebarView from '@components/cart/CartSidebarView'
 
-import LoginView from '@components/auth/LoginView'
+import {
+  LoginView,
+  AuthOptionsView,
+  CryptoOptionsView,
+  CryptoSignUpView,
+} from '@components/auth'
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
 
@@ -79,6 +84,10 @@ const Layout: FC<Props> = ({
           {modalView === 'LOGIN_VIEW' && <LoginView />}
           {modalView === 'SIGNUP_VIEW' && <SignUpView />}
           {modalView === 'FORGOT_VIEW' && <ForgotPassword />}
+          {modalView === 'AUTH_OPTIONS_VIEW' && <AuthOptionsView />}
+          {modalView === 'CRYPTO_OPTIONS_VIEW' && <CryptoOptionsView />}
+          {modalView === 'NFT_CLAIMED_VIEW' && <NFTClaimedView />}
+          {modalView === 'CRYPTO_SIGNUP_VIEW' && <CryptoSignUpView />}
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>
