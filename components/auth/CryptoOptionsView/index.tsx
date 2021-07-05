@@ -1,11 +1,17 @@
 import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
 import s from './styles.module.css'
+import { setCrypto, useMain } from 'context'
 
 interface Props {}
 
 const CryptoOptionsView: FC<Props> = () => {
-  const onCryptoOptionSelect = (option: number) => {}
+  const { setModalView } = useUI()
+  const { dispatch } = useMain()
+  const onCryptoOptionSelect = (option: number) => {
+    dispatch(setCrypto(option))
+    setModalView('CLAIM_YOUR_NFT_VIEW')
+  }
 
   return (
     <div className="flex flex-col space-y-3 items-center">

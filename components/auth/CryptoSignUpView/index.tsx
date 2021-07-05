@@ -1,18 +1,39 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import cn from 'classnames'
 import s from './styles.module.css'
+import { setWeb3Provider } from 'services/web3-provider.service'
+import { connectWallet } from 'services/network.service'
+import { setAccount, setChainId, setWallet, useMain } from 'context'
+import { toast } from 'react-toastify'
+import { useUI } from '@components/ui'
+import router from 'next/router'
 
 interface Props {}
 
 const CryptoSignUpView: FC<Props> = () => {
+  const { closeModal, setModalView, openSidebar } = useUI()
+  const { dispatch, account, chainId } = useMain()
+
   const btnClasses = cn(
     'rounded-xl w-80 border-2 border-black flex items-center px-10 py-1 justify-between',
     s.walletBtn
   )
 
-  const onConnect = (option: number) => {
-    if (option === 1) {
-    } else {
+  const onConnect = async (option: number) => {
+    setWeb3Provider(option)
+
+    try {
+      if (!account) {
+        const res = await connectWallet(option)
+        dispatch(setWallet(option))
+        dispatch(setAccount(res.account))
+        dispatch(setChainId(res.chainId))
+        closeModal()
+        setModalView(null)
+        openSidebar()
+      }
+    } catch (err) {
+      toast.error(err.message)
     }
   }
 
@@ -23,11 +44,11 @@ const CryptoSignUpView: FC<Props> = () => {
         {' '}
         Sign Up With The Same Email That You Used At Checkout To Claim Your NFT.{' '}
       </p>
-      <div className={btnClasses} onClick={() => onConnect(0)}>
+      <div className={btnClasses} onClick={() => onConnect(1)}>
         <span> Venly Wallet </span>
         <img src="/images/arkane.png" className="w-11" />
       </div>
-      <div className={btnClasses} onClick={() => onConnect(1)}>
+      <div className={btnClasses} onClick={() => onConnect(0)}>
         <span> Metamask </span>
         <img src="/images/metamask.png" className="w-11" />
       </div>

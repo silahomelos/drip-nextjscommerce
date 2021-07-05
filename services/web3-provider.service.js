@@ -2,7 +2,7 @@ import Web3 from 'web3'
 
 const options = {
   clientId: 'DIGITALAX',
-  environment: '',
+  environment: 'STAGING',
   signMethod: 'POPUP',
   secretType: 'MATIC',
 }

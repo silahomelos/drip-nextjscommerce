@@ -1,16 +1,27 @@
 import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
+import { useMain } from 'context'
 
 interface Props {}
 
 const AuthOptionsView: FC<Props> = () => {
   const { openSidebar, closeModal, setModalView } = useUI()
+  const { account, crypto } = useMain()
   const onOptionClick = (option: number) => {
     if (option === 0) {
+      if (!crypto) {
+        setModalView('CRYPTO_OPTIONS_VIEW')
+      } else if (!account) {
+        setModalView('CLAIM_YOUR_NFT_VIEW')
+      } else {
+        closeModal()
+        setModalView(null)
+        openSidebar()
+      }
     } else {
       setModalView('')
-      closeModal()
       openSidebar()
+      closeModal()
     }
   }
 

@@ -17,6 +17,7 @@ import {
 } from '@components/auth'
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
+import { ClaimYourNFTView, NFTClaimedView } from '@components/modals'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -88,6 +89,7 @@ const Layout: FC<Props> = ({
           {modalView === 'CRYPTO_OPTIONS_VIEW' && <CryptoOptionsView />}
           {modalView === 'NFT_CLAIMED_VIEW' && <NFTClaimedView />}
           {modalView === 'CRYPTO_SIGNUP_VIEW' && <CryptoSignUpView />}
+          {modalView === 'CLAIM_YOUR_NFT_VIEW' && <ClaimYourNFTView />}
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>

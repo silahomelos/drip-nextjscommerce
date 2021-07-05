@@ -64,7 +64,7 @@ const ProductView: FC<Props> = ({ product }) => {
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
       })
-      setModalView('CRYPTO_SIGNUP_VIEW')
+      setModalView('AUTH_OPTIONS_VIEW')
       openModal()
       setLoading(false)
     } catch (err) {
