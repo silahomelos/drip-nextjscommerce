@@ -28,9 +28,9 @@ const CryptoSignUpView: FC<Props> = () => {
         dispatch(setWallet(option))
         dispatch(setAccount(res.account))
         dispatch(setChainId(res.chainId))
-        closeModal()
-        setModalView(null)
-        openSidebar()
+        window.localStorage.setItem('ACCOUNT', res.account)
+        window.localStorage.setItem('CHAIN_ID', res.chainId)
+        setModalView('SIGNUP_VIEW')
       }
     } catch (err) {
       toast.error(err.message)

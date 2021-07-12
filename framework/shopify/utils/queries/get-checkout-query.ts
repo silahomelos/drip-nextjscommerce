@@ -43,6 +43,9 @@ export const checkoutDetailsFragment = `
             amount
             currencyCode
           }
+          product {
+            id
+          }
         }
         quantity
       }

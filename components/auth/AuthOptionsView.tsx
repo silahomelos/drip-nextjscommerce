@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
-import { useMain } from 'context'
+import { setAuthOption, useMain } from 'context'
 
 interface Props {}
 
 const AuthOptionsView: FC<Props> = () => {
   const { openSidebar, closeModal, setModalView } = useUI()
-  const { account, crypto } = useMain()
+  const { dispatch, account, crypto } = useMain()
   const onOptionClick = (option: number) => {
     if (option === 0) {
       if (!crypto) {
@@ -18,10 +18,12 @@ const AuthOptionsView: FC<Props> = () => {
         setModalView(null)
         openSidebar()
       }
+      dispatch(setAuthOption(0))
     } else {
       setModalView('')
       openSidebar()
       closeModal()
+      dispatch(setAuthOption(1))
     }
   }
 

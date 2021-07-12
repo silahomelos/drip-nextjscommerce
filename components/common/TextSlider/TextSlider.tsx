@@ -9,7 +9,7 @@ const TextSlider: FC<Props> = ({ black }) => {
   const items = [
     'DECENTRALIZED COMMERCE',
     'HYBRID DIGI-FIZZY',
-    'DYNAMIC NFTS',
+    'WEAR TO DEFI',
     'REP YOUR DRIP IRL',
   ]
 

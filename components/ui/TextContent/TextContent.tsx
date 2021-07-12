@@ -7,7 +7,11 @@ type Props = {
 }
 
 const TextContent: React.FC<Props> = ({ onSelectText }) => {
-  const subTitleList = ['DECO', 'REP YOUR STYLE IRL', 'UNLOCKABLE NFTS']
+  const subTitleList = [
+    'NFT FASHION',
+    'GLOBAL DESIGNER NETWORK',
+    'FASHION X DEFI',
+  ]
   const selectText = (index: number) => {
     onSelectText(index)
   }
@@ -15,7 +19,8 @@ const TextContent: React.FC<Props> = ({ onSelectText }) => {
     <div className={s.textContentContainer}>
       <h1 className={s.title}>
         {' '}
-        MOD YOUR WAY INTO METAVERSE FASHION & GAMING{' '}
+        Wear to Defi. <br />
+        Mode your way into metaverse fashion & Gaming.{' '}
       </h1>
       <div className={s.subtitleBar}>
         {subTitleList.map((text, index) => (

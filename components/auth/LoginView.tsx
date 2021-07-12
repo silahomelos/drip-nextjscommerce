@@ -14,7 +14,7 @@ const LoginView: FC<Props> = () => {
   const [message, setMessage] = useState('')
   const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(false)
-  const { setModalView, closeModal } = useUI()
+  const { setModalView, closeModal, openSidebar } = useUI()
 
   const login = useLogin()
 
@@ -35,6 +35,7 @@ const LoginView: FC<Props> = () => {
       })
       setLoading(false)
       closeModal()
+      openSidebar()
     } catch ({ errors }) {
       setMessage(errors[0].message)
       setLoading(false)

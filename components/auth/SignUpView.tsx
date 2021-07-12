@@ -19,7 +19,7 @@ const SignUpView: FC<Props> = () => {
   const [disabled, setDisabled] = useState(false)
 
   const signup = useSignup()
-  const { setModalView, closeModal } = useUI()
+  const { setModalView, closeModal, openSidebar } = useUI()
 
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
@@ -39,6 +39,7 @@ const SignUpView: FC<Props> = () => {
         password,
       })
       setLoading(false)
+      openSidebar()
       closeModal()
     } catch ({ errors }) {
       setMessage(errors[0].message)

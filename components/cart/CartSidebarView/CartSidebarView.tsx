@@ -9,10 +9,12 @@ import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
+import { useMain } from 'context'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI()
   const { data, isLoading, isEmpty } = useCart()
+  const { authOption } = useMain()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -120,7 +122,11 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            <Button href="/checkout" Component="a" width="100%">
+            <Button
+              href={authOption ? '/checkout' : '/checkout-crypto'}
+              Component="a"
+              width="100%"
+            >
               Proceed to Checkout
             </Button>
           </div>

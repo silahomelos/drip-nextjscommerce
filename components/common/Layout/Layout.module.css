@@ -2,7 +2,7 @@
   @apply h-full bg-black mx-auto transition-colors duration-150;
   max-width: 2460px;
   position: relative;
-  z-index:10;
+  z-index: 10;
 }
 
 .collection1 {
@@ -11,6 +11,12 @@
 
 .collection2 {
   background-image: url('../../../public/images/collection-2.png');
+}
+
+.marketplace {
+  background-image: url('../../../public/images/marketplace.gif');
+  background-size: 100% !important;
+  background-repeat: repeat-y !important;
 }
 
 .mainWrapper {

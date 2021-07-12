@@ -18,6 +18,7 @@ import {
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
 import { ClaimYourNFTView, NFTClaimedView } from '@components/modals'
+import { setAccount, setChainId, setCrypto, useMain } from 'context'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -64,16 +65,34 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
+  const { dispatch } = useMain()
+
+  useEffect(() => {
+    if (window.localStorage.getItem('ACCOUNT')) {
+      dispatch(setAccount(window.localStorage.getItem('ACCOUNT')))
+      dispatch(setChainId(window.localStorage.getItem('CHAIN_ID')))
+    }
+    if (window.localStorage.getItem('CRYPTO_OPTION')) {
+      dispatch(setCrypto(window.localStorage.getItem('CRYPTO_OPTION')))
+    }
+  }, [])
+
+  const getMainWrapperClassName = () => {
+    if (asPath.includes('marketplace')) {
+      return s.marketplace
+    }
+    if (asPath.includes('minecraft')) {
+      return s.collection2
+    }
+    return s.collection1
+  }
 
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
         <div
           id="mainWrapper"
-          className={cn(
-            s.mainWrapper,
-            !asPath.includes('minecraft') ? s.collection1 : s.collection2
-          )}
+          className={cn(s.mainWrapper, getMainWrapperClassName())}
         >
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>

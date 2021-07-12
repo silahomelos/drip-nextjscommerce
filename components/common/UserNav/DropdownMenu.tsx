@@ -66,6 +66,9 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
       dispatch(setWallet(null))
       dispatch(setAccount(null))
       dispatch(setChainId(null))
+      window.localStorage.removeItem('ACCOUNT')
+      window.localStorage.removeItem('CHAIN_ID')
+      window.localStorage.removeItem('CRYPTO_OPTION')
     } catch (err) {
       toast.error(err.message)
     }
