@@ -5,3 +5,7 @@
 .cryptoIcon:hover > span {
   opacity: 1;
 }
+
+.cryptoIcon img {
+  width: 50px;
+}

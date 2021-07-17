@@ -10,11 +10,12 @@ import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
 import { useMain } from 'context'
+import router from 'next/router'
 
 const CartSidebarView: FC = () => {
-  const { closeSidebar } = useUI()
+  const { closeSidebar, setModalView, openModal } = useUI()
   const { data, isLoading, isEmpty } = useCart()
-  const { authOption } = useMain()
+  const { account, authOption, cryptoPrice, crypto } = useMain()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -114,17 +115,38 @@ const CartSidebarView: FC = () => {
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
-                  <span>{subTotal}</span>
+                  <span>
+                    {subTotal} (
+                    {(Number(data.subtotalPrice) / cryptoPrice).toFixed(2)})
+                  </span>
                 </li>
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
-                <span>{total}</span>
+                <span>
+                  {total} ({(Number(data.totalPrice) / cryptoPrice).toFixed(2)})
+                </span>
               </div>
             </div>
             <Button
-              href={authOption ? '/checkout' : '/checkout-crypto'}
-              Component="a"
+              onClick={() => {
+                console.log('this is processed to checkout')
+                if (account) {
+                  if (crypto) {
+                    if (authOption) {
+                      router.push('/checkout')
+                    } else {
+                      router.push('/checkout-crypto')
+                    }
+                  } else {
+                    setModalView('CRYPTO_OPTIONS_VIEW')
+                    openModal()
+                  }
+                } else {
+                  setModalView('CRYPTO_SIGNUP_VIEW')
+                  openModal()
+                }
+              }}
               width="100%"
             >
               Proceed to Checkout

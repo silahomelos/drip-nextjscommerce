@@ -176,7 +176,7 @@ function normalizeLineItem({
       price: variant?.priceV2?.amount,
       listPrice: variant?.compareAtPriceV2?.amount,
     },
-    path: '',
+    path: variant?.product?.onlineStoreUrl,
     discounts: [],
     options: [
       {

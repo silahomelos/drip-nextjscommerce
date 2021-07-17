@@ -1,8 +1,10 @@
 import { FC, useState } from 'react'
 import { Button } from '@components/ui'
-import { useCart } from 'framework/bigcommerce/cart'
+import { useCart } from 'framework/shopify/cart'
 import usePrice from '@commerce/product/use-price'
 import { CartItem } from '@components/cart'
+import { useMain } from 'context'
+import { purchaseOrder } from 'services/order.service'
 
 interface Props {}
 
@@ -18,6 +20,7 @@ const Checkout: FC<Props> = () => {
   const [province, setProvince] = useState('')
   const [code, setCode] = useState('')
   const [valid, setValid] = useState([])
+  const { account, crypto, cryptoPrice, chainId } = useMain()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -49,8 +52,8 @@ const Checkout: FC<Props> = () => {
     if (!lastName.length) {
       validations.push('lastName')
     }
-    if (!address.length) {
-      validations.push('address')
+    if (!address1.length) {
+      validations.push('address1')
     }
     if (!city.length) {
       validations.push('city')
@@ -82,40 +85,60 @@ const Checkout: FC<Props> = () => {
     return nodes[nodes.length - 1]
   }
 
-  const onConfirm = () => {
+  const getCollectionId = (url: string) => {
+    const path = url.split('/products/')[1]
+    return parseInt(path.split('-')[1])
+  }
+
+  const onConfirm = async () => {
     const validations = onValidate()
     if (validations.length) {
       setValid(validations)
     } else {
-      fetch('/api/order', {
-        method: 'POST',
-        body: JSON.stringify({
-          email,
-          lineItems: data?.lineItems.map((item) => ({
-            title: item.name,
-            quantity: item.quantity,
-            price: item.variant.price,
-            product_id: getIdFromUrl(atob(item.productId)),
-            variant_id: getIdFromUrl(atob(item.variantId)),
-            variant_title: item.variant.name,
-            sku: item.variant.sku,
-          })),
-          shipping_address: {
-            address1: address1,
-            address2: address2,
-            city: city,
-            country: country,
-            first_name: firstName,
-            last_name: lastName,
-            province: province,
-            zip: code,
-          },
-          total: data?.totalPrice,
-          subTotal: data?.subtotalPrice,
-        }),
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res))
+      const { order } = await (
+        await fetch('/api/order', {
+          method: 'POST',
+          body: JSON.stringify({
+            email,
+            lineItems: data?.lineItems.map((item) => ({
+              title: item.name,
+              quantity: item.quantity,
+              price: item.variant.price,
+              product_id: getIdFromUrl(atob(item.productId)),
+              variant_id: getIdFromUrl(atob(item.variantId)),
+              variant_title: item.variant.name,
+              sku: item.variant.sku,
+            })),
+            shipping_address: {
+              address1: address1,
+              address2: address2,
+              city: city,
+              country: country,
+              first_name: firstName,
+              last_name: lastName,
+              province: province,
+              zip: code,
+            },
+            total: data?.totalPrice,
+            subTotal: data?.subtotalPrice,
+          }),
+        })
+      ).json()
+      const { id, order_number } = order
+
+      await Promise.all(
+        data?.lineItems.map(async (item) => {
+          await purchaseOrder({
+            account,
+            chainId,
+            orderNumber: order_number,
+            crypto,
+            cryptoPrice,
+            collectionId: getCollectionId(item.path),
+            shippingPrice: 0,
+          })
+        })
+      )
     }
   }
 
@@ -225,11 +248,6 @@ const Checkout: FC<Props> = () => {
                 value={address2}
                 onChange={(e) => setAddress2(e.target.value)}
               />
-              {valid.includes('address2') ? (
-                <span className="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </span>
-              ) : null}
             </div>
             <div className="w-full">
               <label

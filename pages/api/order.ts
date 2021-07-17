@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       parseFloat(subTotal),
       shipping_address
     )
-    res.status(200).send(data)
+    res.json(data)
   } catch (err) {
     res.status(500).send(err)
   }

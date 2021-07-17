@@ -75,7 +75,7 @@ export default function Home({
       <ProductTopBanner showSlider />
       <Container>
         <GridContainer>
-          {collections.slice(0, 5).map((collection, i) => (
+          {collections.map((collection, i) => (
             <Collection
               key={collection.id}
               collection={collection}

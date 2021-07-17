@@ -7,6 +7,7 @@ import { Layout } from '@components/common'
 import { Button, Text } from '@components/ui'
 import { Bag, Cross, Check, MapPin, CreditCard } from '@components/icons'
 import { CartItem } from '@components/cart'
+import { useMain } from 'context'
 
 export async function getStaticProps({
   preview,
@@ -136,12 +137,17 @@ export default function Cart() {
             <ul className="py-3">
               <li className="flex justify-between py-1">
                 <span>Subtotal</span>
-                <span>{subTotal}</span>
+                <span>
+                  {subTotal} (
+                  {(Number(data.subtotalPrice) / ethPrice).toFixed(2)})
+                </span>
               </li>
             </ul>
             <div className="flex justify-between border-t border-accents-2 py-3 font-bold mb-10">
               <span>Total</span>
-              <span>{total}</span>
+              <span>
+                {total} ({(Number(data.totalPrice) / ethPrice).toFixed(2)})
+              </span>
             </div>
           </div>
           <div className="flex flex-row justify-end">

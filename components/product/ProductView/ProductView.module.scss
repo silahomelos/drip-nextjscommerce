@@ -152,7 +152,7 @@
   min-width: 650px;
   border: 1px solid #999999;
   width: fit-content;
-  
+
   // @media (max-width: 1444px) {
   //   overflow: unset;
   //   flex-basis: 100%;
@@ -170,7 +170,7 @@
 
     @media (max-width: 768px) {
       // width: unset;
-      width: calc(90vw - 40px)!important;
+      width: calc(90vw - 40px) !important;
     }
   }
 
@@ -263,7 +263,7 @@
   }
 
   p {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
     font-family: Inter;
     font-style: normal;
     font-weight: 900;
@@ -346,6 +346,42 @@
 
 .tabSection {
   margin-top: 20px;
+
+  .tabRow {
+    display: grid;
+    grid-template-columns: 120px auto;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 3rem;
+
+    .tabRowImage {
+      width: 120px;
+      margin-right: 1rem;
+    }
+
+    .text {
+      .title {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 18px;
+        color: black;
+        text-decoration: underline;
+        margin-bottom: 1rem;
+      }
+
+      .description {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        color: black;
+
+        word-wrap: break-word;
+      }
+    }
+  }
 }
 
 .tabListContentTitle {
@@ -357,7 +393,7 @@
   /* identical to box height, or 240% */
   text-transform: uppercase;
   color: #999999;
-  
+
   .desktop {
     display: block;
   }
@@ -368,14 +404,13 @@
 
   @media (max-width: 576px) {
     .desktop {
-      display: none!important;
+      display: none !important;
     }
 
     .mobile {
-      display: block!important;
+      display: block !important;
     }
   }
-
 }
 
 .tabContentWrapper {
@@ -415,7 +450,6 @@
     }
   }
 
- 
   .arrowWrapperMobile {
     display: flex;
     flex-direction: column;

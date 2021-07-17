@@ -2,9 +2,12 @@ import React, { FC, useContext, useMemo, useReducer } from 'react'
 export interface State {
   wallet: number
   account: string
+  signMsg: string
   chainId: string
-  crypto: number
+  crypto: string
+  cryptoPrice: number
   authOption: number
+  ethPrice: number
 }
 
 interface Props {}
@@ -12,9 +15,12 @@ interface Props {}
 const initialState = {
   wallet: null,
   account: null,
+  signMsg: null,
   chainId: null,
   crypto: null,
+  cryptoPrice: 0,
   authOption: null,
+  ethPrice: 0,
 }
 
 export const MainContext = React.createContext<State | any>(initialState)
@@ -36,6 +42,9 @@ export const setWallet = (wallet) => createAction('SET_WALLET', wallet)
 export const setAccount = (account) => createAction('SET_ACCOUNT', account)
 export const setChainId = (chainId) => createAction('SET_CHAIN_ID', chainId)
 export const setCrypto = (crypto) => createAction('SET_CRYPTO', crypto)
+export const setEthPrice = (price) => createAction('SET_ETH_PRICE', price)
+export const setCryptoPrice = (price) => createAction('SET_CRYPTO_PRICE', price)
+export const setSignMsg = (msg) => createAction('SET_SIGN_MSG', msg)
 export const setAuthOption = (authOption) =>
   createAction('SET_AUTH_OPTION', authOption)
 
@@ -69,6 +78,24 @@ function mainReducer(state: State, action: Action) {
       return {
         ...state,
         authOption: action.payload,
+      }
+    }
+    case 'SET_ETH_PRICE': {
+      return {
+        ...state,
+        ethPrice: action.payload,
+      }
+    }
+    case 'SET_CRYPTO_PRICE': {
+      return {
+        ...state,
+        cryptoPrice: action.payload,
+      }
+    }
+    case 'SET_SIGN_MSG': {
+      return {
+        ...state,
+        signMsg: action.payload,
       }
     }
   }

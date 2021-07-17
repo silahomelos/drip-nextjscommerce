@@ -18,7 +18,16 @@ import {
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
 import { ClaimYourNFTView, NFTClaimedView } from '@components/modals'
-import { setAccount, setChainId, setCrypto, useMain } from 'context'
+import {
+  setAccount,
+  setChainId,
+  setCrypto,
+  setCryptoPrice,
+  setEthPrice,
+  useMain,
+} from 'context'
+import { getPayableTokenReport } from 'services/api.service'
+import { ETH_API_URL, tokens } from '../../../constants'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -65,7 +74,7 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
-  const { dispatch } = useMain()
+  const { dispatch, ethPrice, crypto, chainId, cryptoPrice } = useMain()
 
   useEffect(() => {
     if (window.localStorage.getItem('ACCOUNT')) {
@@ -77,6 +86,38 @@ const Layout: FC<Props> = ({
     }
   }, [])
 
+  useEffect(() => {
+    const fetchEthPrice = async () => {
+      const res: any = await (await fetch(ETH_API_URL)).json()
+      if (res.ethereum.usd !== ethPrice) {
+        dispatch(setEthPrice(res.ethereum.usd))
+      }
+    }
+
+    const interval = setInterval(fetchEthPrice, 10000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    if (crypto) {
+      const fetchCryptoPrice = async () => {
+        const { payableTokenReport } = await getPayableTokenReport(
+          chainId,
+          tokens[crypto].address
+        )
+        const updatedPrice = payableTokenReport.payload / 1e18
+        if (updatedPrice !== cryptoPrice) {
+          dispatch(setCryptoPrice(updatedPrice))
+        }
+      }
+
+      const interval = setInterval(fetchCryptoPrice, 10000)
+
+      return () => clearInterval(interval)
+    }
+  }, [crypto])
+
   const getMainWrapperClassName = () => {
     if (asPath.includes('marketplace')) {
       return s.marketplace
@@ -84,8 +125,51 @@ const Layout: FC<Props> = ({
     if (asPath.includes('minecraft')) {
       return s.collection2
     }
+    if (asPath.includes('aave')) {
+      return s.aave
+    }
+    if (asPath.includes('instadapp')) {
+      return s.instadapp
+    }
+    if (asPath.includes('ruler')) {
+      return s.ruler
+    }
+    if (asPath.includes('poap')) {
+      return s.poap
+    }
+    if (asPath.includes('force')) {
+      return s.force
+    }
+    if (asPath.includes('zerion')) {
+      return s.zerion
+    }
+    if (asPath.includes('zapper')) {
+      return s.zapper
+    }
+    if (asPath.includes('polygon')) {
+      return s.polyon
+    }
+    if (asPath.includes('opyn')) {
+      return s.opyn
+    }
+    if (asPath.includes('pickle')) {
+      return s.pickle
+    }
+    if (asPath.includes('rari')) {
+      return s.rari
+    }
+    if (asPath.includes('maker')) {
+      return s.maker
+    }
+    if (asPath.includes('bancor')) {
+      return s.bancor
+    }
     return s.collection1
   }
+
+  useEffect(() => {
+    console.log(modalView)
+  }, [modalView])
 
   return (
     <CommerceProvider locale={locale}>

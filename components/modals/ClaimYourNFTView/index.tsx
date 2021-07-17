@@ -1,14 +1,20 @@
 import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
 import s from './styles.module.css'
+import { useMain } from 'context'
 
 interface Props {}
 
 const ClaimYourNFTView: FC<Props> = () => {
-  const { setModalView } = useUI()
+  const { setModalView, closeModal } = useUI()
+  const { account } = useMain()
 
   const onClaim = () => {
-    setModalView('CRYPTO_SIGNUP_VIEW')
+    if (!account) {
+      setModalView('CRYPTO_SIGNUP_VIEW')
+    } else {
+      closeModal()
+    }
   }
 
   return (

@@ -45,6 +45,7 @@ export const checkoutDetailsFragment = `
           }
           product {
             id
+            onlineStoreUrl
           }
         }
         quantity
