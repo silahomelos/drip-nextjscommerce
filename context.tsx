@@ -1,9 +1,9 @@
 import React, { FC, useContext, useMemo, useReducer } from 'react'
 export interface State {
-  wallet: number
-  account: string
+  wallet?: number
+  account?: string
   signMsg: string
-  chainId: string
+  chainId?: string
   crypto: string
   cryptoPrice: number
   authOption: number
@@ -38,10 +38,10 @@ function createAction(type: string, payload: any) {
   }
 }
 
-export const setWallet = (wallet: number) => createAction('SET_WALLET', wallet)
-export const setAccount = (account: string) =>
+export const setWallet = (wallet?: number) => createAction('SET_WALLET', wallet)
+export const setAccount = (account?: string) =>
   createAction('SET_ACCOUNT', account)
-export const setChainId = (chainId: string) =>
+export const setChainId = (chainId?: string) =>
   createAction('SET_CHAIN_ID', chainId)
 export const setCrypto = (crypto: string) => createAction('SET_CRYPTO', crypto)
 export const setEthPrice = (price: number) =>

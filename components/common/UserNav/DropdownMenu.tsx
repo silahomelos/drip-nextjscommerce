@@ -63,10 +63,9 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const logout = async () => {
     try {
       disconnectWallet(wallet)
-      dispatch(setWallet(null))
-      dispatch(setAccount(null))
-      dispatch(setChainId(null))
-      dispatch(setWallet(null))
+      dispatch(setWallet())
+      dispatch(setAccount())
+      dispatch(setChainId())
       window.localStorage.removeItem('ACCOUNT')
       window.localStorage.removeItem('CHAIN_ID')
       window.localStorage.removeItem('CRYPTO_OPTION')

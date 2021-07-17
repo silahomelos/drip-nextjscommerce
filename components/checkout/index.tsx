@@ -20,7 +20,7 @@ const Checkout: FC<Props> = () => {
   const [country, setCountry] = useState('')
   const [province, setProvince] = useState('')
   const [code, setCode] = useState('')
-  const [valid, setValid] = useState([])
+  const [valid, setValid] = useState<Array<string>>([])
   const { account, crypto, cryptoPrice, chainId } = useMain()
 
   const { price: subTotal } = usePrice(
@@ -134,6 +134,7 @@ const Checkout: FC<Props> = () => {
             account,
             chainId,
             orderNumber: order_number,
+            orderId: id,
             crypto,
             cryptoPrice: item.variant.price / cryptoPrice,
             collectionId: getCollectionId(item.path),

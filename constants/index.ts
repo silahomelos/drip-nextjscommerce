@@ -807,7 +807,12 @@ export const contracts = {
   },
 }
 
-export const tokens = {
+export const tokens: {
+  [key: string]: {
+    address: string
+    abi?: object
+  }
+} = {
   rari: {
     address: '0x780053837ce2ceead2a90d9151aa21fc89ed49c2',
     abi: [

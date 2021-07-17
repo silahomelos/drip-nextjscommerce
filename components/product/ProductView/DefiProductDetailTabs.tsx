@@ -9,7 +9,14 @@ interface Props {
   title: string
 }
 
-const info = {
+const info: {
+  [key: string]: {
+    icon?: string
+    globe?: string
+    twitter?: string
+    discord?: string
+  }
+} = {
   aave: {
     icon: '/cryptos/aave.png',
     globe: 'https://aave.com/',
@@ -47,7 +54,7 @@ const info = {
     discord: 'https://discord.com/invite/B4kjkgv',
   },
   zapper: {
-    zapper: '/cryptos/Zapper.png',
+    icon: '/cryptos/Zapper.png',
     globe: 'https://zapper.fi/',
     twitter: 'https://twitter.com/zapper_fi',
     discord: 'https://discordapp.com/invite/h6CGbuN',
