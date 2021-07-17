@@ -24,6 +24,7 @@ export default function Cart() {
   const error = null
   const success = null
   const { data, isLoading, isEmpty } = useCart()
+  const { cryptoPrice } = useMain()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -139,14 +140,14 @@ export default function Cart() {
                 <span>Subtotal</span>
                 <span>
                   {subTotal} (
-                  {(Number(data.subtotalPrice) / ethPrice).toFixed(2)})
+                  {(Number(data?.subtotalPrice) / cryptoPrice).toFixed(2)})
                 </span>
               </li>
             </ul>
             <div className="flex justify-between border-t border-accents-2 py-3 font-bold mb-10">
               <span>Total</span>
               <span>
-                {total} ({(Number(data.totalPrice) / ethPrice).toFixed(2)})
+                {total} ({(Number(data?.totalPrice) / cryptoPrice).toFixed(2)})
               </span>
             </div>
           </div>
