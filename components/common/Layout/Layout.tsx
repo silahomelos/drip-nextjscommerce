@@ -24,10 +24,12 @@ import {
   setCrypto,
   setCryptoPrice,
   setEthPrice,
+  setWallet,
   useMain,
 } from 'context'
 import { getPayableTokenReport } from 'services/api.service'
 import { ETH_API_URL, tokens } from '../../../constants'
+import { setWeb3Provider } from 'services/web3-provider.service'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -74,17 +76,28 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
-  const { dispatch, ethPrice, crypto, chainId, cryptoPrice } = useMain()
+  const { dispatch, ethPrice, crypto, chainId, cryptoPrice, wallet } = useMain()
 
   useEffect(() => {
     if (window.localStorage.getItem('ACCOUNT')) {
-      dispatch(setAccount(window.localStorage.getItem('ACCOUNT')))
-      dispatch(setChainId(window.localStorage.getItem('CHAIN_ID')))
+      dispatch(setAccount(window.localStorage.getItem('ACCOUNT') || ''))
+      dispatch(setChainId(window.localStorage.getItem('CHAIN_ID') || ''))
     }
     if (window.localStorage.getItem('CRYPTO_OPTION')) {
-      dispatch(setCrypto(window.localStorage.getItem('CRYPTO_OPTION')))
+      dispatch(setCrypto(window.localStorage.getItem('CRYPTO_OPTION') || ''))
+    }
+    if (window.localStorage.getItem('WALLET')) {
+      dispatch(
+        setWallet(parseInt(window.localStorage.getItem('WALLET') || '0'))
+      )
     }
   }, [])
+
+  useEffect(() => {
+    if (wallet) {
+      setWeb3Provider(wallet)
+    }
+  }, [wallet])
 
   useEffect(() => {
     const fetchEthPrice = async () => {

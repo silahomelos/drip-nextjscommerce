@@ -38,14 +38,18 @@ function createAction(type: string, payload: any) {
   }
 }
 
-export const setWallet = (wallet) => createAction('SET_WALLET', wallet)
-export const setAccount = (account) => createAction('SET_ACCOUNT', account)
-export const setChainId = (chainId) => createAction('SET_CHAIN_ID', chainId)
-export const setCrypto = (crypto) => createAction('SET_CRYPTO', crypto)
-export const setEthPrice = (price) => createAction('SET_ETH_PRICE', price)
-export const setCryptoPrice = (price) => createAction('SET_CRYPTO_PRICE', price)
-export const setSignMsg = (msg) => createAction('SET_SIGN_MSG', msg)
-export const setAuthOption = (authOption) =>
+export const setWallet = (wallet: number) => createAction('SET_WALLET', wallet)
+export const setAccount = (account: string) =>
+  createAction('SET_ACCOUNT', account)
+export const setChainId = (chainId: string) =>
+  createAction('SET_CHAIN_ID', chainId)
+export const setCrypto = (crypto: string) => createAction('SET_CRYPTO', crypto)
+export const setEthPrice = (price: number) =>
+  createAction('SET_ETH_PRICE', price)
+export const setCryptoPrice = (price: number) =>
+  createAction('SET_CRYPTO_PRICE', price)
+export const setSignMsg = (msg: string) => createAction('SET_SIGN_MSG', msg)
+export const setAuthOption = (authOption: number) =>
   createAction('SET_AUTH_OPTION', authOption)
 
 function mainReducer(state: State, action: Action) {
@@ -110,11 +114,11 @@ export const useMain = () => {
 }
 
 export const MainProvider: FC<Props> = ({ children }) => {
-  const [state, dispatch] = useReducer(mainReducer, initialState)
+  const [state, dispatch] = useReducer<any>(mainReducer, initialState)
 
   const value = useMemo(
     () => ({
-      ...state,
+      ...(state as object),
       dispatch,
     }),
     [state]

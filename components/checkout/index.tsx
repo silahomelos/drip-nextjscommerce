@@ -5,6 +5,7 @@ import usePrice from '@commerce/product/use-price'
 import { CartItem } from '@components/cart'
 import { useMain } from 'context'
 import { purchaseOrder } from 'services/order.service'
+import router from 'next/router'
 
 interface Props {}
 
@@ -125,20 +126,24 @@ const Checkout: FC<Props> = () => {
         })
       ).json()
       const { id, order_number } = order
+      const promises = []
 
-      await Promise.all(
-        data?.lineItems.map(async (item) => {
-          await purchaseOrder({
+      data?.lineItems.map(async (item) => {
+        for (let i = 0; i < item.quantity; i += 1) {
+          const res = purchaseOrder({
             account,
             chainId,
             orderNumber: order_number,
             crypto,
-            cryptoPrice,
+            cryptoPrice: item.variant.price / cryptoPrice,
             collectionId: getCollectionId(item.path),
             shippingPrice: 0,
           })
-        })
-      )
+          promises.push(res)
+        }
+      })
+
+      router.push('/marketplace')
     }
   }
 

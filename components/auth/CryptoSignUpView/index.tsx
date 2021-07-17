@@ -19,8 +19,6 @@ const CryptoSignUpView: FC<Props> = () => {
     s.walletBtn
   )
 
-  console.log('this is crypto sign up view')
-
   const onConnect = async (option: number) => {
     setWeb3Provider(option)
 
@@ -32,6 +30,7 @@ const CryptoSignUpView: FC<Props> = () => {
         dispatch(setChainId(res.chainId))
         window.localStorage.setItem('ACCOUNT', res.account)
         window.localStorage.setItem('CHAIN_ID', res.chainId)
+        window.localStorage.setItem('WALLET', option.toString())
         setModalView('LOGIN_VIEW')
       }
     } catch (err) {

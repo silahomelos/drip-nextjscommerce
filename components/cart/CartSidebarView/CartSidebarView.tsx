@@ -117,14 +117,15 @@ const CartSidebarView: FC = () => {
                   <span>Subtotal</span>
                   <span>
                     {subTotal} (
-                    {(Number(data.subtotalPrice) / cryptoPrice).toFixed(2)})
+                    {(Number(data?.subtotalPrice) / cryptoPrice).toFixed(2)})
                   </span>
                 </li>
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
                 <span>
-                  {total} ({(Number(data.totalPrice) / cryptoPrice).toFixed(2)})
+                  {total} ({(Number(data?.totalPrice) / cryptoPrice).toFixed(2)}
+                  )
                 </span>
               </div>
             </div>

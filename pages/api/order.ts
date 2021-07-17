@@ -1,6 +1,6 @@
 import { createDraftOrder } from 'services/order.service'
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   const { email, lineItems, shipping_address, total, subTotal } = JSON.parse(
     req.body
   )
