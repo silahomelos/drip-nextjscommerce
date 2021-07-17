@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Button } from '@components/ui'
+import { Button, useUI } from '@components/ui'
 import { useCart } from 'framework/shopify/cart'
 import usePrice from '@commerce/product/use-price'
 import { CartItem } from '@components/cart'
@@ -22,6 +22,7 @@ const Checkout: FC<Props> = () => {
   const [code, setCode] = useState('')
   const [valid, setValid] = useState<Array<string>>([])
   const { account, crypto, cryptoPrice, chainId } = useMain()
+  const { closeSidebar } = useUI()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -143,7 +144,7 @@ const Checkout: FC<Props> = () => {
           promises.push(res)
         }
       })
-
+      closeSidebar()
       router.push('/marketplace')
     }
   }

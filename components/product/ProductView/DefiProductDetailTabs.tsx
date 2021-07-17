@@ -230,21 +230,21 @@ const DefiProductDetailTabs: FC<Props> = ({ description, title }) => {
             </div>
           </div>
           <div className={s.tabRow}>
-            <img src={info[index].icon} className={s.tabRowImage} />
+            <img src={(info[index] || {}).icon} className={s.tabRowImage} />
             <div className={s.text}>
               <div className={s.title}> {title} </div>
               <div className={s.description}> {description} </div>
               <div className="flex items-center space-x-2 mt-4">
-                <a href={info[index].globe} target="_blank">
+                <a href={(info[index] || {}).globe} target="_blank">
                   <img src="/images/globe 1.png" />
                 </a>
-                {info[index].twitter ? (
-                  <a href={info[index].twitter} target="_blank">
+                {(info[index] || {}).twitter ? (
+                  <a href={(info[index] || {}).twitter} target="_blank">
                     <img src="/images/twitter 1.png" />
                   </a>
                 ) : null}
-                {info[index].discord ? (
-                  <a href={info[index].discord} target="_blank">
+                {(info[index] || {}).discord ? (
+                  <a href={(info[index] || {}).discord} target="_blank">
                     <img src="/images/discord 1.png" />
                   </a>
                 ) : null}
