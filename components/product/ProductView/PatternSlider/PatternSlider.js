@@ -1,7 +1,7 @@
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
-import DesignerCard from '../DesignerCard'
+import PatternCard from '../PatternCard'
 import styles from './PatternSlider.module.scss'
 import designerList from '@data/designers.json'
 import shuffle from '@lib/shuffle'
@@ -62,7 +62,7 @@ const PatternSlider = ({}) => {
         responsive={responsive}
       >
         {randomOrder.map((item) => {
-          return <DesignerCard cid={item.CID} key={item.CID} />
+          return <PatternCard cid={item.CID} key={item.CID} />
         })}
       </Carousel>
     </div>
