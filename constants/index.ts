@@ -6,6 +6,11 @@ export const GRAPH_API_URL = {
   '0x137': 'https://api.thegraph.com/subgraphs/name/digitalax/digitalaxmatic',
 }
 
+export const ESPA_BACKEND_API_URL =
+  'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/'
+
+export const ESPA_BACKEND_API_KEY = 'FqpxJ2kNva6d3saeCZgx653qn6wcKGpG95lUgI7K'
+
 export const networks = {}
 
 export const contracts = {

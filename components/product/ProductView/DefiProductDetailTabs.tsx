@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import s from './ProductView.module.scss'
 
 import { Tabs, Tab } from '@components/ui'
