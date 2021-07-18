@@ -89,7 +89,8 @@ const Checkout: FC<Props> = () => {
 
   const getCollectionId = (url: string) => {
     const path = url.split('/products/')[1]
-    return parseInt(path.split('-')[1])
+    const pathArray = path.split('-')
+    return parseInt(pathArray[pathArray.length - 1])
   }
 
   const onConfirm = async () => {
@@ -97,6 +98,7 @@ const Checkout: FC<Props> = () => {
     if (validations.length) {
       setValid(validations)
     } else {
+      console.log('data: ', data)
       const { order } = await (
         await fetch('/api/order', {
           method: 'POST',
@@ -126,11 +128,23 @@ const Checkout: FC<Props> = () => {
           }),
         })
       ).json()
+      console.log('order: ', order)
       const { id, order_number } = order
       const promises = []
 
       data?.lineItems.map(async (item) => {
         for (let i = 0; i < item.quantity; i += 1) {
+          console.log(`order info(${i}): `, {
+            account,
+            chainId,
+            orderNumber: order_number,
+            orderId: id,
+            crypto,
+            cryptoPrice: item.variant.price / cryptoPrice,
+            collectionId: getCollectionId(item.path),
+            shippingPrice: 0,
+          })
+          console.log('collectionId: ', item.path)
           const res = purchaseOrder({
             account,
             chainId,

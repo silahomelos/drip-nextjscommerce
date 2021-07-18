@@ -10,6 +10,7 @@ const ACCESS_TOKEN = process.env.NEXT_SHOPIFY_ACCESS_TOKEN
 const SECRET_ACCESS_KEY = process.env.NEXT_SHOPIFY_SECRET_ACCESS_KEY
 
 const API_URL = `https://${ACCESS_TOKEN}:${SECRET_ACCESS_KEY}@${STORE_DOMAIN}/admin/api/2021-04/orders.json`
+console.log('API_URL: ', API_URL)
 
 export const createDraftOrder = async (
   email,
@@ -68,6 +69,9 @@ export const purchaseOrder = async ({
   }
 
   try {
+    const tokenAmount = web3.utils.toWei(cryptoPrice.toString(), 'ether')
+    const bntokens = web3.utils.toBN(tokenAmount)
+
     const listener = contract.methods
       .buyOffer(
         collectionId,
@@ -75,7 +79,7 @@ export const purchaseOrder = async ({
         orderNumber,
         shippingPrice
       )
-      .send({ from: account, value: cryptoPrice * 1e18 })
+      .send({ from: account, value: bntokens })
 
     const promise = new Promise((resolve, reject) => {
       listener.on('error', (error) => reject(error))
