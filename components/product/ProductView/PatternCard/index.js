@@ -28,9 +28,6 @@ const PatternCard = ({ cid }) => {
           className={styles.photo}
         />
       </a>
-      {/* <a>
-        <div className={styles.name}>{data['Designer ID']}</div>
-      </a> */}
     </div>
   )
 }
