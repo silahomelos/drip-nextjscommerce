@@ -9,15 +9,14 @@ const AuthOptionsView: FC<Props> = () => {
   const { dispatch, account, crypto } = useMain()
   const onOptionClick = (option: number) => {
     if (option === 0) {
-      if (!crypto) {
-        setModalView('CRYPTO_OPTIONS_VIEW')
-      } else if (!account) {
-        setModalView('CLAIM_YOUR_NFT_VIEW')
-      } else {
-        closeModal()
-        setModalView(null)
-        openSidebar()
-      }
+      setModalView('CRYPTO_OPTIONS_VIEW')
+      // if (!account) {
+      //   setModalView('CLAIM_YOUR_NFT_VIEW')
+      // } else {
+      //   closeModal()
+      //   setModalView(null)
+      //   openSidebar()
+      // }
       dispatch(setAuthOption(0))
     } else {
       setModalView('')

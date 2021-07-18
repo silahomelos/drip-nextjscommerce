@@ -118,8 +118,8 @@ const DefiProductDetailTabs: FC<Props> = ({ description, title }) => {
             <div className={s.text}>
               <div className={s.title}>Merging Fashion x DeFi.</div>
               <div className={s.description}>
-                WTF is DeFi and why is it so hard to use? What if you what you
-                could earn more from what you wear?
+                WTF is DeFi and why is it so hard to use? What if you could earn
+                more from what you wear?
                 <br />
                 <br />
                 This fashion isn’t just ordinary fashion. It onboards you into

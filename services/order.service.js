@@ -75,7 +75,10 @@ export const purchaseOrder = async ({
         orderNumber,
         shippingPrice
       )
-      .send({ from: account, value: cryptoPrice * 1e18 })
+      .send({
+        from: account,
+        value: crypto !== 'matic' ? 0 : parseInt(cryptoPrice),
+      })
 
     const promise = new Promise((resolve, reject) => {
       listener.on('error', (error) => reject(error))

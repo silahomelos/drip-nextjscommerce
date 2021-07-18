@@ -8,7 +8,7 @@ const options = {
 }
 
 export const setWeb3Provider = async (wallet) => {
-  if (wallet === 0) {
+  if (wallet === 1) {
     // metamask
     const provider =
       window.ethereum !== 'undefined'

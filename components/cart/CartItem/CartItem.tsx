@@ -153,7 +153,7 @@ const CartItem = ({
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
         <span>
-          {price} ({ethValue.toFixed(2)})
+          {price} {cryptoPrice ? <>({ethValue.toFixed(2)})</> : null}
         </span>
         <button
           className="flex justify-end outline-none"

@@ -39,7 +39,7 @@ export async function getStaticProps({
   return {
     props: {
       products,
-      collections,
+      collections: collections.reverse(),
       categories,
       brands,
       pages,

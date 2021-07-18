@@ -6,13 +6,14 @@ import { useMain } from 'context'
 interface Props {}
 
 const ClaimYourNFTView: FC<Props> = () => {
-  const { setModalView, closeModal } = useUI()
+  const { setModalView, closeModal, openSidebar } = useUI()
   const { account } = useMain()
 
   const onClaim = () => {
     if (!account) {
       setModalView('CRYPTO_SIGNUP_VIEW')
     } else {
+      openSidebar()
       closeModal()
     }
   }

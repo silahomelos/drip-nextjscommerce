@@ -27,13 +27,13 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/Rari.png" className="m-auto" />
             <span className="text-xs"> Rari </span>
           </div>
-          <div
+          {/* <div
             className={`text-center ${s.cryptoIcon}`}
             onClick={() => onCryptoOptionSelect('fei')}
           >
             <img src="/cryptos/Fei.png" className="m-auto" />
             <span className="text-xs"> Fei </span>
-          </div>
+          </div> */}
           <div
             className={`text-center ${s.cryptoIcon}`}
             onClick={() => onCryptoOptionSelect('instadapp')}
@@ -62,8 +62,6 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/Mona.png" className="m-auto" />
             <span className="text-xs"> Mona </span>
           </div>
-        </div>
-        <div className="flex justify-center space-x-3">
           <div
             className={`text-center ${s.cryptoIcon}`}
             onClick={() => onCryptoOptionSelect('aave')}
@@ -71,6 +69,8 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/aave.png" className="m-auto" />
             <span className="text-xs"> AAVE </span>
           </div>
+        </div>
+        <div className="flex justify-center space-x-3">
           <div
             className={`text-center ${s.cryptoIcon}`}
             onClick={() => onCryptoOptionSelect('matic')}

@@ -1,7 +1,7 @@
 import { Arkane } from '@arkane-network/web3-arkane-provider'
 
 export const connectWallet = async (wallet) => {
-  if (wallet === 0) {
+  if (wallet === 1) {
     if (window.ethereum === 'undefined') {
       throw new Error('Please install metamask on your browser!')
     }

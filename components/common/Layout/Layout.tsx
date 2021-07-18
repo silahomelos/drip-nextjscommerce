@@ -76,11 +76,13 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
-  const { dispatch, ethPrice, crypto, chainId, cryptoPrice, wallet } = useMain()
+  const { dispatch, crypto, chainId, cryptoPrice, wallet, account } = useMain()
 
   useEffect(() => {
     if (window.localStorage.getItem('ACCOUNT')) {
       dispatch(setAccount(window.localStorage.getItem('ACCOUNT') || ''))
+    }
+    if (window.localStorage.getItem('CHAIN_ID')) {
       dispatch(setChainId(window.localStorage.getItem('CHAIN_ID') || ''))
     }
     if (window.localStorage.getItem('CRYPTO_OPTION')) {
@@ -94,37 +96,29 @@ const Layout: FC<Props> = ({
   }, [])
 
   useEffect(() => {
-    if (wallet) {
+    if (wallet && account) {
       setWeb3Provider(wallet)
     }
-  }, [wallet])
-
-  useEffect(() => {
-    const fetchEthPrice = async () => {
-      const res: any = await (await fetch(ETH_API_URL)).json()
-      if (res.ethereum.usd !== ethPrice) {
-        dispatch(setEthPrice(res.ethereum.usd))
-      }
-    }
-
-    const interval = setInterval(fetchEthPrice, 10000)
-
-    return () => clearInterval(interval)
-  }, [])
+  }, [wallet, account])
 
   useEffect(() => {
     if (crypto) {
       const fetchCryptoPrice = async () => {
-        const { payableTokenReport } = await getPayableTokenReport(
-          chainId,
-          tokens[crypto].address
-        )
-        const updatedPrice = payableTokenReport.payload / 1e18
-        if (updatedPrice !== cryptoPrice) {
-          dispatch(setCryptoPrice(updatedPrice))
+        console.log(crypto)
+        console.log(chainId)
+        if (chainId && crypto) {
+          const { payableTokenReport } = await getPayableTokenReport(
+            chainId,
+            tokens[crypto].address
+          )
+          const updatedPrice = payableTokenReport.payload / 1e18
+          if (updatedPrice !== cryptoPrice) {
+            dispatch(setCryptoPrice(updatedPrice))
+          }
         }
       }
 
+      fetchCryptoPrice()
       const interval = setInterval(fetchCryptoPrice, 10000)
 
       return () => clearInterval(interval)

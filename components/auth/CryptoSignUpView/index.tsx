@@ -21,7 +21,8 @@ const CryptoSignUpView: FC<Props> = () => {
 
   const onConnect = async (option: number) => {
     setWeb3Provider(option)
-
+    console.log({ account })
+    console.log(option)
     try {
       if (!account) {
         const res = await connectWallet(option)
@@ -31,8 +32,9 @@ const CryptoSignUpView: FC<Props> = () => {
         window.localStorage.setItem('ACCOUNT', res.account)
         window.localStorage.setItem('CHAIN_ID', res.chainId)
         window.localStorage.setItem('WALLET', option.toString())
-        setModalView('LOGIN_VIEW')
+        // setModalView('LOGIN_VIEW')
       }
+      closeModal()
     } catch (err) {
       toast.error(err.message)
     }
@@ -45,11 +47,11 @@ const CryptoSignUpView: FC<Props> = () => {
         {' '}
         Sign Up With The Same Email That You Used At Checkout To Claim Your NFT.{' '}
       </p>
-      <div className={btnClasses} onClick={() => onConnect(1)}>
+      <div className={btnClasses} onClick={() => onConnect(2)}>
         <span> Venly Wallet </span>
         <img src="/images/arkane.png" className="w-11" />
       </div>
-      <div className={btnClasses} onClick={() => onConnect(0)}>
+      <div className={btnClasses} onClick={() => onConnect(1)}>
         <span> Metamask </span>
         <img src="/images/metamask.png" className="w-11" />
       </div>
