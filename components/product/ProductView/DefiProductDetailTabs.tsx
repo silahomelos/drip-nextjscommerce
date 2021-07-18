@@ -1,9 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import s from './ProductView.module.scss'
 
 import { Tabs, Tab } from '@components/ui'
 import { useRouter } from 'next/router'
 import DesignerSlider from './DesignerSlider'
+import PatternSlider from './PatternSlider'
 
 interface Props {
   description: string
@@ -205,6 +206,9 @@ const DefiProductDetailTabs: FC<Props> = ({ description, title }) => {
               ERC-721 that owns a balance of the incorporated ERC-1155 NFTs
               on-chain— establishing streamlined fractional royalties for all
               contributors and injecting open source into fashion.
+            </div>
+            <div style={{ width: '100%' }}>
+              <PatternSlider />
             </div>
             <div className="">
               <a

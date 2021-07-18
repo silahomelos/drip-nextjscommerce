@@ -4,10 +4,10 @@ import { ToastContainer, toast } from 'react-toastify'
 import LandingNavbar from '@components/common/LandingNavbar'
 import 'react-toastify/dist/ReactToastify.css'
 import Link from '@components/ui/Link'
+import { ESPA_BACKEND_API_URL, ESPA_BACKEND_API_KEY } from '@constants/index'
 
-const endpoint =
-  'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/save-drip-emails'
-const API_KEY = 'FqpxJ2kNva6d3saeCZgx653qn6wcKGpG95lUgI7K'
+const endpoint = `${ESPA_BACKEND_API_URL}save-drip-emails`
+const API_KEY = ESPA_BACKEND_API_KEY
 
 const Home = () => {
   const [email, setEmail] = useState('')
