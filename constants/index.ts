@@ -1678,7 +1678,7 @@ export const tokens: {
     ],
   },
   dai: {
-    address: '0x490e379c9cff64944be82b849f8fd5972c7999a7',
+    address: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
     abi: [
       {
         anonymous: false,
@@ -2170,7 +2170,7 @@ export const tokens: {
     ],
   },
   aave: {
-    address: '0xad3B0017de2065CBeFF6655Fa7A83b42B9e4a3ce'.toLowerCase(),
+    address: '0xd6df932a45c0f255f85145f286ea0b292b21c90b'.toLowerCase(),
     abi: [
       { type: 'constructor', stateMutability: 'nonpayable', inputs: [] },
       {
@@ -3810,7 +3810,7 @@ export const tokens: {
     ],
   },
   instadapp: {
-    address: '0x26701891d1086c2d504a0bf35636115f5c9e8c26',
+    address: '0xf50d05a1402d0adafa880d36050736f9f6ee7dee',
     abi: [
       { type: 'constructor', stateMutability: 'nonpayable', inputs: [] },
       {

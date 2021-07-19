@@ -120,7 +120,7 @@ const CartSidebarView: FC = () => {
                     {cryptoPrice ? (
                       <>
                         (
-                        {(Number(data?.subtotalPrice) / cryptoPrice).toFixed(2)}
+                        {(Number(data?.subtotalPrice) * cryptoPrice).toFixed(2)}
                         )
                       </>
                     ) : null}
@@ -133,7 +133,7 @@ const CartSidebarView: FC = () => {
                   {total}{' '}
                   {cryptoPrice ? (
                     <>
-                      ({(Number(data?.totalPrice) / cryptoPrice).toFixed(2)}){' '}
+                      ({(Number(data?.totalPrice) * cryptoPrice).toFixed(2)}){' '}
                     </>
                   ) : null}
                 </span>
