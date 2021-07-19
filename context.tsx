@@ -18,7 +18,7 @@ const initialState = {
   account: null,
   signMsg: null,
   chainId: null,
-  crypto: null,
+  crypto: '',
   cryptoPrice: 0,
   authOption: null,
   ethPrice: 0,
