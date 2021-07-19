@@ -40,11 +40,7 @@ const CryptoSignUpView: FC<Props> = () => {
 
   return (
     <div className="flex flex-col space-y-3 items-center">
-      <h1 className="text-center text-3xl font-bold"> Sign In or Sign Up </h1>
-      <p className="w-96 text-center m-10">
-        {' '}
-        Sign Up With The Same Email That You Used At Checkout To Claim Your NFT.{' '}
-      </p>
+      <h1 className="text-center text-3xl font-bold"> Connect Your Wallet </h1>
       <div className={btnClasses} onClick={() => onConnect(2)}>
         <span> Venly Wallet </span>
         <img src="/images/arkane.png" className="w-11" />

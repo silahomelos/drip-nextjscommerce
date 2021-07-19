@@ -30,6 +30,7 @@ import {
 import { getPayableTokenReport } from 'services/api.service'
 import { ETH_API_URL, tokens } from '../../../constants'
 import { setWeb3Provider } from 'services/web3-provider.service'
+import CheckoutWarning from '@components/modals/CheckoutWarning'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -196,6 +197,7 @@ const Layout: FC<Props> = ({
           {modalView === 'CRYPTO_OPTIONS_VIEW' && <CryptoOptionsView />}
           {modalView === 'NFT_CLAIMED_VIEW' && <NFTClaimedView />}
           {modalView === 'CRYPTO_SIGNUP_VIEW' && <CryptoSignUpView />}
+          {modalView === 'CHECKOUT_WARNING' && <CheckoutWarning />}
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>

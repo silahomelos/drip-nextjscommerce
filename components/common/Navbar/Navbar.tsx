@@ -11,7 +11,7 @@ const Navbar: FC = () => (
       <div className="relative flex flex-row justify-between py-4 align-center md:py-6">
         <div className={`${s.navLeft} flex items-center`}>
           <div className={s.branding}>
-            <Link href="https://digitalax.xyz">
+            <Link href="/">
               <a className={s.logo} aria-label="Logo">
                 <span className={`${s.brand} text--uppercase fw-normal`}>
                   Digitalax{' '}

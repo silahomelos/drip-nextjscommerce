@@ -17,6 +17,7 @@ import { NFTClaimedView } from '@components/modals'
 import { Modal, useUI } from '@components/ui'
 import { setAccount, setChainId, setCrypto, setWallet, useMain } from 'context'
 import { setWeb3Provider } from 'services/web3-provider.service'
+import CheckoutWarning from '@components/modals/CheckoutWarning'
 import CryptoSuccessView from '@components/modals/CryptoSuccessView'
 
 interface Props {
@@ -69,6 +70,7 @@ const CheckoutLayout: FC<Props> = ({
         {modalView === 'CRYPTO_OPTIONS_VIEW' && <CryptoOptionsView />}
         {modalView === 'NFT_CLAIMED_VIEW' && <NFTClaimedView />}
         {modalView === 'CRYPTO_SIGNUP_VIEW' && <CryptoSignUpView />}
+        {modalView === 'CHECKOUT_WARNING' && <CheckoutWarning />}
         {modalView === 'CRYPTO_SUCCESS_VIEW' && <CryptoSuccessView />}
       </Modal>
       <Footer pages={pageProps.pages} />

@@ -33,12 +33,13 @@ const AuthOptionsView: FC<Props> = () => {
         variantId,
       })
       dispatch(setAuthOption(0))
-      if (!account) {
-        setModalView('CRYPTO_SIGNUP_VIEW')
-      } else {
-        closeModal()
-        router.push('/checkout-crypto')
-      }
+      setModalView('CHECKOUT_WARNING')
+      // if (!account) {
+      //   setModalView('CHECKOUT_WARNING')
+      // } else {
+      //   closeModal()
+      //   router.push('/checkout-crypto')
+      // }
     } else {
       await addItem({
         productId,
