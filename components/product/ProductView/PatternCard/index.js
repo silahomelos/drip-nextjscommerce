@@ -8,8 +8,8 @@ const PatternCard = ({ item }) => {
     <div className={cn(styles.wrapper)}>
       <a>
         <img
-          src={item.image_url}
-          alt={item.image_url}
+          src={item.thumbnail_url}
+          alt={item.thumbnail_url}
           className={styles.photo}
         />
       </a>
