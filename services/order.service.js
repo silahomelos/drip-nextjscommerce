@@ -11,7 +11,7 @@ const STORE_DOMAIN = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
 const ACCESS_TOKEN = process.env.NEXT_SHOPIFY_ACCESS_TOKEN
 const SECRET_ACCESS_KEY = process.env.NEXT_SHOPIFY_SECRET_ACCESS_KEY
 
-const API_URL = `https://${ACCESS_TOKEN}:${SECRET_ACCESS_KEY}@${STORE_DOMAIN}/admin/api/2021-04/orders.json`
+const API_URL = `https://${ACCESS_TOKEN}:${SECRET_ACCESS_KEY}@${STORE_DOMAIN}/admin/api/2021-04`
 
 export const createDraftOrder = async (
   email,
@@ -22,7 +22,7 @@ export const createDraftOrder = async (
 ) => {
   try {
     const res = await (
-      await fetch(API_URL, {
+      await fetch(`${API_URL}/orders.json`, {
         method: 'POST',
         headers: {
           'Content-Type': 'Application/json',
@@ -36,8 +36,15 @@ export const createDraftOrder = async (
             shipping_address,
             subtotal_price: subTotal,
             total_price: total,
-            financial_status: 'authorized',
             currency: 'USD',
+            financial_status: 'pending',
+            transactions: [
+              {
+                amount: items[0].price,
+                kind: 'authorization',
+                status: 'success',
+              },
+            ],
           },
         }),
       })
@@ -49,7 +56,45 @@ export const createDraftOrder = async (
   }
 }
 
+export const updateOrder = async (orderId, amount) => {
+  try {
+    console.log(`${API_URL}/orders/${orderId}.json`)
+    console.log({ orderId })
+    const order = await (
+      await fetch(`${API_URL}/orders/${orderId}/transactions.json`, {
+        method: 'GET',
+      })
+    ).json()
+
+    const res = await (
+      await fetch(`${API_URL}/orders/${orderId}/transactions.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json',
+        },
+        cache: 'no-cache',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({
+          transaction: {
+            kind: 'capture',
+            gateway: 'manual',
+            amount: amount,
+            parent_id: order.transactions[0].id,
+            status: 'success',
+            currency: 'USD',
+          },
+        }),
+      })
+    ).json()
+    console.log({ res })
+    return res
+  } catch (err) {
+    throw err
+  }
+}
+
 export const getAllowance = async ({ account, crypto }) => {
+  if (crypto === 'matic') return true
   const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address
   const tokenContract = await getTokenContract(crypto)
   const allowance = await tokenContract.methods
@@ -85,11 +130,6 @@ export const purchaseOrder = async ({
 }) => {
   const contract = await getDripMarketplaceContract()
   try {
-    console.log({ collectionId })
-    console.log({ address: tokens[crypto].address })
-    console.log({ crypto })
-    console.log({ orderNumber })
-    console.log({ shippingPrice })
     const listener = contract.methods
       .buyOffer(
         collectionId,

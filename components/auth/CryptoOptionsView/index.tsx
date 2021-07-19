@@ -50,9 +50,7 @@ const CryptoOptionsView: FC<Props> = () => {
     if (buyNowStatus === 2) {
       dispatch(setBuyNowStatus(0))
       setLoading(false)
-      setModalView('')
-      closeModal()
-      router.push('/marketplace')
+      setModalView('CRYPTO_SUCCESS_VIEW')
     } else if (buyNowStatus === 3) {
       dispatch(setBuyNowStatus(0))
       setLoading(false)
