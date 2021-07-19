@@ -74,6 +74,7 @@ const Layout: FC<Props> = ({
     closeSidebar,
     closeModal,
     modalView,
+    setModalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
@@ -95,6 +96,16 @@ const Layout: FC<Props> = ({
       )
     }
   }, [])
+
+  // useEffect(() => {
+  //   if (
+  //     data?.lineItems.length === 0 &&
+  //     window.localStorage.getItem('CHECKING_OUT')
+  //   ) {
+  //     setModalView('CRYPTO_SUCCESS_VIEW')
+  //     window.localStorage.setItem('CHECKING_OUT', '1')
+  //   }
+  // }, [data?.lineItems.length])
 
   useEffect(() => {
     if (wallet && account) {

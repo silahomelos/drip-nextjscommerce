@@ -144,7 +144,7 @@ const DefiProductDetailTabs: FC<Props> = ({ description, title }) => {
             <div className={s.text}>
               <div className={s.title}> {title} </div>
               <div className={s.description}> {description} </div>
-              <div className="flex items-center space-x-2 mt-4">
+              <div className={`flex items-center space-x-2 mt-4 ${s.icons}`}>
                 <a href={(info[index] || {}).globe} target="_blank">
                   <img src="/images/globe 1.png" />
                 </a>

@@ -6,7 +6,7 @@ import { approveToken, getAllowance } from 'services/order.service'
 import { tokens } from '../../../constants'
 import { getPayableTokenReport } from 'services/api.service'
 import router from 'next/router'
-import { useCart } from 'framework/bigcommerce/cart'
+import { useCart } from '@framework/cart'
 
 interface Props {}
 
