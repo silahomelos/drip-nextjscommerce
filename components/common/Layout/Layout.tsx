@@ -31,7 +31,6 @@ import { getPayableTokenReport } from 'services/api.service'
 import { ETH_API_URL, tokens } from '../../../constants'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import CheckoutWarning from '@components/modals/CheckoutWarning'
-import { useCart } from '@framework/cart'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -78,7 +77,6 @@ const Layout: FC<Props> = ({
     setModalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
-  const { data } = useCart()
   const { locale = 'en-US', pathname, asPath } = useRouter()
   const { dispatch, crypto, chainId, cryptoPrice, wallet, account } = useMain()
 
