@@ -353,7 +353,6 @@
 
     @media (max-width: 576px) {
       grid-template-columns: 1fr!important;
-      justify-content: center;
     }
     gap: 1rem;
     align-items: center;
@@ -362,9 +361,17 @@
     .tabRowImage {
       width: 120px;
       margin-right: 1rem;
+
+      @media (max-width: 576px) {
+        margin: auto!important;
+      }
     }
 
     .text {
+      @media (max-width: 576px) {
+        text-align: center!important;
+      }
+
       .title {
         font-family: Inter;
         font-style: normal;
@@ -384,6 +391,12 @@
         color: black;
 
         word-wrap: break-word;
+      }
+
+      .icons {
+        @media (max-width: 576px) {
+          justify-content: space-around;
+        }
       }
     }
   }
