@@ -25,7 +25,11 @@ const PatternSlider = ({}) => {
       .then((response) => response.json())
       .then((jsonData) => {
         console.log('thumbnails res: ', jsonData)
-        setPatternList(shuffle(jsonData.data))
+        setPatternList(
+          shuffle(jsonData.data).filter(
+            (item) => item.thumbnail_url !== null && item.thumbnail_url !== ''
+          )
+        )
       })
       .catch((error) => {
         console.error(error)
