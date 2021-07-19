@@ -46,7 +46,7 @@ export const connectWallet = async (wallet) => {
 }
 
 export const disconnectWallet = async (wallet) => {
-  if (wallet === 1) {
+  if (wallet === 2) {
     try {
       await Arkane.arkaneConnect().logout()
     } catch (err) {

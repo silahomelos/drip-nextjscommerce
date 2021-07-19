@@ -34,7 +34,7 @@ const AuthOptionsView: FC<Props> = () => {
       })
       dispatch(setAuthOption(0))
       if (!account) {
-        setModalView('CLAIM_YOUR_NFT_VIEW')
+        setModalView('CRYPTO_SIGNUP_VIEW')
       } else {
         closeModal()
         router.push('/checkout-crypto')
