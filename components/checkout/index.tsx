@@ -369,7 +369,7 @@ const Checkout: FC<Props> = () => {
                   className="block tracking-wide text-gray-700 text-xs font-bold"
                   htmlFor="grid-province"
                 >
-                  Province
+                  State
                 </label>
                 <input
                   className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
