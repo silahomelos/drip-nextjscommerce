@@ -7,6 +7,7 @@ import { setBuyNowStatus, useMain } from 'context'
 import { purchaseOrder } from 'services/order.service'
 import router from 'next/router'
 import { setWeb3Provider } from 'services/web3-provider.service'
+import { toast } from 'react-toastify'
 
 interface Props {}
 
@@ -185,7 +186,7 @@ const Checkout: FC<Props> = () => {
           collectionId: getCollectionId(data?.lineItems[0].path || ''),
           shippingPrice: 0,
         })
-        promise
+        await promise
           .then(async (hash) => {
             removeItem((data?.lineItems || [])[0])
             await fetch('/api/update-order', {
@@ -200,6 +201,7 @@ const Checkout: FC<Props> = () => {
           })
           .catch((error) => {
             console.log(error)
+            toast.error(error.message)
             dispatch(setBuyNowStatus(3))
             unsubscribe()
             throw error
