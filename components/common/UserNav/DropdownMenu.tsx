@@ -15,6 +15,9 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
+import { setAccount, setChainId, setWallet, useMain } from 'context'
+import { disconnectWallet } from 'services/network.service'
+import { toast } from 'react-toastify'
 
 interface DropdownMenuProps {
   open?: boolean
@@ -36,11 +39,12 @@ const LINKS = [
 ]
 
 const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
-  const logout = useLogout()
+  // const logout = useLogout()
   const { pathname } = useRouter()
   const { theme, setTheme } = useTheme()
   const [display, setDisplay] = useState(false)
   const { closeSidebarIfPresent } = useUI()
+  const { dispatch, wallet, account } = useMain()
   const ref = useRef() as React.MutableRefObject<HTMLUListElement>
 
   useEffect(() => {
@@ -56,6 +60,21 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
     }
   }, [display])
 
+  const logout = async () => {
+    try {
+      disconnectWallet(wallet)
+      dispatch(setWallet())
+      dispatch(setAccount())
+      dispatch(setChainId())
+      window.localStorage.removeItem('ACCOUNT')
+      window.localStorage.removeItem('CHAIN_ID')
+      window.localStorage.removeItem('CRYPTO_OPTION')
+      window.localStorage.removeItem('WALLET')
+    } catch (err) {
+      toast.error(err.message)
+    }
+  }
+
   return (
     <ClickOutside active={display} onClick={() => setDisplay(false)}>
       <div>
@@ -64,11 +83,14 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
           onClick={() => setDisplay(!display)}
           aria-label="Menu"
         >
-          <Avatar />
+          <div className="flex items-center space-x-2">
+            <Avatar />
+            <span>{`${account.slice(0, 8)}...`}</span>
+          </div>
         </button>
         {display && (
           <ul className={s.dropdownMenu} ref={ref}>
-            {LINKS.map(({ name, href }) => (
+            {/* {LINKS.map(({ name, href }) => (
               <li key={href}>
                 <div>
                   <Link href={href}>
@@ -86,8 +108,8 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
                   </Link>
                 </div>
               </li>
-            ))}
-            <li>
+            ))} */}
+            {/* <li>
               <a
                 className={cn(s.link, 'justify-between')}
                 onClick={() => {
@@ -106,7 +128,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
                   )}
                 </div>
               </a>
-            </li>
+            </li> */}
             <li>
               <a
                 className={cn(s.link, 'border-t border-accents-2 mt-4')}

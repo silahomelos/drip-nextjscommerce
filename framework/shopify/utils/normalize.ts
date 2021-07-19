@@ -162,7 +162,7 @@ function normalizeLineItem({
   return {
     id,
     variantId: String(variant?.id),
-    productId: String(variant?.id),
+    productId: String(variant?.product?.id),
     name: `${title}`,
     quantity,
     variant: {
@@ -176,7 +176,7 @@ function normalizeLineItem({
       price: variant?.priceV2?.amount,
       listPrice: variant?.compareAtPriceV2?.amount,
     },
-    path: '',
+    path: variant?.product?.onlineStoreUrl,
     discounts: [],
     options: [
       {

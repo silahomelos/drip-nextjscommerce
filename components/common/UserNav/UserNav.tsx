@@ -9,6 +9,7 @@ import { Heart, Bag } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
 import s from './UserNav.module.css'
+import { useMain } from 'context'
 
 interface Props {
   className?: string
@@ -20,6 +21,7 @@ const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
+  const { account } = useMain()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
@@ -39,19 +41,11 @@ const UserNav: FC<Props> = ({ className }) => {
               </Link>
             </li>
           )} */}
-          {/* <li className={s.item}>
-            {customer ? (
+          {account ? (
+            <li className={s.item}>
               <DropdownMenu />
-            ) : (
-              <button
-                className={s.avatarButton}
-                aria-label="Menu"
-                onClick={() => openModal()}
-              >
-                <Avatar />
-              </button>
-            )}
-          </li> */}
+            </li>
+          ) : null}
         </ul>
       </div>
     </nav>

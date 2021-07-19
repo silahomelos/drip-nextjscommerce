@@ -2,7 +2,7 @@
   @apply h-full bg-black mx-auto transition-colors duration-150;
   max-width: 2460px;
   position: relative;
-  z-index:10;
+  z-index: 10;
 }
 
 .collection1 {
@@ -11,6 +11,64 @@
 
 .collection2 {
   background-image: url('../../../public/images/collection-2.png');
+}
+
+.aave {
+  background-image: url('../../../public/images/aave.png');
+}
+
+.instadapp {
+  background-image: url('../../../public/images/instadapp.png');
+}
+
+.ruler {
+  background-image: url('../../../public/images/ruler.png');
+}
+
+.poap {
+  background-image: url('../../../public/images/poap.png');
+}
+
+.force {
+  background-image: url('../../../public/images/force.png');
+}
+
+.zerion {
+  background-image: url('../../../public/images/zerion.png');
+}
+
+.zapper {
+  background-image: url('../../../public/images/zapper.png');
+}
+
+.polygon {
+  background-image: url('../../../public/images/polygon.png');
+}
+
+.opyn {
+  background-image: url('../../../public/images/opyn.png');
+}
+
+.pickle {
+  background-image: url('../../../public/images/pickle.png');
+}
+
+.rari {
+  background-image: url('../../../public/images/rari.png');
+}
+
+.maker {
+  background-image: url('../../../public/images/maker.png');
+}
+
+.bancor {
+  background-image: url('../../../public/images/bancor.png');
+}
+
+.marketplace {
+  background-image: url('../../../public/images/marketplace.gif');
+  background-size: 100% !important;
+  background-repeat: repeat-y !important;
 }
 
 .mainWrapper {

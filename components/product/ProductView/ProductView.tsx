@@ -13,9 +13,11 @@ import { useAddItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
+import DefiProductDetailTabs from './DefiProductDetailTabs'
 import ProductDetailSlider from './ProductDetailSlider'
 import ProductDetailTabs from './ProductDetailTabs'
 import ProductTopBanner from '@components/common/ProductTopBanner'
+import { useRouter } from 'next/router'
 
 interface Props {
   className?: string
@@ -30,11 +32,11 @@ const ProductView: FC<Props> = ({ product }) => {
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
-  const { openSidebar } = useUI()
+  const { openSidebar, openModal, setModalView } = useUI()
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
-    size: null,
     color: null,
+    size: null,
   })
   const [curImgIndex, setCurImgIndex] = useState(0)
   const [isTab, setIsTab] = useState(false)
@@ -47,6 +49,7 @@ const ProductView: FC<Props> = ({ product }) => {
       return product.description
     }
   })
+  const { asPath } = useRouter()
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
@@ -62,11 +65,20 @@ const ProductView: FC<Props> = ({ product }) => {
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
       })
-      openSidebar()
+      setModalView('AUTH_OPTIONS_VIEW')
+      openModal()
       setLoading(false)
     } catch (err) {
       setLoading(false)
     }
+  }
+
+  const isOriginal = () => {
+    return (
+      asPath.includes('marketplace') ||
+      asPath.includes('minecraft') ||
+      asPath.includes('metaverse')
+    )
   }
 
   return (
@@ -197,7 +209,14 @@ const ProductView: FC<Props> = ({ product }) => {
                   Buy Now
                 </Button>
               </div>
-              <ProductDetailTabs description={product.description} />
+              {isOriginal() ? (
+                <ProductDetailTabs description={product.description} />
+              ) : (
+                <DefiProductDetailTabs
+                  description={product.description}
+                  title={product.name}
+                />
+              )}
             </section>
           </div>
           {/* {process.env.COMMERCE_WISHLIST_ENABLED && (

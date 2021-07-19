@@ -9,10 +9,13 @@ import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
+import { useMain } from 'context'
+import router from 'next/router'
 
 const CartSidebarView: FC = () => {
-  const { closeSidebar } = useUI()
+  const { closeSidebar, setModalView, openModal } = useUI()
   const { data, isLoading, isEmpty } = useCart()
+  const { account, authOption, cryptoPrice, crypto } = useMain()
 
   const { price: subTotal } = usePrice(
     data && {
@@ -112,15 +115,40 @@ const CartSidebarView: FC = () => {
               <ul className="py-3">
                 <li className="flex justify-between py-1">
                   <span>Subtotal</span>
-                  <span>{subTotal}</span>
+                  <span>
+                    {subTotal}
+                    {cryptoPrice ? (
+                      <>
+                        (
+                        {(Number(data?.subtotalPrice) / cryptoPrice).toFixed(2)}
+                        )
+                      </>
+                    ) : null}
+                  </span>
                 </li>
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>Total</span>
-                <span>{total}</span>
+                <span>
+                  {total}{' '}
+                  {cryptoPrice ? (
+                    <>
+                      ({(Number(data?.totalPrice) / cryptoPrice).toFixed(2)}){' '}
+                    </>
+                  ) : null}
+                </span>
               </div>
             </div>
-            <Button href="/checkout" Component="a" width="100%">
+            <Button
+              onClick={() => {
+                if (authOption) {
+                  router.push('/checkout')
+                } else {
+                  router.push('/checkout-crypto')
+                }
+              }}
+              width="100%"
+            >
               Proceed to Checkout
             </Button>
           </div>

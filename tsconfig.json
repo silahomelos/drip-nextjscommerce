@@ -20,6 +20,8 @@
       "@config/*": ["config/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
+      "@data/*": ["data/*"],
+      "@constants/*": ["constants/*"],
       "@commerce": ["framework/commerce"],
       "@commerce/*": ["framework/commerce/*"],
       "@framework": ["framework/shopify"],

@@ -9,6 +9,7 @@ import type { LineItem } from '@framework/types'
 import usePrice from '@framework/product/use-price'
 import useUpdateItem from '@framework/cart/use-update-item'
 import useRemoveItem from '@framework/cart/use-remove-item'
+import { useMain } from 'context'
 
 type ItemOption = {
   name: string
@@ -32,6 +33,9 @@ const CartItem = ({
     baseAmount: item.variant.listPrice * item.quantity,
     currencyCode,
   })
+
+  const { dispatch, cryptoPrice } = useMain()
+  const ethValue = item.variant.price * item.quantity * cryptoPrice
 
   const updateItem = useUpdateItem({ item })
   const removeItem = useRemoveItem()
@@ -148,7 +152,9 @@ const CartItem = ({
         </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
-        <span>{price}</span>
+        <span>
+          {price} {cryptoPrice ? <>({ethValue.toFixed(2)})</> : null}
+        </span>
         <button
           className="flex justify-end outline-none"
           onClick={handleRemove}

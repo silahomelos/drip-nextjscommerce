@@ -1,6 +1,6 @@
 {
   "name": "nextjs-commerce",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,6 +17,7 @@
     "node": "12.x"
   },
   "dependencies": {
+    "@arkane-network/web3-arkane-provider": "^0.23.0",
     "@reach/portal": "^0.11.2",
     "@vercel/fetch": "^6.1.0",
     "autoprefixer": "^10.2.4",
@@ -26,6 +27,9 @@
     "cookie": "^0.4.1",
     "dot-object": "^2.1.4",
     "email-validator": "^2.0.4",
+    "ethereumjs-units": "^0.2.0",
+    "ethers": "^5.4.1",
+    "graphql-request": "^3.4.0",
     "immutability-helper": "^3.1.1",
     "js-cookie": "^2.2.1",
     "keen-slider": "^5.2.4",
@@ -42,6 +46,7 @@
     "react-dom": "^17.0.1",
     "react-draggable": "^4.4.3",
     "react-merge-refs": "^1.1.0",
+    "react-multi-carousel": "^2.6.3",
     "react-ticker": "^1.2.2",
     "react-toastify": "^7.0.3",
     "react-transition-group": "^4.4.1",
@@ -50,7 +55,8 @@
     "shortid": "^2.2.16",
     "swr": "^0.4.0",
     "tabbable": "^5.1.5",
-    "tailwindcss": "^2.0.3"
+    "tailwindcss": "^2.0.3",
+    "web3": "^1.4.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.20.0",

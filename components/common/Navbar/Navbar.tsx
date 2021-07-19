@@ -16,7 +16,7 @@ const Navbar: FC = () => (
                 <span className={`${s.brand} text--uppercase fw-normal`}>
                   Digitalax{' '}
                 </span>
-                <span className={s.subBrand}>The Digital Fashion Engine</span>
+                <span className={s.subBrand}>Web3 Fashion</span>
               </a>
             </Link>
           </div>

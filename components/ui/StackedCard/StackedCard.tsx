@@ -22,18 +22,19 @@ const StackedCard: React.FC<Props> = ({ index, random, contentRef }) => {
   const textList = [
     {
       index: 1,
-      text: 'BRINGING DECENTRALISED COMMERCE #DECO TO METAVERSAL FASHION',
+      text:
+        'REP YOUR FASHION ACROSS THE DIGI-PHYSICAL REALMS. IN GAME AND IRL.',
       visible: true,
     },
     {
       index: 2,
       text:
-        'STITCHING THE FABRIC FOR GATEMAKERS IN BOTH THE PHYSICAL & DIGITAL REALMS',
+        'GLOBAL NETWORK OF HUNDREDS OF HIGHLY SKILLED DIGITAL & PHYSICAL FASHION DESIGNERS.',
       visible: true,
     },
     {
       index: 3,
-      text: 'DYNAMIC NFTs CHANGE AS YOU GROW YOUR METAVERSE TRIBES',
+      text: 'MASS ONBOARDING RETAIL AND CONSUMER MARKETS INTO WEB3 AND DEFI.',
       visible: true,
     },
   ]
