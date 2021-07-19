@@ -85,6 +85,11 @@ export const purchaseOrder = async ({
 }) => {
   const contract = await getDripMarketplaceContract()
   try {
+    console.log({ collectionId })
+    console.log({ address: tokens[crypto].address })
+    console.log({ crypto })
+    console.log({ orderNumber })
+    console.log({ shippingPrice })
     const listener = contract.methods
       .buyOffer(
         collectionId,

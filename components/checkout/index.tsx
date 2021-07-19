@@ -22,15 +22,7 @@ const Checkout: FC<Props> = () => {
   const [province, setProvince] = useState('')
   const [code, setCode] = useState('')
   const [valid, setValid] = useState<Array<string>>([])
-  const {
-    dispatch,
-    account,
-    crypto,
-    cryptoPrice,
-    chainId,
-    buyNowStatus,
-    wallet,
-  } = useMain()
+  const { dispatch, account, crypto, cryptoPrice, buyNowStatus } = useMain()
   const { closeSidebar, setModalView, openModal } = useUI()
   const removeItem = useRemoveItem()
 
@@ -151,7 +143,6 @@ const Checkout: FC<Props> = () => {
         const { promise, unsubscribe } = await purchaseOrder({
           account,
           orderNumber: order_number,
-          // orderId: id,
           crypto,
           cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
           collectionId: getCollectionId(data?.lineItems[0].path || ''),

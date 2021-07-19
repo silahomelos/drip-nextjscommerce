@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Button, useUI } from '@components/ui'
 import s from './styles.module.css'
-import { setBuyNowStatus, setCryptoPrice, useMain } from 'context'
+import { setBuyNowStatus, setCrypto, setCryptoPrice, useMain } from 'context'
 import { approveToken, getAllowance } from 'services/order.service'
 import { tokens } from '../../../constants'
 import { getPayableTokenReport } from 'services/api.service'
@@ -13,12 +13,19 @@ interface Props {}
 const CryptoOptionsView: FC<Props> = () => {
   const { setModalView, closeModal } = useUI()
   const { data } = useCart()
-  const { dispatch, account, chainId, buyNowStatus, cryptoPrice } = useMain()
-  const [crypto, setCrypto] = useState<string>('')
+  const {
+    dispatch,
+    account,
+    chainId,
+    buyNowStatus,
+    cryptoPrice,
+    crypto,
+  } = useMain()
+  // const [crypto, setCrypto] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [approved, setApproved] = useState(false)
   const onCryptoOptionSelect = (option: string) => {
-    setCrypto(option)
+    dispatch(setCrypto(option))
     window.localStorage.setItem('CRYPTO_OPTION', option.toString())
   }
 
