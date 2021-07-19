@@ -1,4 +1,6 @@
 import { API_TOKEN } from '@framework/const'
+import { utils as ethersUtils } from 'ethers'
+import Units from 'ethereumjs-units'
 import { contracts, tokens } from '../constants'
 import {
   getDripMarketplaceContract,
@@ -47,12 +49,25 @@ export const createDraftOrder = async (
   }
 }
 
+export const getAllowance = async ({ account, crypto }) => {
+  const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address
+  const tokenContract = await getTokenContract(crypto)
+  const allowance = await tokenContract.methods
+    .allowance(account, dripMarketplaceAddress)
+    .call({ from: account })
+  const jsAllowedValue = parseFloat(ethersUtils.formatEther(allowance))
+  if (jsAllowedValue < 10000000000) {
+    return false
+  }
+  return true
+}
+
 export const approveToken = async ({ account, crypto, cryptoPrice }) => {
   try {
     const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address
     const tokenContract = await getTokenContract(crypto)
     return tokenContract.methods
-      .approve(dripMarketplaceAddress, parseInt(cryptoPrice))
+      .approve(dripMarketplaceAddress, Units.convert(20000000000, 'eth', 'wei'))
       .send({ from: account })
   } catch (err) {
     console.log(err)
@@ -63,7 +78,6 @@ export const approveToken = async ({ account, crypto, cryptoPrice }) => {
 export const purchaseOrder = async ({
   account,
   orderNumber,
-  orderId,
   collectionId,
   crypto,
   cryptoPrice,

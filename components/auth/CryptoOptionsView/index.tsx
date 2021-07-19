@@ -2,24 +2,24 @@ import { FC, useEffect, useState } from 'react'
 import { Button, useUI } from '@components/ui'
 import s from './styles.module.css'
 import { setBuyNowStatus, setCryptoPrice, useMain } from 'context'
-import { approveToken } from 'services/order.service'
+import { approveToken, getAllowance } from 'services/order.service'
 import { tokens } from '../../../constants'
 import { getPayableTokenReport } from 'services/api.service'
 import router from 'next/router'
+import { useCart } from 'framework/bigcommerce/cart'
 
 interface Props {}
 
 const CryptoOptionsView: FC<Props> = () => {
   const { setModalView, closeModal } = useUI()
+  const { data } = useCart()
   const { dispatch, account, chainId, buyNowStatus, cryptoPrice } = useMain()
   const [crypto, setCrypto] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [approved, setApproved] = useState(false)
   const onCryptoOptionSelect = (option: string) => {
-    // dispatch(setCrypto(option))
     setCrypto(option)
     window.localStorage.setItem('CRYPTO_OPTION', option.toString())
-    // setModalView('CLAIM_YOUR_NFT_VIEW')
   }
 
   useEffect(() => {
@@ -46,8 +46,24 @@ const CryptoOptionsView: FC<Props> = () => {
       setModalView('')
       closeModal()
       router.push('/marketplace')
+    } else if (buyNowStatus === 3) {
+      dispatch(setBuyNowStatus(0))
+      setLoading(false)
     }
   }, [buyNowStatus])
+
+  useEffect(() => {
+    if (crypto.length) {
+      const fetchAllowance = async () => {
+        const allowance = await getAllowance({ account, crypto })
+        if (allowance) {
+          setApproved(true)
+        }
+      }
+
+      fetchAllowance()
+    }
+  }, [crypto])
 
   const onApprove = async () => {
     if (!approved) {
@@ -56,12 +72,14 @@ const CryptoOptionsView: FC<Props> = () => {
         await approveToken({
           account,
           crypto,
-          cryptoPrice,
+          cryptoPrice: cryptoPrice * (data?.lineItems[0].variant.price || 0),
         })
         setApproved(true)
         setLoading(false)
       } catch (err) {
         console.log(err)
+        setApproved(false)
+        setLoading(false)
         throw err
       }
     } else {

@@ -151,7 +151,7 @@ const Checkout: FC<Props> = () => {
         const { promise, unsubscribe } = await purchaseOrder({
           account,
           orderNumber: order_number,
-          orderId: id,
+          // orderId: id,
           crypto,
           cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
           collectionId: getCollectionId(data?.lineItems[0].path || ''),
@@ -165,10 +165,12 @@ const Checkout: FC<Props> = () => {
           })
           .catch((error) => {
             console.log(error)
+            dispatch(setBuyNowStatus(3))
             unsubscribe()
             throw error
           })
       } catch (err) {
+        dispatch(setBuyNowStatus(3))
         console.log(err)
         throw err
       }
