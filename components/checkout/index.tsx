@@ -140,6 +140,43 @@ const Checkout: FC<Props> = () => {
       const promises = []
 
       try {
+        /* this is for multi items  */
+
+        // await Promise.all(
+        //   data?.lineItems.map(async (item) => {
+        //     for (let i = 0; i < item.quantity; i += 1) {
+        //       const { promise, unsubscribe } = await purchaseOrder({
+        //         account,
+        //         orderNumber: order_number,
+        //         crypto,
+        //         cryptoPrice: item.variant.price * cryptoPrice,
+        //         collectionId: getCollectionId(item.path),
+        //         shippingPrice: 0,
+        //       })
+        //       await promise
+        //         .then(async (hash) => {
+        //           // removeItem((data?.lineItems || [])[0])
+        //           await fetch('/api/update-order', {
+        //             method: 'POST',
+        //             body: JSON.stringify({
+        //               orderId: id,
+        //               amount: item.variant.price,
+        //             }),
+        //           })
+        //           unsubscribe()
+        //           dispatch(setBuyNowStatus(2))
+        //         })
+        //         .catch((error) => {
+        //           console.log(error)
+        //           dispatch(setBuyNowStatus(3))
+        //           unsubscribe()
+        //           throw error
+        //         })
+        //     }
+        //   }) || []
+        // )
+        // data?.lineItems.map((item) => removeItem(item))
+
         const { promise, unsubscribe } = await purchaseOrder({
           account,
           orderNumber: order_number,
@@ -149,10 +186,17 @@ const Checkout: FC<Props> = () => {
           shippingPrice: 0,
         })
         promise
-          .then((hash) => {
+          .then(async (hash) => {
             removeItem((data?.lineItems || [])[0])
-            dispatch(setBuyNowStatus(2))
+            await fetch('/api/update-order', {
+              method: 'POST',
+              body: JSON.stringify({
+                orderId: id,
+                amount: data?.lineItems[0].variant.price,
+              }),
+            })
             unsubscribe()
+            dispatch(setBuyNowStatus(2))
           })
           .catch((error) => {
             console.log(error)
@@ -165,25 +209,6 @@ const Checkout: FC<Props> = () => {
         console.log(err)
         throw err
       }
-
-      /* this is for multi items  */
-
-      // await Promise.all(
-      //   data?.lineItems.map(async (item) => {
-      //     for (let i = 0; i < item.quantity; i += 1) {
-      //       const res = purchaseOrder({
-      //         account,
-      //         orderNumber: order_number,
-      //         orderId: id,
-      //         crypto,
-      //         cryptoPrice: item.variant.price / cryptoPrice,
-      //         collectionId: getCollectionId(item.path),
-      //         shippingPrice: 0,
-      //       })
-      //       promises.push(res)
-      //     }
-      //   }) || []
-      // )
     }
 
     if (buyNowStatus === 1) {

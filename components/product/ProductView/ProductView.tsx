@@ -9,7 +9,7 @@ import { Button, Container, Text, useUI, Tabs, Tab } from '@components/ui'
 
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
-import { useAddItem } from '@framework/cart'
+import { useAddItem, useCart, useRemoveItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
 import WishlistButton from '@components/wishlist/WishlistButton'
@@ -18,6 +18,7 @@ import ProductDetailSlider from './ProductDetailSlider'
 import ProductDetailTabs from './ProductDetailTabs'
 import ProductTopBanner from '@components/common/ProductTopBanner'
 import { useRouter } from 'next/router'
+import { setProductId, setVariantId, useMain } from 'context'
 
 interface Props {
   className?: string
@@ -27,6 +28,8 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
+  const { data } = useCart()
+  const removeItem = useRemoveItem()
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
@@ -38,6 +41,7 @@ const ProductView: FC<Props> = ({ product }) => {
     color: null,
     size: null,
   })
+  const { dispatch } = useMain()
   const [curImgIndex, setCurImgIndex] = useState(0)
   const [isTab, setIsTab] = useState(false)
   const [tabContent, setTabContent] = useState(() => {
@@ -61,10 +65,15 @@ const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true)
     try {
-      await addItem({
-        productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0].id),
-      })
+      // await removeItem((data?.lineItems || [])[0])
+      // await addItem({
+      //   productId: String(product.id),
+      //   variantId: String(variant ? variant.id : product.variants[0].id),
+      // })
+      dispatch(setProductId(String(product.id)))
+      dispatch(
+        setVariantId(String(variant ? variant.id : product.variants[0].id))
+      )
       setModalView('AUTH_OPTIONS_VIEW')
       openModal()
       setLoading(false)
