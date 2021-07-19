@@ -70,6 +70,7 @@ const ProductView: FC<Props> = ({ product }) => {
       //   productId: String(product.id),
       //   variantId: String(variant ? variant.id : product.variants[0].id),
       // })
+      console.log('product.id: ', product.id)
       dispatch(setProductId(String(product.id)))
       dispatch(
         setVariantId(String(variant ? variant.id : product.variants[0].id))

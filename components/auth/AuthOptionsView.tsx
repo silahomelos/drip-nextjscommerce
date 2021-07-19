@@ -23,6 +23,7 @@ const AuthOptionsView: FC<Props> = () => {
       //   setModalView(null)
       //   openSidebar()
       // }
+      console.log('data?.lineItems: ', data?.lineItems)
       if (data?.lineItems?.length || 0 > 1) {
         await Promise.all(
           data?.lineItems.map(async (item) => await removeItem(item)) || []
