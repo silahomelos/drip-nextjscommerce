@@ -20,7 +20,7 @@ const TextContent: React.FC<Props> = ({ onSelectText }) => {
       <h1 className={s.title}>
         {' '}
         Wear to Defi. <br />
-        Mode your way into metaverse fashion & Gaming.{' '}
+        Mod your way into metaverse fashion & Gaming.{' '}
       </h1>
       <div className={s.subtitleBar}>
         {subTitleList.map((text, index) => (
