@@ -48,6 +48,26 @@ export const createDraftOrder = async (
   }
 }
 
+export const approveOrder = async ({ account, chainId, crypto }) => {
+  const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address[chainId]
+
+  if (crypto !== 'matic') {
+    const tokenContract = await getTokenContract(crypto)
+    const listener = tokenContract.methods
+      .approve(dripMarketplaceAddress, 20000000000)
+      .send({ from: account })
+
+    const promise = new Promise((resolve, reject) => {
+      listener.on('error', (error) => reject(error))
+    })
+    return promise
+  }
+
+  return new Promise((resolve, reject) => {
+    resolve()
+  })
+}
+
 export const purchaseOrder = async ({
   account,
   chainId,
@@ -62,6 +82,7 @@ export const purchaseOrder = async ({
   const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address[chainId]
 
   if (crypto !== 'matic') {
+    console.log('here~~~~~')
     const tokenContract = await getTokenContract(crypto)
     await tokenContract.methods
       .approve(dripMarketplaceAddress, 20000000000)
@@ -71,6 +92,11 @@ export const purchaseOrder = async ({
   try {
     const tokenAmount = web3.utils.toWei(cryptoPrice.toString(), 'ether')
     const bntokens = web3.utils.toBN(tokenAmount)
+
+    console.log('collectionId: ', collectionId)
+    console.log('tokens[crypto].address: ', tokens[crypto].address)
+    console.log('orderNumber: ', orderNumber)
+    console.log('shippingPrice: ', shippingPrice)
 
     const listener = contract.methods
       .buyOffer(

@@ -1,6 +1,7 @@
 import { contracts, tokens } from '../constants'
 
 const getContract = async (address, abi) => {
+  console.log('window.web3.eth: ', window.web3.eth)
   const contract = new window.web3.eth.Contract(abi, address)
 
   return contract

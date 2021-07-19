@@ -6,6 +6,19 @@
   opacity: 1;
 }
 
+.cryptoIcon.selected > span {
+  opacity: 1;
+}
+
 .cryptoIcon img {
   width: 50px;
+}
+
+.smallButton {
+  font-size: 12px;
+}
+
+.cryptoIcon.selected img {
+  border-radius: 25px;
+  border: 2px solid black;
 }
