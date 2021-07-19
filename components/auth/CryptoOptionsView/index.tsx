@@ -103,7 +103,7 @@ const CryptoOptionsView: FC<Props> = () => {
       <p> Choose A Token To Swap For Fashion. </p>
       <div>
         <div className="flex space-x-3">
-          <div
+          {/* <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'rari' && s.selected
             } ${loading && s.disabled}`}
@@ -111,7 +111,7 @@ const CryptoOptionsView: FC<Props> = () => {
           >
             <img src="/cryptos/options/rari.png" className="m-auto" />
             <span className="text-xs"> Rari </span>
-          </div>
+          </div> */}
           {/* <div
             className={`text-center ${s.cryptoIcon}`}
             onClick={() => onCryptoOptionSelect('fei')}
@@ -137,7 +137,7 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/options/dai.png" className="m-auto" />
             <span className="text-xs"> Dai </span>
           </div>
-          <div
+          {/* <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'pickle' && s.selected
             } ${loading && s.disabled}`}
@@ -145,6 +145,15 @@ const CryptoOptionsView: FC<Props> = () => {
           >
             <img src="/cryptos/options/pickle.png" className="m-auto" />
             <span className="text-xs"> Pickle </span>
+          </div> */}
+          <div
+            className={`text-center ${s.cryptoIcon} ${
+              crypto === 'weth' && s.selected
+            } ${loading && s.disabled}`}
+            onClick={() => onCryptoOptionSelect('weth')}
+          >
+            <img src="/cryptos/options/weth.png" className="m-auto" />
+            <span className="text-xs"> Eth </span>
           </div>
           <div
             className={`text-center ${s.cryptoIcon} ${
@@ -155,6 +164,8 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/options/mona.png" className="m-auto" />
             <span className="text-xs"> Mona </span>
           </div>
+        </div>
+        <div className="flex justify-center space-x-3">
           <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'aave' && s.selected
@@ -164,8 +175,6 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/options/aave.png" className="m-auto" />
             <span className="text-xs"> AAVE </span>
           </div>
-        </div>
-        <div className="flex justify-center space-x-3">
           <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'matic' && s.selected
@@ -175,7 +184,7 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/options/matic.png" className="m-auto" />
             <span className="text-xs"> MATIC </span>
           </div>
-          <div
+          {/* <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'bancor' && s.selected
             } ${loading && s.disabled}`}
@@ -192,7 +201,7 @@ const CryptoOptionsView: FC<Props> = () => {
           >
             <img src="/cryptos/options/force.png" className="m-auto" />
             <span className="text-xs"> Force </span>
-          </div>
+          </div> */}
         </div>
       </div>
       <Button
@@ -201,8 +210,13 @@ const CryptoOptionsView: FC<Props> = () => {
         disabled={!crypto.length && cryptoPrice === 0.0}
         loading={loading}
       >
-        {!approved ? 'Approve Spend' : 'Purchase Item'}
+        {!approved ? 'Approve Spend' : 'Mint NFT'}
       </Button>
+      {loading && approved && (
+        <p className="text-center" style={{ color: '#0688FF' }}>
+          {'Your NFT is minting...this might take a little whilte!'}
+        </p>
+      )}
     </div>
   )
 }

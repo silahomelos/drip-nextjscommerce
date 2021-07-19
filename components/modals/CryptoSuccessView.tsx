@@ -18,15 +18,16 @@ const CryptoSuccessView: FC<Props> = () => {
         fashion x defi
       </h1>
       <p className="text-center">
-        This Fashion NFT is not an ordinary asset. It unlocks an entire world of
-        Crypto, DeFi and Web3!
+        This Fashion NFT is not an ordinary asset. It unlocks an entire <br />{' '}
+        world of Crypto, DeFi and Web3!
       </p>
       <a
         href="https://staking.digitalax.xyz/"
         target="_blank"
-        className="text-2xl font-bold underline"
+        className="text-xl font-bold underline text-center"
       >
-        You Can Start Staking Your NFT For Yield! Check Your Inbox to Level Up!
+        You Can Start Staking Your NFT For Yield! Check Your
+        <br /> Inbox to Level Up!
       </a>
       <Button variant="slim" onClick={goBack}>
         Continue Shopping
