@@ -37,7 +37,7 @@ const AuthOptionsView: FC<Props> = () => {
     <div className="flex flex-col space-y-3 items-center">
       <h1 className="uppercase text-center text-3xl font-bold">
         {' '}
-        start reppling{' '}
+        start repping{' '}
       </h1>
       <p className="my-4">
         {' '}
