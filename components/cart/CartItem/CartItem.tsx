@@ -34,7 +34,8 @@ const CartItem = ({
     currencyCode,
   })
 
-  const { dispatch, cryptoPrice } = useMain()
+  const { setModalView, openModal } = useUI()
+  const { dispatch, cryptoPrice, authOption } = useMain()
   const ethValue = item.variant.price * item.quantity * cryptoPrice
 
   const updateItem = useUpdateItem({ item })
@@ -61,6 +62,11 @@ const CartItem = ({
     }
   }
   const increaseQuantity = (n = 1) => {
+    if (authOption === 0) {
+      setModalView('CHECKOUT_WARNING')
+      openModal()
+      return
+    }
     const val = Number(quantity) + n
 
     if (Number.isInteger(val) && val >= 0) {
