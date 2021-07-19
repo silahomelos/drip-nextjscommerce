@@ -21,8 +21,6 @@ const CryptoSignUpView: FC<Props> = () => {
 
   const onConnect = async (option: number) => {
     setWeb3Provider(option)
-    console.log({ account })
-    console.log(option)
     try {
       if (!account) {
         const res = await connectWallet(option)
@@ -32,7 +30,7 @@ const CryptoSignUpView: FC<Props> = () => {
         window.localStorage.setItem('ACCOUNT', res.account)
         window.localStorage.setItem('CHAIN_ID', res.chainId)
         window.localStorage.setItem('WALLET', option.toString())
-        // setModalView('LOGIN_VIEW')
+        router.push('/checkout-crypto')
       }
       closeModal()
     } catch (err) {

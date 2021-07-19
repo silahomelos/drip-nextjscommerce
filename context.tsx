@@ -9,6 +9,9 @@ export interface State {
   authOption: number
   ethPrice: number
   buyNowStatus: number
+  // temporary
+  productId: string
+  variantId: string
 }
 
 interface Props {}
@@ -18,11 +21,14 @@ const initialState = {
   account: null,
   signMsg: null,
   chainId: null,
-  crypto: null,
+  crypto: '',
   cryptoPrice: 0,
   authOption: null,
   ethPrice: 0,
   buyNowStatus: 0,
+  // temporary
+  productId: '',
+  variantId: '',
 }
 
 export const MainContext = React.createContext<State | any>(initialState)
@@ -55,6 +61,12 @@ export const setAuthOption = (authOption: number) =>
   createAction('SET_AUTH_OPTION', authOption)
 export const setBuyNowStatus = (status: number) =>
   createAction('SET_BUY_NOW_STATUS', status)
+
+// temporary
+export const setProductId = (productId: string) =>
+  createAction('SET_PRODUCT_ID', productId)
+export const setVariantId = (variantId: string) =>
+  createAction('SET_VARIANT_ID', variantId)
 
 function mainReducer(state: State, action: Action) {
   switch (action.type) {
@@ -110,6 +122,19 @@ function mainReducer(state: State, action: Action) {
       return {
         ...state,
         buyNowStatus: action.payload,
+      }
+    }
+    //temporary
+    case 'SET_PRODUCT_ID': {
+      return {
+        ...state,
+        productId: action.payload,
+      }
+    }
+    case 'SET_VARIANT_ID': {
+      return {
+        ...state,
+        variantId: action.payload,
       }
     }
   }

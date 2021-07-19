@@ -2,13 +2,18 @@ import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
 import { setAuthOption, useMain } from 'context'
 import router from 'next/router'
+import { useCart, useRemoveItem, useAddItem } from '@framework/cart'
 
 interface Props {}
 
 const AuthOptionsView: FC<Props> = () => {
   const { openSidebar, closeModal, setModalView } = useUI()
-  const { dispatch, account, crypto } = useMain()
-  const onOptionClick = (option: number) => {
+  const { data } = useCart()
+  const { dispatch, account, crypto, productId, variantId } = useMain()
+  const addItem = useAddItem()
+  const removeItem = useRemoveItem()
+
+  const onOptionClick = async (option: number) => {
     if (option === 0) {
       // setModalView('CRYPTO_OPTIONS_VIEW')
       // if (!account) {
@@ -18,14 +23,27 @@ const AuthOptionsView: FC<Props> = () => {
       //   setModalView(null)
       //   openSidebar()
       // }
+      if (data?.lineItems?.length || 0 > 1) {
+        await Promise.all(
+          data?.lineItems.map(async (item) => await removeItem(item)) || []
+        )
+      }
+      await addItem({
+        productId,
+        variantId,
+      })
       dispatch(setAuthOption(0))
       if (!account) {
-        setModalView('CLAIM_YOUR_NFT_VIEW')
+        setModalView('CRYPTO_SIGNUP_VIEW')
       } else {
         closeModal()
         router.push('/checkout-crypto')
       }
     } else {
+      await addItem({
+        productId,
+        variantId,
+      })
       setModalView('')
       openSidebar()
       closeModal()
@@ -37,7 +55,7 @@ const AuthOptionsView: FC<Props> = () => {
     <div className="flex flex-col space-y-3 items-center">
       <h1 className="uppercase text-center text-3xl font-bold">
         {' '}
-        start reppling{' '}
+        start repping{' '}
       </h1>
       <p className="my-4">
         {' '}
