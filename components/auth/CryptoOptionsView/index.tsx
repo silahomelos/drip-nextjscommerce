@@ -65,6 +65,8 @@ const CryptoOptionsView: FC<Props> = () => {
         const allowance = await getAllowance({ account, crypto })
         if (allowance) {
           setApproved(true)
+        } else {
+          setApproved(false)
         }
       }
 
