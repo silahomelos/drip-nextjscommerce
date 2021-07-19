@@ -53,6 +53,7 @@ const ProductView: FC<Props> = ({ product }) => {
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
+
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
   }
