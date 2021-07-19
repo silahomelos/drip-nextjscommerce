@@ -8,6 +8,7 @@ export interface State {
   cryptoPrice: number
   authOption: number
   ethPrice: number
+  buyNowStatus: number
 }
 
 interface Props {}
@@ -21,6 +22,7 @@ const initialState = {
   cryptoPrice: 0,
   authOption: null,
   ethPrice: 0,
+  buyNowStatus: 0,
 }
 
 export const MainContext = React.createContext<State | any>(initialState)
@@ -51,6 +53,8 @@ export const setCryptoPrice = (price: number) =>
 export const setSignMsg = (msg: string) => createAction('SET_SIGN_MSG', msg)
 export const setAuthOption = (authOption: number) =>
   createAction('SET_AUTH_OPTION', authOption)
+export const setBuyNowStatus = (status: number) =>
+  createAction('SET_BUY_NOW_STATUS', status)
 
 function mainReducer(state: State, action: Action) {
   switch (action.type) {
@@ -100,6 +104,12 @@ function mainReducer(state: State, action: Action) {
       return {
         ...state,
         signMsg: action.payload,
+      }
+    }
+    case 'SET_BUY_NOW_STATUS': {
+      return {
+        ...state,
+        buyNowStatus: action.payload,
       }
     }
   }

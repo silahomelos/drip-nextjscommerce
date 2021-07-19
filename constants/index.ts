@@ -1,10 +1,8 @@
 export const ETH_API_URL =
   'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
 
-export const GRAPH_API_URL = {
-  '0x89': 'https://api.thegraph.com/subgraphs/name/digitalax/digitalaxmatic',
-  '0x137': 'https://api.thegraph.com/subgraphs/name/digitalax/digitalaxmatic',
-}
+export const GRAPH_API_URL =
+  'https://api.thegraph.com/subgraphs/name/digitalax/digitalaxmatic'
 
 export const ESPA_BACKEND_API_URL =
   'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/'
@@ -15,10 +13,7 @@ export const networks = {}
 
 export const contracts = {
   DRIP_MARTKETPLACE: {
-    address: {
-      '0x89': '0x89b83f3e40ce76a104550fbd35b8a417631b9232',
-      '0x137': '',
-    },
+    address: '0x89b83f3e40ce76a104550fbd35b8a417631b9232',
     abi: [
       {
         anonymous: false,

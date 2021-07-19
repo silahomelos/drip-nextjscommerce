@@ -141,21 +141,10 @@ const CartSidebarView: FC = () => {
             </div>
             <Button
               onClick={() => {
-                console.log('this is processed to checkout')
-                if (account) {
-                  if (crypto) {
-                    if (authOption) {
-                      router.push('/checkout')
-                    } else {
-                      router.push('/checkout-crypto')
-                    }
-                  } else {
-                    setModalView('CRYPTO_OPTIONS_VIEW')
-                    openModal()
-                  }
+                if (authOption) {
+                  router.push('/checkout')
                 } else {
-                  setModalView('CRYPTO_SIGNUP_VIEW')
-                  openModal()
+                  router.push('/checkout-crypto')
                 }
               }}
               width="100%"

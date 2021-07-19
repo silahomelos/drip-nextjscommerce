@@ -47,9 +47,21 @@ export const createDraftOrder = async (
   }
 }
 
+export const approveToken = async ({ account, crypto, cryptoPrice }) => {
+  try {
+    const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address
+    const tokenContract = await getTokenContract(crypto)
+    return tokenContract.methods
+      .approve(dripMarketplaceAddress, parseInt(cryptoPrice))
+      .send({ from: account })
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
+}
+
 export const purchaseOrder = async ({
   account,
-  chainId,
   orderNumber,
   orderId,
   collectionId,
@@ -57,16 +69,7 @@ export const purchaseOrder = async ({
   cryptoPrice,
   shippingPrice,
 }) => {
-  const contract = await getDripMarketplaceContract(chainId)
-  const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address[chainId]
-
-  if (crypto !== 'matic') {
-    const tokenContract = await getTokenContract(crypto)
-    await tokenContract.methods
-      .approve(dripMarketplaceAddress, 20000000000)
-      .send({ from: account })
-  }
-
+  const contract = await getDripMarketplaceContract()
   try {
     const listener = contract.methods
       .buyOffer(
@@ -82,8 +85,15 @@ export const purchaseOrder = async ({
 
     const promise = new Promise((resolve, reject) => {
       listener.on('error', (error) => reject(error))
+      listener.on('confirmation', (transactionHash) => resolve(transactionHash))
     })
-    return promise
+    return {
+      promise,
+      unsubscribe: () => {
+        listener.off('error')
+        listener.off('confirmation')
+      },
+    }
   } catch (err) {
     console.log(err)
     throw err

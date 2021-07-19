@@ -35,8 +35,8 @@ const ProductView: FC<Props> = ({ product }) => {
   const { openSidebar, openModal, setModalView } = useUI()
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
-    size: null,
     color: null,
+    size: null,
   })
   const [curImgIndex, setCurImgIndex] = useState(0)
   const [isTab, setIsTab] = useState(false)
@@ -53,7 +53,6 @@ const ProductView: FC<Props> = ({ product }) => {
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
-
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
   }

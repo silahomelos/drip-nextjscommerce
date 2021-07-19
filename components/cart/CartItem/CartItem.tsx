@@ -35,7 +35,7 @@ const CartItem = ({
   })
 
   const { dispatch, cryptoPrice } = useMain()
-  const ethValue = (item.variant.price * item.quantity) / cryptoPrice
+  const ethValue = item.variant.price * item.quantity * cryptoPrice
 
   const updateItem = useUpdateItem({ item })
   const removeItem = useRemoveItem()

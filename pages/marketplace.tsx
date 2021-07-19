@@ -39,7 +39,7 @@ export async function getStaticProps({
   return {
     props: {
       products,
-      collections: collections.reverse(),
+      collections,
       categories,
       brands,
       pages,
@@ -65,6 +65,22 @@ export default function Home({
     'DeCo',
     'Hybrid Fashion',
   ]
+  const order = [
+    'Instadapp',
+    'Bancor',
+    'Maker',
+    'Aave',
+    'Pickle',
+    'Force',
+    'Polygon',
+    'Opyn',
+    'Poap',
+    'Ruler',
+    'Rari',
+    'Fei',
+    'Metaversal',
+    'Minecraft',
+  ]
   const onSelectCard = (index: number) => {
     setCardTextIndex(index)
     setRandomStr(shortid.generate())
@@ -75,16 +91,22 @@ export default function Home({
       <ProductTopBanner showSlider />
       <Container>
         <GridContainer>
-          {collections.map((collection, i) => (
-            <Collection
-              key={collection.id}
-              collection={collection}
-              imgProps={{
-                width: 540,
-                height: 540,
-              }}
-            />
-          ))}
+          {order.map((item) => {
+            const collection: any = collections.find((collection) =>
+              collection.name.toLocaleLowerCase().includes(item.toLowerCase())
+            )
+            if (!collection) return <> </>
+            return (
+              <Collection
+                key={collection.id}
+                collection={collection}
+                imgProps={{
+                  width: 540,
+                  height: 540,
+                }}
+              />
+            )
+          })}
         </GridContainer>
       </Container>
     </>

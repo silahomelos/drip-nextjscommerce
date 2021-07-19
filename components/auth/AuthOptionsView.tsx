@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
 import { setAuthOption, useMain } from 'context'
+import router from 'next/router'
 
 interface Props {}
 
@@ -9,7 +10,7 @@ const AuthOptionsView: FC<Props> = () => {
   const { dispatch, account, crypto } = useMain()
   const onOptionClick = (option: number) => {
     if (option === 0) {
-      setModalView('CRYPTO_OPTIONS_VIEW')
+      // setModalView('CRYPTO_OPTIONS_VIEW')
       // if (!account) {
       //   setModalView('CLAIM_YOUR_NFT_VIEW')
       // } else {
@@ -18,6 +19,12 @@ const AuthOptionsView: FC<Props> = () => {
       //   openSidebar()
       // }
       dispatch(setAuthOption(0))
+      if (!account) {
+        setModalView('CLAIM_YOUR_NFT_VIEW')
+      } else {
+        closeModal()
+        router.push('/checkout-crypto')
+      }
     } else {
       setModalView('')
       openSidebar()

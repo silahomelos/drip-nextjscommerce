@@ -1,11 +1,12 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Button, useUI } from '@components/ui'
 import { useCart, useRemoveItem } from 'framework/shopify/cart'
 import usePrice from '@commerce/product/use-price'
 import { CartItem } from '@components/cart'
-import { useMain } from 'context'
+import { setBuyNowStatus, useMain } from 'context'
 import { purchaseOrder } from 'services/order.service'
 import router from 'next/router'
+import { setWeb3Provider } from 'services/web3-provider.service'
 
 interface Props {}
 
@@ -21,8 +22,16 @@ const Checkout: FC<Props> = () => {
   const [province, setProvince] = useState('')
   const [code, setCode] = useState('')
   const [valid, setValid] = useState<Array<string>>([])
-  const { account, crypto, cryptoPrice, chainId } = useMain()
-  const { closeSidebar } = useUI()
+  const {
+    dispatch,
+    account,
+    crypto,
+    cryptoPrice,
+    chainId,
+    buyNowStatus,
+    wallet,
+  } = useMain()
+  const { closeSidebar, setModalView, openModal } = useUI()
   const removeItem = useRemoveItem()
 
   const { price: subTotal } = usePrice(
@@ -98,6 +107,14 @@ const Checkout: FC<Props> = () => {
     if (validations.length) {
       setValid(validations)
     } else {
+      setModalView('CRYPTO_OPTIONS_VIEW')
+      openModal()
+    }
+  }
+
+  useEffect(() => {
+    const order = async () => {
+      // setWeb3Provider(wallet)
       const { order } = await (
         await fetch('/api/order', {
           method: 'POST',
@@ -130,26 +147,56 @@ const Checkout: FC<Props> = () => {
       const { id, order_number } = order
       const promises = []
 
-      data?.lineItems.map(async (item) => {
-        for (let i = 0; i < item.quantity; i += 1) {
-          const res = purchaseOrder({
-            account,
-            chainId,
-            orderNumber: order_number,
-            orderId: id,
-            crypto,
-            cryptoPrice: item.variant.price / cryptoPrice,
-            collectionId: getCollectionId(item.path),
-            shippingPrice: 0,
+      try {
+        const { promise, unsubscribe } = await purchaseOrder({
+          account,
+          orderNumber: order_number,
+          orderId: id,
+          crypto,
+          cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
+          collectionId: getCollectionId(data?.lineItems[0].path || ''),
+          shippingPrice: 0,
+        })
+        promise
+          .then((hash) => {
+            removeItem((data?.lineItems || [])[0])
+            dispatch(setBuyNowStatus(2))
+            unsubscribe()
           })
-          promises.push(res)
-        }
-      })
-      data?.lineItems?.map(async (item) => await removeItem(item))
-      closeSidebar()
-      router.push('/marketplace')
+          .catch((error) => {
+            console.log(error)
+            unsubscribe()
+            throw error
+          })
+      } catch (err) {
+        console.log(err)
+        throw err
+      }
+
+      /* this is for multi items  */
+
+      // await Promise.all(
+      //   data?.lineItems.map(async (item) => {
+      //     for (let i = 0; i < item.quantity; i += 1) {
+      //       const res = purchaseOrder({
+      //         account,
+      //         orderNumber: order_number,
+      //         orderId: id,
+      //         crypto,
+      //         cryptoPrice: item.variant.price / cryptoPrice,
+      //         collectionId: getCollectionId(item.path),
+      //         shippingPrice: 0,
+      //       })
+      //       promises.push(res)
+      //     }
+      //   }) || []
+      // )
     }
-  }
+
+    if (buyNowStatus === 1) {
+      order()
+    }
+  }, [buyNowStatus])
 
   return (
     <div className="container mx-auto h-screen">
@@ -338,7 +385,7 @@ const Checkout: FC<Props> = () => {
             </div>
           </div>
           <Button variant="slim" onClick={onConfirm}>
-            Confirm
+            Confirm Shipping Address
           </Button>
         </div>
         <div className="w-2/5 bg-gray-100 p-10 flex flex-col space-3 h-full">
@@ -354,16 +401,40 @@ const Checkout: FC<Props> = () => {
           <hr />
           <div className="flex items-center justify-between py-1">
             <span className="font-bold">Sub Total</span>
-            <span> {subTotal}</span>
+            <span>
+              {' '}
+              {subTotal}{' '}
+              {cryptoPrice ? (
+                <>({(cryptoPrice * Number(data?.subtotalPrice)).toFixed(2)})</>
+              ) : null}{' '}
+            </span>
           </div>
           <div className="flex items-center justify-between py-1">
             <span className="font-bold">Ship Price</span>
-            <span> {shipPrice}</span>
+            <span>
+              {' '}
+              {shipPrice}
+              {cryptoPrice ? (
+                <>
+                  (
+                  {(
+                    cryptoPrice *
+                    (Number(data?.totalPrice) - Number(data?.subtotalPrice))
+                  ).toFixed(2)}
+                  )
+                </>
+              ) : null}
+            </span>
           </div>
           <hr />
           <div className="flex items-center justify-between py-1">
             <span className="font-bold">Total</span>
-            <span className="text-2xl"> {total}</span>
+            <span className="text-2xl">
+              {total}
+              {cryptoPrice ? (
+                <>({(cryptoPrice * Number(data?.totalPrice)).toFixed(2)})</>
+              ) : null}
+            </span>
           </div>
         </div>
       </div>

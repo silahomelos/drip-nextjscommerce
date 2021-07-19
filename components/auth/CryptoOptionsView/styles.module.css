@@ -9,3 +9,8 @@
 .cryptoIcon img {
   width: 50px;
 }
+
+.selected > img {
+  border: 4px solid blue;
+  border-radius: 50%;
+}

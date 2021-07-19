@@ -101,29 +101,26 @@ const Layout: FC<Props> = ({
     }
   }, [wallet, account])
 
-  useEffect(() => {
-    if (crypto) {
-      const fetchCryptoPrice = async () => {
-        console.log(crypto)
-        console.log(chainId)
-        if (chainId && crypto) {
-          const { payableTokenReport } = await getPayableTokenReport(
-            chainId,
-            tokens[crypto].address
-          )
-          const updatedPrice = payableTokenReport.payload / 1e18
-          if (updatedPrice !== cryptoPrice) {
-            dispatch(setCryptoPrice(updatedPrice))
-          }
-        }
-      }
+  // useEffect(() => {
+  //   if (crypto) {
+  //     const fetchCryptoPrice = async () => {
+  //       if (chainId && crypto) {
+  //         const { payableTokenReport } = await getPayableTokenReport(
+  //           tokens[crypto].address
+  //         )
+  //         const updatedPrice = payableTokenReport.payload / 1e18
+  //         if (updatedPrice !== cryptoPrice) {
+  //           dispatch(setCryptoPrice(updatedPrice))
+  //         }
+  //       }
+  //     }
 
-      fetchCryptoPrice()
-      const interval = setInterval(fetchCryptoPrice, 10000)
+  //     fetchCryptoPrice()
+  //     const interval = setInterval(fetchCryptoPrice, 10000)
 
-      return () => clearInterval(interval)
-    }
-  }, [crypto])
+  //     return () => clearInterval(interval)
+  //   }
+  // }, [crypto])
 
   const getMainWrapperClassName = () => {
     if (asPath.includes('marketplace')) {
