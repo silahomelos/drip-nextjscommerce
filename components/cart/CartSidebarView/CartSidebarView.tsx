@@ -143,7 +143,7 @@ const CartSidebarView: FC = () => {
               onClick={() => {
                 if (authOption) {
                   router.push('/checkout')
-                  window.localStorage.setItem('CHECKING_OUT', '0')
+                  // window.localStorage.setItem('CHECKING_OUT', '0')
                 } else {
                   router.push('/checkout-crypto')
                 }

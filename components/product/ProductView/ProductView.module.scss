@@ -350,6 +350,11 @@
   .tabRow {
     display: grid;
     grid-template-columns: 120px auto;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr!important;
+      justify-content: center;
+    }
     gap: 1rem;
     align-items: center;
     margin-bottom: 3rem;

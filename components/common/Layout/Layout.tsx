@@ -99,15 +99,15 @@ const Layout: FC<Props> = ({
     }
   }, [])
 
-  useEffect(() => {
-    if (
-      data?.lineItems.length === 0 &&
-      window.localStorage.getItem('CHECKING_OUT', '0')
-    ) {
-      setModalView('CRYPTO_SUCCESS_VIEW')
-      window.localStorage.setItem('CHECKING_OUT', '1')
-    }
-  }, [data?.lineItems.length])
+  // useEffect(() => {
+  //   if (
+  //     data?.lineItems.length === 0 &&
+  //     window.localStorage.getItem('CHECKING_OUT')
+  //   ) {
+  //     setModalView('CRYPTO_SUCCESS_VIEW')
+  //     window.localStorage.setItem('CHECKING_OUT', '1')
+  //   }
+  // }, [data?.lineItems.length])
 
   useEffect(() => {
     if (wallet && account) {
