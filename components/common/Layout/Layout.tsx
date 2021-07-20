@@ -2,7 +2,7 @@ import cn from 'classnames'
 import dynamic from 'next/dynamic'
 import s from './Layout.module.css'
 import { useRouter } from 'next/router'
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer, TextSlider } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
@@ -74,10 +74,12 @@ const Layout: FC<Props> = ({
     closeSidebar,
     closeModal,
     modalView,
+    setModalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
   const { dispatch, crypto, chainId, cryptoPrice, wallet, account } = useMain()
+  const [param, setParam] = useState('')
 
   useEffect(() => {
     if (window.localStorage.getItem('ACCOUNT')) {
@@ -96,11 +98,27 @@ const Layout: FC<Props> = ({
     }
   }, [])
 
+  // useEffect(() => {
+  //   if (
+  //     data?.lineItems.length === 0 &&
+  //     window.localStorage.getItem('CHECKING_OUT')
+  //   ) {
+  //     setModalView('CRYPTO_SUCCESS_VIEW')
+  //     window.localStorage.setItem('CHECKING_OUT', '1')
+  //   }
+  // }, [data?.lineItems.length])
+
   useEffect(() => {
     if (wallet && account) {
       setWeb3Provider(wallet)
     }
   }, [wallet, account])
+
+  useEffect(() => {
+    if (asPath) {
+      setParam(asPath)
+    }
+  }, [asPath])
 
   // useEffect(() => {
   //   if (crypto) {
@@ -124,58 +142,55 @@ const Layout: FC<Props> = ({
   // }, [crypto])
 
   const getMainWrapperClassName = () => {
-    if (asPath.includes('marketplace')) {
+    if (param.includes('marketplace')) {
       return s.marketplace
     }
-    if (asPath.includes('minecraft')) {
+    if (param.includes('minecraft')) {
       return s.collection2
     }
-    if (asPath.includes('aave')) {
+    if (param.includes('aave')) {
       return s.aave
     }
-    if (asPath.includes('instadapp')) {
+    if (param.includes('instadapp')) {
       return s.instadapp
     }
-    if (asPath.includes('ruler')) {
+    if (param.includes('ruler')) {
       return s.ruler
     }
-    if (asPath.includes('poap')) {
+    if (param.includes('poap')) {
       return s.poap
     }
-    if (asPath.includes('force')) {
+    if (param.includes('force')) {
       return s.force
     }
-    if (asPath.includes('zerion')) {
+    if (param.includes('zerion')) {
       return s.zerion
     }
-    if (asPath.includes('zapper')) {
+    if (param.includes('zapper')) {
       return s.zapper
     }
-    if (asPath.includes('polygon')) {
+    if (param.includes('polygon')) {
       return s.polyon
     }
-    if (asPath.includes('opyn')) {
+    if (param.includes('opyn')) {
       return s.opyn
     }
-    if (asPath.includes('pickle')) {
+    if (param.includes('pickle')) {
       return s.pickle
     }
-    if (asPath.includes('rari')) {
+    if (param.includes('rari')) {
       return s.rari
     }
-    if (asPath.includes('maker')) {
+    if (param.includes('maker')) {
       return s.maker
     }
-    if (asPath.includes('bancor')) {
+    if (param.includes('bancor')) {
       return s.bancor
     }
-    return s.collection1
+    if (param.includes('metaversal')) {
+      return s.collection1
+    }
   }
-
-  useEffect(() => {
-    console.log(modalView)
-  }, [modalView])
-
   return (
     <CommerceProvider locale={locale}>
       <div className={cn(s.root)}>
