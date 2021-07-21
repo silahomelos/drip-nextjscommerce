@@ -199,9 +199,16 @@ const Checkout: FC<Props> = () => {
             unsubscribe()
             dispatch(setBuyNowStatus(2))
           })
-          .catch((error) => {
+          .catch(async (error) => {
             console.log(error)
+            console.log(error.code)
             toast.error(error.message)
+            await fetch('/api/remove-order', {
+              method: 'POST',
+              body: JSON.stringify({
+                orderId: id,
+              }),
+            })
             dispatch(setBuyNowStatus(3))
             unsubscribe()
             throw error
