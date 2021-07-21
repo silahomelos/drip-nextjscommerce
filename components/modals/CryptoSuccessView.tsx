@@ -21,13 +21,16 @@ const CryptoSuccessView: FC<Props> = () => {
         This Fashion NFT is not an ordinary asset. It unlocks an entire <br />{' '}
         world of Crypto, DeFi and Web3!
       </p>
+      <p className="text-center">
+        Your items are handcrafted. Shipping takes approximately 2 <br /> weeks
+        from purchase.
+      </p>
       <a
         href="https://staking.digitalax.xyz/"
         target="_blank"
         className="text-xl font-bold underline text-center"
       >
-        Your items are handcrafted. Shipping takes approximately 2 <br /> weeks
-        from purchase.
+        Start Using Your NFT Here, Stake it For Yield!
       </a>
       <Button variant="slim" onClick={goBack}>
         Continue Shopping
