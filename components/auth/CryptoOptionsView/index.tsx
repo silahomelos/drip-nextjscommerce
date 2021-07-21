@@ -38,7 +38,10 @@ const CryptoOptionsView: FC<Props> = () => {
           tokens[crypto].address
         )
 
-        const updatedPrice = payableTokenReport.payload / 1e18
+        const updatedPrice =
+          crypto === 'matic'
+            ? 1473622163277335691 / 1e18
+            : payableTokenReport.payload / 1e18
         if (updatedPrice !== cryptoPrice) {
           dispatch(setCryptoPrice(updatedPrice))
         }
@@ -214,7 +217,7 @@ const CryptoOptionsView: FC<Props> = () => {
       </Button>
       {loading && approved && (
         <p className="text-center" style={{ color: '#0688FF' }}>
-          {'Your NFT is minting...this might take a little whilte!'}
+          {'Your NFT is minting...this might take a little while!'}
         </p>
       )}
     </div>
