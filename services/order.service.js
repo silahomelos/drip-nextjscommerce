@@ -58,8 +58,6 @@ export const createDraftOrder = async (
 
 export const updateOrder = async (orderId, amount) => {
   try {
-    console.log(`${API_URL}/orders/${orderId}.json`)
-    console.log({ orderId })
     const order = await (
       await fetch(`${API_URL}/orders/${orderId}/transactions.json`, {
         method: 'GET',
@@ -86,8 +84,17 @@ export const updateOrder = async (orderId, amount) => {
         }),
       })
     ).json()
-    console.log({ res })
     return res
+  } catch (err) {
+    throw err
+  }
+}
+
+export const deleteOrder = async (orderId) => {
+  try {
+    await fetch(`${API_URL}/orders/${orderId}.json`, {
+      method: 'DELETE',
+    })
   } catch (err) {
     throw err
   }
