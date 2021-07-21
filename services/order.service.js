@@ -94,7 +94,6 @@ export const updateOrder = async (orderId, amount) => {
 }
 
 export const getAllowance = async ({ account, crypto }) => {
-  if (crypto === 'matic') return true
   const dripMarketplaceAddress = contracts.DRIP_MARTKETPLACE.address
   const tokenContract = await getTokenContract(crypto)
   const allowance = await tokenContract.methods
@@ -139,7 +138,7 @@ export const purchaseOrder = async ({
       )
       .send({
         from: account,
-        value: crypto !== 'matic' ? 0 : parseInt(cryptoPrice * 1e18),
+        value: 0,
       })
 
     const promise = new Promise((resolve, reject) => {
