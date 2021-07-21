@@ -184,7 +184,7 @@ const CryptoOptionsView: FC<Props> = () => {
             } ${loading && s.disabled}`}
             onClick={() => onCryptoOptionSelect('matic')}
           >
-            <img src="/cryptos/options/Matic.png" className="m-auto" />
+            <img src="/cryptos/options/matic.png" className="m-auto" />
             <span className="text-xs"> wMATIC </span>
           </div>
           {/* <div
