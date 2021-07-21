@@ -18,7 +18,8 @@ const CheckoutWarning: FC<Props> = () => {
       <p className="text-center">
         You will need to go through the checkout process individually for each
         purchase with crypto in order to mint your NFT. Only add 1 item to your
-        cart at a time!
+        cart at a time! All items are handcrafted and arrive approximately two
+        weeks after purchase!
       </p>
       <p className="text-center italic font-bold font-xl">
         Multi-purchase coming soon!
