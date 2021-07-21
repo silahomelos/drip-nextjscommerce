@@ -139,7 +139,7 @@ export const purchaseOrder = async ({
       )
       .send({
         from: account,
-        value: crypto !== 'matic' ? 0 : parseInt(cryptoPrice),
+        value: crypto !== 'matic' ? 0 : parseInt(cryptoPrice * 1e18),
       })
 
     const promise = new Promise((resolve, reject) => {

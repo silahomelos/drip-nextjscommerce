@@ -17,6 +17,33 @@ export const connectWallet = async (wallet) => {
         throw new Error('Account is Empty.')
       }
 
+      if (ethereum.chainId !== '0x89') {
+        try {
+          const res = await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x89' }],
+          })
+        } catch (err) {
+          if (err.code === 4902) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: '0x89',
+                    chainName: 'Matic Main Network',
+                    rpcUrls:
+                      'https://polygon-mainnet.infura.io/v3/6e9690131f584ee0a8b445ebb4740f8b',
+                  },
+                ],
+              })
+            } catch (error) {
+              throw error
+            }
+          }
+        }
+      }
+
       return {
         account,
         chainId: ethereum.chainId,
