@@ -5,16 +5,14 @@ import { FC, useState } from 'react'
 import s from './ProductView.module.scss'
 
 import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text, useUI, Tabs, Tab } from '@components/ui'
+import { Button, Container, useUI } from '@components/ui'
 
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
 import { useAddItem, useCart, useRemoveItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
-import WishlistButton from '@components/wishlist/WishlistButton'
 import DefiProductDetailTabs from './DefiProductDetailTabs'
-import ProductDetailSlider from './ProductDetailSlider'
 import ProductDetailTabs from './ProductDetailTabs'
 import ProductTopBanner from '@components/common/ProductTopBanner'
 import { useRouter } from 'next/router'
@@ -43,16 +41,6 @@ const ProductView: FC<Props> = ({ product }) => {
   })
   const { dispatch } = useMain()
   const [curImgIndex, setCurImgIndex] = useState(0)
-  const [isTab, setIsTab] = useState(false)
-  const [tabContent, setTabContent] = useState(() => {
-    try {
-      setIsTab(true)
-      return JSON.parse(product.description)
-    } catch (e) {
-      setIsTab(false)
-      return product.description
-    }
-  })
   const { asPath } = useRouter()
 
   // Select the correct variant based on choices
@@ -65,11 +53,6 @@ const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true)
     try {
-      // await removeItem((data?.lineItems || [])[0])
-      // await addItem({
-      //   productId: String(product.id),
-      //   variantId: String(variant ? variant.id : product.variants[0].id),
-      // })
       dispatch(setProductId(String(product.id)))
       dispatch(
         setVariantId(String(variant ? variant.id : product.variants[0].id))
@@ -215,7 +198,10 @@ const ProductView: FC<Props> = ({ product }) => {
                   loading={loading}
                   disabled={!variant && product.options.length > 0}
                 >
-                  Buy Now
+                  <div>
+                    ADD TO CART
+                    <p className={s.buttonSubTitle}>FIAT & CRYPTO</p>
+                  </div>
                 </Button>
               </div>
               {isOriginal() ? (
