@@ -4242,7 +4242,7 @@ export const tokens: {
     ],
   },
   matic: {
-    address: '0x0000000000000000000000000000000000001010',
+    address: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
   },
   weth: {
     address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
