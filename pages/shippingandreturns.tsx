@@ -38,11 +38,8 @@ export default function ShippingAndReturns() {
               textShadow: '0px 4px 4px rgba(255, 255, 255, 0.3)',
             }}
           >
-            FLAT RATE US DOMESTIC AND WORLDWIDE shipping rates apply.
-            <br />
-            <br />
-            FLAT Rate of usd$10 for us domestic orders and usd$15 for
-            international shipping.
+            ALL ITEMS ARE HANDCRAFTED. SHIPPING FOR US DOMESTIC AND
+            INTERNATIONAL TAKES APPROXIMATELY TWO WEEKS FROM PURCHASE.
             <br />
             <br />
             There is a 14 day return window UPON DELIVERY. Please email

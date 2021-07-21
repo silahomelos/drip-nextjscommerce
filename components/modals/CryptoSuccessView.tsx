@@ -26,8 +26,8 @@ const CryptoSuccessView: FC<Props> = () => {
         target="_blank"
         className="text-xl font-bold underline text-center"
       >
-        You Can Start Staking Your NFT For Yield! Check Your
-        <br /> Inbox to Level Up!
+        Your items are handcrafted. Shipping takes approximately 2 <br /> weeks
+        from purchase.
       </a>
       <Button variant="slim" onClick={goBack}>
         Continue Shopping
