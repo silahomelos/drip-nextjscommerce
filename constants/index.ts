@@ -3378,7 +3378,7 @@ export const tokens: {
     ],
   },
   pickle: {
-    address: '0x7D7f611AbbBB52B2E1df2Dc69187C5E846ce80df'.toLowerCase(),
+    address: '0x2b88aD57897A8b496595925F43048301C37615Da'.toLowerCase(),
     abi: [
       { type: 'constructor', stateMutability: 'nonpayable', inputs: [] },
       {

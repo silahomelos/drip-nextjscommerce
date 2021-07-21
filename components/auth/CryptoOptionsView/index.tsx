@@ -140,7 +140,7 @@ const CryptoOptionsView: FC<Props> = () => {
             <img src="/cryptos/options/dai.png" className="m-auto" />
             <span className="text-xs"> Dai </span>
           </div>
-          {/* <div
+          <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'pickle' && s.selected
             } ${loading && s.disabled}`}
@@ -148,7 +148,7 @@ const CryptoOptionsView: FC<Props> = () => {
           >
             <img src="/cryptos/options/pickle.png" className="m-auto" />
             <span className="text-xs"> Pickle </span>
-          </div> */}
+          </div>
           <div
             className={`text-center ${s.cryptoIcon} ${
               crypto === 'weth' && s.selected
