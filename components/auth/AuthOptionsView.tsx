@@ -2,53 +2,23 @@ import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
 import { setAuthOption, useMain } from 'context'
 import router from 'next/router'
-import { useCart, useRemoveItem, useAddItem } from '@framework/cart'
 
 interface Props {}
 
 const AuthOptionsView: FC<Props> = () => {
-  const { openSidebar, closeModal, setModalView } = useUI()
-  const { data } = useCart()
-  const { dispatch, account, crypto, productId, variantId } = useMain()
-  const addItem = useAddItem()
-  const removeItem = useRemoveItem()
+  const { closeModal, setModalView, closeSidebar } = useUI()
+  const { dispatch } = useMain()
 
   const onOptionClick = async (option: number) => {
+    closeModal()
+    setModalView('')
+    closeSidebar()
     if (option === 0) {
-      // setModalView('CRYPTO_OPTIONS_VIEW')
-      // if (!account) {
-      //   setModalView('CLAIM_YOUR_NFT_VIEW')
-      // } else {
-      //   closeModal()
-      //   setModalView(null)
-      //   openSidebar()
-      // }
-      if (data?.lineItems?.length || 0 > 1) {
-        await Promise.all(
-          data?.lineItems.map(async (item) => await removeItem(item)) || []
-        )
-      }
-      await addItem({
-        productId,
-        variantId,
-      })
       dispatch(setAuthOption(0))
-      setModalView('CHECKOUT_WARNING')
-      // if (!account) {
-      //   setModalView('CHECKOUT_WARNING')
-      // } else {
-      //   closeModal()
-      //   router.push('/checkout-crypto')
-      // }
+      router.push('/checkout-crypto')
     } else {
-      await addItem({
-        productId,
-        variantId,
-      })
-      setModalView('')
-      openSidebar()
-      closeModal()
       dispatch(setAuthOption(1))
+      router.push('/checkout')
     }
   }
 

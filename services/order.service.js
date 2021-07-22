@@ -40,7 +40,7 @@ export const createDraftOrder = async (
             financial_status: 'pending',
             transactions: [
               {
-                amount: items[0].price,
+                amount: total,
                 kind: 'authorization',
                 status: 'success',
               },
@@ -77,7 +77,7 @@ export const updateOrder = async (orderId, amount) => {
             kind: 'capture',
             gateway: 'manual',
             amount: amount,
-            parent_id: order.transactions[0].id,
+            parent_id: order.transactions[order.transactions.length - 1].id,
             status: 'success',
             currency: 'USD',
           },

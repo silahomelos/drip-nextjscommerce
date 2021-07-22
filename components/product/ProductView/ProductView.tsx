@@ -53,12 +53,17 @@ const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true)
     try {
-      dispatch(setProductId(String(product.id)))
-      dispatch(
-        setVariantId(String(variant ? variant.id : product.variants[0].id))
-      )
-      setModalView('AUTH_OPTIONS_VIEW')
-      openModal()
+      // dispatch(setProductId(String(product.id)))
+      // dispatch(
+      //   setVariantId(String(variant ? variant.id : product.variants[0].id))
+      // )
+      await addItem({
+        productId: String(product.id),
+        variantId: String(variant ? variant.id : product.variants[0].id),
+      })
+      // setModalView('AUTH_OPTIONS_VIEW')
+      // openModal()
+      openSidebar()
       setLoading(false)
     } catch (err) {
       setLoading(false)
