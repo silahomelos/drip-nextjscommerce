@@ -86,7 +86,7 @@ const ProductView: FC<Props> = ({ product }) => {
     return (
       asPath.includes('marketplace') ||
       asPath.includes('minecraft') ||
-      asPath.includes('metaversal')
+      asPath.includes('metameme')
     )
   }
 

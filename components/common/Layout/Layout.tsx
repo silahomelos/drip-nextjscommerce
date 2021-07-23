@@ -187,7 +187,7 @@ const Layout: FC<Props> = ({
     if (param.includes('bancor')) {
       return s.bancor
     }
-    if (param.includes('metaversal')) {
+    if (param.includes('metameme')) {
       return s.collection1
     }
   }
