@@ -78,7 +78,7 @@ export default function Home({
     'Ruler',
     'Rari',
     'Fei',
-    'Metaversal',
+    'Meta-Meme',
     'Minecraft',
   ]
   const onSelectCard = (index: number) => {
