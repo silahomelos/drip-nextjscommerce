@@ -8,6 +8,7 @@ import { purchaseOrder } from 'services/order.service'
 import router from 'next/router'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import { toast } from 'react-toastify'
+import { getMarketplacePurchaseHistories } from 'services/api.service'
 
 interface Props {}
 
@@ -140,10 +141,84 @@ const Checkout: FC<Props> = () => {
       const { id, order_number } = order
       const promises = []
 
+      const updateOrder = async () => {
+        await fetch('/api/update-order', {
+          method: 'POST',
+          body: JSON.stringify({
+            orderId: id,
+            amount: data?.totalPrice,
+          }),
+        })
+      }
+
+      const removeOrder = async () => {
+        await fetch('/api/remove-order', {
+          method: 'POST',
+          body: JSON.stringify({
+            orderId: id,
+          }),
+        })
+      }
+
       try {
         /* this is for multi items  */
+        const collectionIds: Array<number> = []
+        data?.lineItems.forEach((item) => {
+          for (let i = 0; i < item.quantity; i += 1) {
+            collectionIds.push(getCollectionId(item.path))
+          }
+        })
 
-        // await Promise.all(
+        const { promise, unsubscribe } = await purchaseOrder({
+          account,
+          orderNumber: order_number,
+          crypto,
+          collectionIds,
+          shippingPrice: 0,
+        })
+
+        data?.lineItems.map((item) => removeItem(item))
+
+        await promise
+          .then(async (hash) => {
+            dispatch(setBuyNowStatus(2))
+            await updateOrder()
+            unsubscribe()
+          })
+          .catch(async (err) => {
+            console.log(err)
+            unsubscribe()
+            if (err.message.includes('50 blocks')) {
+              let timeLimit = 0
+              dispatch(setBuyNowStatus(2)) /// update soon
+              const ordersTimer = setInterval(() => {
+                const getOrders = async () => {
+                  const {
+                    dripMarketplacePurchaseHistories,
+                  } = await getMarketplacePurchaseHistories(order_number)
+                  if (
+                    dripMarketplacePurchaseHistories.length ===
+                    collectionIds.length
+                  ) {
+                    clearInterval(ordersTimer)
+                    await updateOrder()
+                  }
+                  if (timeLimit > 300) {
+                    clearInterval(ordersTimer)
+                    await removeOrder()
+                  }
+                  timeLimit += 5
+                }
+
+                getOrders()
+              }, 5000)
+            } else {
+              dispatch(setBuyNowStatus(3))
+              await removeOrder()
+            }
+          })
+
+        // const res = await Promise.allSettled(
         //   data?.lineItems.map(async (item) => {
         //     for (let i = 0; i < item.quantity; i += 1) {
         //       const { promise, unsubscribe } = await purchaseOrder({
@@ -156,7 +231,6 @@ const Checkout: FC<Props> = () => {
         //       })
         //       await promise
         //         .then(async (hash) => {
-        //           // removeItem((data?.lineItems || [])[0])
         //           await fetch('/api/update-order', {
         //             method: 'POST',
         //             body: JSON.stringify({
@@ -165,47 +239,62 @@ const Checkout: FC<Props> = () => {
         //             }),
         //           })
         //           unsubscribe()
-        //           dispatch(setBuyNowStatus(2))
         //         })
         //         .catch((error) => {
         //           console.log(error)
-        //           dispatch(setBuyNowStatus(3))
         //           unsubscribe()
         //           throw error
         //         })
         //     }
         //   }) || []
         // )
-        // data?.lineItems.map((item) => removeItem(item))
+        // const success = res.filter(
+        //   (result: any) => result.status === 'fulfilled'
+        // )
+        // if (!success.length) {
+        //   await fetch('/api/remove-order', {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //       orderId: id,
+        //     }),
+        //   })
+        // }
 
-        const { promise, unsubscribe } = await purchaseOrder({
-          account,
-          orderNumber: order_number,
-          crypto,
-          cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
-          collectionId: getCollectionId(data?.lineItems[0].path || ''),
-          shippingPrice: 0,
-        })
-        await promise
-          .then(async (hash) => {
-            removeItem((data?.lineItems || [])[0])
-            await fetch('/api/update-order', {
-              method: 'POST',
-              body: JSON.stringify({
-                orderId: id,
-                amount: data?.lineItems[0].variant.price,
-              }),
-            })
-            unsubscribe()
-            dispatch(setBuyNowStatus(2))
-          })
-          .catch((error) => {
-            console.log(error)
-            toast.error(error.message)
-            dispatch(setBuyNowStatus(3))
-            unsubscribe()
-            throw error
-          })
+        // const { promise, unsubscribe } = await purchaseOrder({
+        //   account,
+        //   orderNumber: order_number,
+        //   crypto,
+        //   cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
+        //   collectionId: getCollectionId(data?.lineItems[0].path || ''),
+        //   shippingPrice: 0,
+        // })
+        // await promise
+        //   .then(async (hash) => {
+        //     removeItem((data?.lineItems || [])[0])
+        //     await fetch('/api/update-order', {
+        //       method: 'POST',
+        //       body: JSON.stringify({
+        //         orderId: id,
+        //         amount: data?.lineItems[0].variant.price,
+        //       }),
+        //     })
+        //     unsubscribe()
+        //     dispatch(setBuyNowStatus(2))
+        //   })
+        //   .catch(async (error) => {
+        //     console.log(error)
+        //     console.log(error.code)
+        //     toast.error(error.message)
+        //     await fetch('/api/remove-order', {
+        //       method: 'POST',
+        //       body: JSON.stringify({
+        //         orderId: id,
+        //       }),
+        //     })
+        //     dispatch(setBuyNowStatus(3))
+        //     unsubscribe()
+        //     throw error
+        //   })
       } catch (err) {
         dispatch(setBuyNowStatus(3))
         console.log(err)

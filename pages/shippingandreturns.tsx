@@ -48,10 +48,6 @@ export default function ShippingAndReturns() {
             <br />
             VALID REASONS include; missing or damaged items (please include a
             photo).
-            <br />
-            <br />
-            IF YOU HAVE ALREADY CLAIMED YOUR 1155 MEME NFT THEN RETURNS ARE NO
-            LONGER VALID FOR THAT SAME ITEM.
           </div>
         </div>
         <TextSlider black />

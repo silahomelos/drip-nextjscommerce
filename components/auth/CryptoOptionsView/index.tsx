@@ -129,7 +129,7 @@ const CryptoOptionsView: FC<Props> = () => {
             onClick={() => onCryptoOptionSelect('instadapp')}
           >
             <img src="/cryptos/options/instadapp.png" className="m-auto" />
-            <span className="text-xs"> InstaDapp </span>
+            <span className="text-xs"> INSTA </span>
           </div>
           <div
             className={`text-center ${s.cryptoIcon} ${
@@ -138,7 +138,7 @@ const CryptoOptionsView: FC<Props> = () => {
             onClick={() => onCryptoOptionSelect('dai')}
           >
             <img src="/cryptos/options/dai.png" className="m-auto" />
-            <span className="text-xs"> Dai </span>
+            <span className="text-xs"> DAI </span>
           </div>
           <div
             className={`text-center ${s.cryptoIcon} ${
@@ -156,7 +156,7 @@ const CryptoOptionsView: FC<Props> = () => {
             onClick={() => onCryptoOptionSelect('weth')}
           >
             <img src="/cryptos/options/weth.png" className="m-auto" />
-            <span className="text-xs"> Eth </span>
+            <span className="text-xs"> wETH </span>
           </div>
           <div
             className={`text-center ${s.cryptoIcon} ${
@@ -165,7 +165,7 @@ const CryptoOptionsView: FC<Props> = () => {
             onClick={() => onCryptoOptionSelect('mona')}
           >
             <img src="/cryptos/options/mona.png" className="m-auto" />
-            <span className="text-xs"> Mona </span>
+            <span className="text-xs"> MONA </span>
           </div>
         </div>
         <div className="flex justify-center space-x-3">
@@ -185,7 +185,7 @@ const CryptoOptionsView: FC<Props> = () => {
             onClick={() => onCryptoOptionSelect('matic')}
           >
             <img src="/cryptos/options/matic.png" className="m-auto" />
-            <span className="text-xs"> MATIC </span>
+            <span className="text-xs"> wMATIC </span>
           </div>
           {/* <div
             className={`text-center ${s.cryptoIcon} ${
