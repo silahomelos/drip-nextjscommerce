@@ -129,16 +129,15 @@ export const approveToken = async ({ account, crypto, cryptoPrice }) => {
 export const purchaseOrder = async ({
   account,
   orderNumber,
-  collectionId,
+  collectionIds,
   crypto,
-  cryptoPrice,
   shippingPrice,
 }) => {
   const contract = await getDripMarketplaceContract()
   try {
     const listener = contract.methods
-      .buyOffer(
-        collectionId,
+      .batchBuyOffer(
+        collectionIds,
         tokens[crypto].address,
         orderNumber,
         shippingPrice
@@ -152,6 +151,7 @@ export const purchaseOrder = async ({
       listener.on('error', (error) => reject(error))
       listener.on('confirmation', (transactionHash) => resolve(transactionHash))
     })
+
     return {
       promise,
       unsubscribe: () => {

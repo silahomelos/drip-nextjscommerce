@@ -62,11 +62,6 @@ const CartItem = ({
     }
   }
   const increaseQuantity = (n = 1) => {
-    if (authOption === 0) {
-      setModalView('CHECKOUT_WARNING')
-      openModal()
-      return
-    }
     const val = Number(quantity) + n
 
     if (Number.isInteger(val) && val >= 0) {
