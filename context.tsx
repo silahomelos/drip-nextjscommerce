@@ -2,6 +2,7 @@ import React, { FC, useContext, useMemo, useReducer } from 'react'
 export interface State {
   wallet?: number
   account?: string
+  user?: object
   signMsg: string
   chainId?: string
   crypto: string
@@ -20,6 +21,7 @@ const initialState = {
   wallet: null,
   account: null,
   signMsg: null,
+  user: null,
   chainId: null,
   crypto: '',
   cryptoPrice: 0,
@@ -61,6 +63,7 @@ export const setAuthOption = (authOption: number) =>
   createAction('SET_AUTH_OPTION', authOption)
 export const setBuyNowStatus = (status: number) =>
   createAction('SET_BUY_NOW_STATUS', status)
+export const setUser = (user: object) => createAction('SET_USER', user)
 
 // temporary
 export const setProductId = (productId: string) =>
@@ -135,6 +138,12 @@ function mainReducer(state: State, action: Action) {
       return {
         ...state,
         variantId: action.payload,
+      }
+    }
+    case 'SET_USER': {
+      return {
+        ...state,
+        user: action.payload,
       }
     }
   }

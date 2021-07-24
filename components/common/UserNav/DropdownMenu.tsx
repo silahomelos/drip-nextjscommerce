@@ -44,7 +44,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const { theme, setTheme } = useTheme()
   const [display, setDisplay] = useState(false)
   const { closeSidebarIfPresent } = useUI()
-  const { dispatch, wallet, account } = useMain()
+  const { dispatch, wallet, user } = useMain()
   const ref = useRef() as React.MutableRefObject<HTMLUListElement>
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
         >
           <div className="flex items-center space-x-2">
             <Avatar />
-            <span>{`${account.slice(0, 8)}...`}</span>
+            <span>{user?.username}</span>
           </div>
         </button>
         {display && (

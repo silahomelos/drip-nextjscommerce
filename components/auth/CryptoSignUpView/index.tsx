@@ -12,7 +12,7 @@ interface Props {}
 
 const CryptoSignUpView: FC<Props> = () => {
   const { closeModal, setModalView, openSidebar } = useUI()
-  const { dispatch, account, chainId } = useMain()
+  const { dispatch, account, chainId, user } = useMain()
 
   const btnClasses = cn(
     'rounded-xl w-80 border-2 border-black flex items-center px-10 py-1 justify-between',
@@ -30,9 +30,14 @@ const CryptoSignUpView: FC<Props> = () => {
         window.localStorage.setItem('ACCOUNT', res.account)
         window.localStorage.setItem('CHAIN_ID', res.chainId)
         window.localStorage.setItem('WALLET', option.toString())
-        router.push('/checkout-crypto')
+        // router.push('/checkout-crypto')
       }
-      closeModal()
+      console.log({ user })
+      if (!user) {
+        setModalView('SIGNUP_VIEW')
+      } else {
+        closeModal()
+      }
     } catch (err) {
       toast.error(err.message)
     }
