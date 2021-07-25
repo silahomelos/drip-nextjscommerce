@@ -1,5 +1,4 @@
 import { CommerceProvider } from '@framework'
-import { defaultPageProps } from '@lib/defaults'
 import type { Page } from '@framework/common/get-all-pages'
 import { useRouter } from 'next/router'
 import { FC, useEffect } from 'react'
@@ -15,7 +14,7 @@ import {
 } from '@components/auth'
 import { NFTClaimedView } from '@components/modals'
 import { Modal, useUI } from '@components/ui'
-import { setAccount, setChainId, setCrypto, setWallet, useMain } from 'context'
+import { setChainId, setCrypto, setUser, setWallet, useMain } from 'context'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import CheckoutWarning from '@components/modals/CheckoutWarning'
 import CryptoSuccessView from '@components/modals/CryptoSuccessView'
@@ -33,11 +32,11 @@ const CheckoutLayout: FC<Props> = ({
 }) => {
   const { locale = 'en-US', pathname, asPath } = useRouter()
   const { displayModal, closeModal, modalView } = useUI()
-  const { dispatch, wallet, account } = useMain()
+  const { dispatch, wallet } = useMain()
 
   useEffect(() => {
-    if (window.localStorage.getItem('ACCOUNT')) {
-      dispatch(setAccount(window.localStorage.getItem('ACCOUNT') || ''))
+    if (window.localStorage.getItem('user')) {
+      dispatch(setUser(JSON.parse(window.localStorage.getItem('user') || '')))
     }
     if (window.localStorage.getItem('CHAIN_ID')) {
       dispatch(setChainId(window.localStorage.getItem('CHAIN_ID') || ''))
@@ -53,10 +52,10 @@ const CheckoutLayout: FC<Props> = ({
   }, [])
 
   useEffect(() => {
-    if (wallet && account) {
+    if (wallet) {
       setWeb3Provider(wallet)
     }
-  }, [wallet, account])
+  }, [wallet])
 
   return (
     <CommerceProvider locale={locale}>

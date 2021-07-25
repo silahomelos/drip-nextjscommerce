@@ -1,21 +1,18 @@
 import cn from 'classnames'
-import Link from 'next/link'
 import { FC, useRef, useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 import s from './DropdownMenu.module.css'
 import { Avatar } from '@components/common'
-import { Moon, Sun } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import ClickOutside from '@lib/click-outside'
-import useLogout from '@framework/auth/use-logout'
 
 import {
   disableBodyScroll,
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from 'body-scroll-lock'
-import { setAccount, setChainId, setWallet, useMain } from 'context'
+import { setAccount, setChainId, setUser, setWallet, useMain } from 'context'
 import { disconnectWallet } from 'services/network.service'
 import { toast } from 'react-toastify'
 
@@ -39,7 +36,6 @@ const LINKS = [
 ]
 
 const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
-  // const logout = useLogout()
   const { pathname } = useRouter()
   const { theme, setTheme } = useTheme()
   const [display, setDisplay] = useState(false)
@@ -66,7 +62,8 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
       dispatch(setWallet())
       dispatch(setAccount())
       dispatch(setChainId())
-      window.localStorage.removeItem('ACCOUNT')
+      dispatch(setUser(null))
+      window.localStorage.removeItem('user')
       window.localStorage.removeItem('CHAIN_ID')
       window.localStorage.removeItem('CRYPTO_OPTION')
       window.localStorage.removeItem('WALLET')

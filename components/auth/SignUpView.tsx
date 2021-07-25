@@ -1,19 +1,12 @@
 import { FC, useEffect, useState, useCallback } from 'react'
-import { validate } from 'email-validator'
-import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
-import { Logo, Button, Input } from '@components/ui'
+import { Button, Input } from '@components/ui'
+import router from 'next/router'
 import { setUser, useMain } from 'context'
 import { authenticate, fetchAuthToken, signup } from 'services/api.service'
 import { handleSignMessage } from 'services/wallet.service'
 
 interface Props {}
-
-const useSignMessage = (account: string) => {
-  const [signMsg, setSignMsg] = useState(null)
-
-  useEffect(() => {}, [account])
-}
 
 const SignUpView: FC<Props> = () => {
   // Form State
@@ -22,10 +15,10 @@ const SignUpView: FC<Props> = () => {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [signMsg, setSignMsg] = useState(null)
 
-  const { setModalView, closeModal, openSidebar } = useUI()
+  const { closeModal } = useUI()
   const { account, dispatch } = useMain()
 
   const tryToSignup = async (signMsg: any) => {
@@ -37,20 +30,39 @@ const SignUpView: FC<Props> = () => {
       account,
       signMsg,
     })
-
-    const data = await authenticate(account, signMsg, signature)
-    if (data) {
-      const { returnData, secret } = data
-      dispatch(setUser(returnData))
+    try {
+      const data = await authenticate(account, signMsg, signature)
+      if (data) {
+        const { returnData, secret } = data
+        dispatch(setUser(returnData))
+        window.localStorage.setItem('user', JSON.stringify(returnData))
+      }
+    } catch (e) {
+      throw e
     }
+  }
+
+  const validateUsername = () => {
+    const regEx = /^[A-Za-z0-9]*$/
+    return regEx.test(String(username))
+  }
+
+  const validateEmail = () => {
+    const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return regEx.test(String(email).toLowerCase())
   }
 
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
 
-    if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
+    if (validateEmail()) {
+      setMessage('User ID must contains letters and numbers only!')
+      return
+    }
+
+    if (validateUsername()) {
+      setMessage('You have entered an invalid Email address!')
+      return
     }
 
     try {
@@ -60,30 +72,19 @@ const SignUpView: FC<Props> = () => {
       await tryToSignup(signMsg)
 
       setLoading(false)
-      openSidebar()
       closeModal()
+      router.push('/checkout-crypto')
     } catch ({ errors }) {
       setMessage(errors[0].message)
       setLoading(false)
     }
   }
 
-  const handleValidation = useCallback(() => {
-    // Test for Alphanumeric password
-    if (dirty) {
-      setDisabled(!validate(email))
-    }
-  }, [email, dirty])
-
-  useEffect(() => {
-    handleValidation()
-  }, [handleValidation])
-
   useEffect(() => {
     const getAuthToken = async () => {
       const msg = await fetchAuthToken(account)
-      console.log({ msg })
       setSignMsg(msg)
+      setDisabled(false)
     }
 
     getAuthToken()
@@ -92,31 +93,30 @@ const SignUpView: FC<Props> = () => {
   return (
     <form
       onSubmit={handleSignup}
-      className="w-80 flex flex-col space-y-3 justify-between p-3"
+      className="w-96 flex flex-col space-y-3 justify-between p-3"
     >
-      <h3 className="text-center uppercase text-3xl font-bold">
-        {signMsg === '' || !signMsg ? 'Sign Up' : 'Welcome Back!'}
-      </h3>
-      {signMsg !== '' && signMsg && <p>Wallet: {account}</p>}
-      {signMsg === '' && (
-        <div className="flex flex-col space-y-4">
-          {message && (
-            <div className="text-red border border-red p-3">{message}</div>
+      {!disabled ? (
+        <>
+          <h3 className="text-center uppercase text-3xl font-bold">
+            {!signMsg ? 'Sign Up' : 'Welcome Back!'}
+          </h3>
+          {signMsg && <p>Wallet: {account}</p>}
+          {!signMsg && (
+            <div className="flex flex-col space-y-4">
+              {!!message.length && (
+                <div className="text-red border border-red p-3">{message}</div>
+              )}
+              <Input placeholder="UserName" onChange={setUsername} />
+              <Input type="email" placeholder="Email" onChange={setEmail} />
+            </div>
           )}
-          <Input placeholder="UserName" onChange={setUsername} />
-          <Input type="email" placeholder="Email" onChange={setEmail} />
-        </div>
-      )}
-      <div className="pt-2 w-full flex flex-col">
-        <Button
-          variant="slim"
-          type="submit"
-          loading={loading}
-          disabled={disabled}
-        >
-          {signMsg ? 'Sign In' : 'Sign Up'}
-        </Button>
-      </div>
+          <div className="pt-2 w-full flex flex-col">
+            <Button variant="slim" type="submit" loading={loading}>
+              {signMsg ? 'Sign In' : 'Sign Up'}
+            </Button>
+          </div>
+        </>
+      ) : null}
     </form>
   )
 }

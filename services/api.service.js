@@ -1,6 +1,5 @@
 import request from 'graphql-request'
 import { GRAPH_API_URL } from '../constants'
-import { PAYABLE_TOKEN_REQUEST } from './gql.service'
 import { post } from './request.service'
 import {
   DRIP_MARKETPLACE_PURCHASE_HISTORES,
@@ -17,15 +16,16 @@ export const getMarketplacePurchaseHistories = async (orderId) => {
 
 export const fetchAuthToken = async (account) => {
   try {
+    if (!account) return null
     const data = await post('/account-exists', {
       wallet: account,
     })
     if (data === 0) {
-      return ''
+      return null
     }
     return data
   } catch (err) {
-    return ''
+    return null
   }
 }
 

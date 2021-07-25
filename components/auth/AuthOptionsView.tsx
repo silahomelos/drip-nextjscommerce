@@ -7,18 +7,25 @@ interface Props {}
 
 const AuthOptionsView: FC<Props> = () => {
   const { closeModal, setModalView, closeSidebar } = useUI()
-  const { dispatch } = useMain()
+  const { dispatch, user } = useMain()
 
   const onOptionClick = async (option: number) => {
-    closeModal()
-    setModalView('')
-    closeSidebar()
     if (option === 0) {
       dispatch(setAuthOption(0))
-      router.push('/checkout-crypto')
+      if (user) {
+        closeModal()
+        setModalView('')
+        closeSidebar()
+        router.push('/checkout-crypto')
+      } else {
+        setModalView('CRYPTO_SIGNUP_VIEW')
+      }
     } else {
       dispatch(setAuthOption(1))
       router.push('/checkout')
+      closeModal()
+      setModalView('')
+      closeSidebar()
     }
   }
 

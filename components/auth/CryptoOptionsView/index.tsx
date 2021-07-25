@@ -5,23 +5,14 @@ import { setBuyNowStatus, setCrypto, setCryptoPrice, useMain } from 'context'
 import { approveToken, getAllowance } from 'services/order.service'
 import { tokens } from '../../../constants'
 import { getPayableTokenReport } from 'services/api.service'
-import router from 'next/router'
 import { useCart } from '@framework/cart'
 
 interface Props {}
 
 const CryptoOptionsView: FC<Props> = () => {
-  const { setModalView, closeModal } = useUI()
+  const { setModalView } = useUI()
   const { data } = useCart()
-  const {
-    dispatch,
-    account,
-    chainId,
-    buyNowStatus,
-    cryptoPrice,
-    crypto,
-  } = useMain()
-  // const [crypto, setCrypto] = useState<string>('')
+  const { dispatch, account, buyNowStatus, cryptoPrice, crypto } = useMain()
   const [loading, setLoading] = useState(false)
   const [approved, setApproved] = useState(false)
   const onCryptoOptionSelect = (option: string) => {

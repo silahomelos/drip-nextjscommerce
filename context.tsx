@@ -63,7 +63,7 @@ export const setAuthOption = (authOption: number) =>
   createAction('SET_AUTH_OPTION', authOption)
 export const setBuyNowStatus = (status: number) =>
   createAction('SET_BUY_NOW_STATUS', status)
-export const setUser = (user: object) => createAction('SET_USER', user)
+export const setUser = (user: object | null) => createAction('SET_USER', user)
 
 // temporary
 export const setProductId = (productId: string) =>
