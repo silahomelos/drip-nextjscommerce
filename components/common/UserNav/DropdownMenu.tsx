@@ -63,6 +63,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
       dispatch(setAccount())
       dispatch(setChainId())
       dispatch(setUser(null))
+      window.localStorage.removeItem('ACCOUNT')
       window.localStorage.removeItem('user')
       window.localStorage.removeItem('CHAIN_ID')
       window.localStorage.removeItem('CRYPTO_OPTION')

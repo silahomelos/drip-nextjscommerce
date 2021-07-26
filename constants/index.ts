@@ -13,7 +13,7 @@ export const networks = {}
 
 export const contracts = {
   DRIP_MARTKETPLACE: {
-    address: '0x7db7d8737fde4591fd9714b22f8f8b68f5e3c345',
+    address: '0xB79f4cAE758813cF5a661E68BCADcA216912F6E7'.toLowerCase(),
     abi: [
       {
         anonymous: false,

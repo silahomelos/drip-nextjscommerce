@@ -160,6 +160,10 @@ const Checkout: FC<Props> = () => {
         })
       }
 
+      const removeCart = async () => {
+        data?.lineItems.map((item) => removeItem(item))
+      }
+
       try {
         /* this is for multi items  */
         const collectionIds: Array<number> = []
@@ -177,12 +181,11 @@ const Checkout: FC<Props> = () => {
           shippingPrice: 0,
         })
 
-        data?.lineItems.map((item) => removeItem(item))
-
         await promise
           .then(async (hash) => {
             dispatch(setBuyNowStatus(2))
             await updateOrder()
+            await removeCart()
             unsubscribe()
           })
           .catch(async (err) => {
@@ -202,10 +205,12 @@ const Checkout: FC<Props> = () => {
                   ) {
                     clearInterval(ordersTimer)
                     await updateOrder()
+                    await removeCart()
                   }
                   if (timeLimit > 300) {
                     clearInterval(ordersTimer)
                     await removeOrder()
+                    await removeCart()
                   }
                   timeLimit += 5
                 }
@@ -214,87 +219,12 @@ const Checkout: FC<Props> = () => {
               }, 5000)
             } else {
               dispatch(setBuyNowStatus(3))
+              if (err.code !== 4001) {
+                await removeCart()
+              }
               await removeOrder()
             }
           })
-
-        // const res = await Promise.allSettled(
-        //   data?.lineItems.map(async (item) => {
-        //     for (let i = 0; i < item.quantity; i += 1) {
-        //       const { promise, unsubscribe } = await purchaseOrder({
-        //         account,
-        //         orderNumber: order_number,
-        //         crypto,
-        //         cryptoPrice: item.variant.price * cryptoPrice,
-        //         collectionId: getCollectionId(item.path),
-        //         shippingPrice: 0,
-        //       })
-        //       await promise
-        //         .then(async (hash) => {
-        //           await fetch('/api/update-order', {
-        //             method: 'POST',
-        //             body: JSON.stringify({
-        //               orderId: id,
-        //               amount: item.variant.price,
-        //             }),
-        //           })
-        //           unsubscribe()
-        //         })
-        //         .catch((error) => {
-        //           console.log(error)
-        //           unsubscribe()
-        //           throw error
-        //         })
-        //     }
-        //   }) || []
-        // )
-        // const success = res.filter(
-        //   (result: any) => result.status === 'fulfilled'
-        // )
-        // if (!success.length) {
-        //   await fetch('/api/remove-order', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //       orderId: id,
-        //     }),
-        //   })
-        // }
-
-        // const { promise, unsubscribe } = await purchaseOrder({
-        //   account,
-        //   orderNumber: order_number,
-        //   crypto,
-        //   cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
-        //   collectionId: getCollectionId(data?.lineItems[0].path || ''),
-        //   shippingPrice: 0,
-        // })
-        // await promise
-        //   .then(async (hash) => {
-        //     removeItem((data?.lineItems || [])[0])
-        //     await fetch('/api/update-order', {
-        //       method: 'POST',
-        //       body: JSON.stringify({
-        //         orderId: id,
-        //         amount: data?.lineItems[0].variant.price,
-        //       }),
-        //     })
-        //     unsubscribe()
-        //     dispatch(setBuyNowStatus(2))
-        //   })
-        //   .catch(async (error) => {
-        //     console.log(error)
-        //     console.log(error.code)
-        //     toast.error(error.message)
-        //     await fetch('/api/remove-order', {
-        //       method: 'POST',
-        //       body: JSON.stringify({
-        //         orderId: id,
-        //       }),
-        //     })
-        //     dispatch(setBuyNowStatus(3))
-        //     unsubscribe()
-        //     throw error
-        //   })
       } catch (err) {
         dispatch(setBuyNowStatus(3))
         console.log(err)

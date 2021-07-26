@@ -14,7 +14,14 @@ import {
 } from '@components/auth'
 import { NFTClaimedView } from '@components/modals'
 import { Modal, useUI } from '@components/ui'
-import { setChainId, setCrypto, setUser, setWallet, useMain } from 'context'
+import {
+  setAccount,
+  setChainId,
+  setCrypto,
+  setUser,
+  setWallet,
+  useMain,
+} from 'context'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import CheckoutWarning from '@components/modals/CheckoutWarning'
 import CryptoSuccessView from '@components/modals/CryptoSuccessView'
@@ -37,6 +44,9 @@ const CheckoutLayout: FC<Props> = ({
   useEffect(() => {
     if (window.localStorage.getItem('user')) {
       dispatch(setUser(JSON.parse(window.localStorage.getItem('user') || '')))
+    }
+    if (window.localStorage.getItem('ACCOUNT')) {
+      dispatch(setAccount(window.localStorage.getItem('ACCOUNT') || ''))
     }
     if (window.localStorage.getItem('CHAIN_ID')) {
       dispatch(setChainId(window.localStorage.getItem('CHAIN_ID') || ''))

@@ -54,15 +54,16 @@ const SignUpView: FC<Props> = () => {
 
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
+    if (!signMsg) {
+      if (validateEmail()) {
+        setMessage('User ID must contains letters and numbers only!')
+        return
+      }
 
-    if (validateEmail()) {
-      setMessage('User ID must contains letters and numbers only!')
-      return
-    }
-
-    if (validateUsername()) {
-      setMessage('You have entered an invalid Email address!')
-      return
+      if (validateUsername()) {
+        setMessage('You have entered an invalid Email address!')
+        return
+      }
     }
 
     try {

@@ -26,6 +26,7 @@ const CryptoSignUpView: FC<Props> = () => {
         dispatch(setWallet(option))
         dispatch(setAccount(res.account))
         dispatch(setChainId(res.chainId))
+        window.localStorage.setItem('ACCOUNT', res.account)
         window.localStorage.setItem('CHAIN_ID', res.chainId)
         window.localStorage.setItem('WALLET', option.toString())
       }
