@@ -21,7 +21,7 @@ const UserNav: FC<Props> = ({ className }) => {
   const { data } = useCart()
   const { data: customer } = useCustomer()
   const { toggleSidebar, closeSidebarIfPresent, openModal } = useUI()
-  const { account } = useMain()
+  const { user } = useMain()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
 
   return (
@@ -41,7 +41,7 @@ const UserNav: FC<Props> = ({ className }) => {
               </Link>
             </li>
           )} */}
-          {account ? (
+          {user?.username ? (
             <li className={s.item}>
               <DropdownMenu />
             </li>

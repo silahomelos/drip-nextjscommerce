@@ -141,12 +141,8 @@ const CartSidebarView: FC = () => {
             </div>
             <Button
               onClick={() => {
-                if (authOption) {
-                  router.push('/checkout')
-                  // window.localStorage.setItem('CHECKING_OUT', '0')
-                } else {
-                  router.push('/checkout-crypto')
-                }
+                setModalView('AUTH_OPTIONS_VIEW')
+                openModal()
               }}
               width="100%"
             >

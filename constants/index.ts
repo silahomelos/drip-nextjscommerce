@@ -13,7 +13,7 @@ export const networks = {}
 
 export const contracts = {
   DRIP_MARTKETPLACE: {
-    address: '0x89b83f3e40ce76a104550fbd35b8a417631b9232',
+    address: '0xB79f4cAE758813cF5a661E68BCADcA216912F6E7'.toLowerCase(),
     abi: [
       {
         anonymous: false,
@@ -176,13 +176,19 @@ export const contracts = {
         anonymous: false,
         inputs: [
           {
+            indexed: true,
+            internalType: 'uint256',
+            name: 'garmentCollectionId',
+            type: 'uint256',
+          },
+          {
             indexed: false,
             internalType: 'uint256',
-            name: 'cooldown',
+            name: 'discount',
             type: 'uint256',
           },
         ],
-        name: 'UpdateCoolDownDuration',
+        name: 'UpdateMarketplaceDiscountToPayInErc20',
         type: 'event',
       },
       {
@@ -197,11 +203,11 @@ export const contracts = {
           {
             indexed: false,
             internalType: 'uint256',
-            name: 'discount',
+            name: 'availableIndex',
             type: 'uint256',
           },
         ],
-        name: 'UpdateMarketplaceDiscountToPayInErc20',
+        name: 'UpdateOfferAvailableIndex',
         type: 'event',
       },
       {
@@ -354,15 +360,15 @@ export const contracts = {
       {
         inputs: [
           {
-            internalType: 'uint256',
-            name: '_garmentCollectionId',
-            type: 'uint256',
+            internalType: 'uint256[]',
+            name: '_garmentCollectionIds',
+            type: 'uint256[]',
           },
           { internalType: 'address', name: '_paymentToken', type: 'address' },
           { internalType: 'uint256', name: '_orderId', type: 'uint256' },
           { internalType: 'uint256', name: '_shippingUSD', type: 'uint256' },
         ],
-        name: 'buyOffer',
+        name: 'batchBuyOffer',
         outputs: [],
         stateMutability: 'payable',
         type: 'function',
@@ -378,13 +384,6 @@ export const contracts = {
         name: 'cancelOffer',
         outputs: [],
         stateMutability: 'nonpayable',
-        type: 'function',
-      },
-      {
-        inputs: [],
-        name: 'cooldown',
-        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-        stateMutability: 'view',
         type: 'function',
       },
       {
@@ -473,6 +472,21 @@ export const contracts = {
             name: '_discountToPayERC20',
             type: 'uint256',
           },
+        ],
+        stateMutability: 'view',
+        type: 'function',
+      },
+      {
+        inputs: [
+          {
+            internalType: 'uint256',
+            name: '_garmentCollectionId',
+            type: 'uint256',
+          },
+        ],
+        name: 'getOfferAvailableIndex',
+        outputs: [
+          { internalType: 'uint256', name: '_availableIndex', type: 'uint256' },
         ],
         stateMutability: 'view',
         type: 'function',
@@ -690,15 +704,6 @@ export const contracts = {
       },
       {
         inputs: [
-          { internalType: 'uint256', name: '_cooldown', type: 'uint256' },
-        ],
-        name: 'updateCoolDownDuration',
-        outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
-      },
-      {
-        inputs: [
           {
             internalType: 'uint256',
             name: '_garmentCollectionId',
@@ -711,6 +716,20 @@ export const contracts = {
           },
         ],
         name: 'updateMarketplaceDiscountToPayInErc20',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+      },
+      {
+        inputs: [
+          {
+            internalType: 'uint256',
+            name: '_garmentCollectionId',
+            type: 'uint256',
+          },
+          { internalType: 'uint256', name: '_availableIndex', type: 'uint256' },
+        ],
+        name: 'updateOfferAvailableIndex',
         outputs: [],
         stateMutability: 'nonpayable',
         type: 'function',

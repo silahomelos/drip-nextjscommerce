@@ -8,6 +8,7 @@ import { purchaseOrder } from 'services/order.service'
 import router from 'next/router'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import { toast } from 'react-toastify'
+import { getMarketplacePurchaseHistories } from 'services/api.service'
 
 interface Props {}
 
@@ -140,71 +141,89 @@ const Checkout: FC<Props> = () => {
       const { id, order_number } = order
       const promises = []
 
+      const updateOrder = async () => {
+        await fetch('/api/update-order', {
+          method: 'POST',
+          body: JSON.stringify({
+            orderId: id,
+            amount: data?.totalPrice,
+          }),
+        })
+      }
+
+      const removeOrder = async () => {
+        await fetch('/api/remove-order', {
+          method: 'POST',
+          body: JSON.stringify({
+            orderId: id,
+          }),
+        })
+      }
+
+      const removeCart = async () => {
+        data?.lineItems.map((item) => removeItem(item))
+      }
+
       try {
         /* this is for multi items  */
-
-        // await Promise.all(
-        //   data?.lineItems.map(async (item) => {
-        //     for (let i = 0; i < item.quantity; i += 1) {
-        //       const { promise, unsubscribe } = await purchaseOrder({
-        //         account,
-        //         orderNumber: order_number,
-        //         crypto,
-        //         cryptoPrice: item.variant.price * cryptoPrice,
-        //         collectionId: getCollectionId(item.path),
-        //         shippingPrice: 0,
-        //       })
-        //       await promise
-        //         .then(async (hash) => {
-        //           // removeItem((data?.lineItems || [])[0])
-        //           await fetch('/api/update-order', {
-        //             method: 'POST',
-        //             body: JSON.stringify({
-        //               orderId: id,
-        //               amount: item.variant.price,
-        //             }),
-        //           })
-        //           unsubscribe()
-        //           dispatch(setBuyNowStatus(2))
-        //         })
-        //         .catch((error) => {
-        //           console.log(error)
-        //           dispatch(setBuyNowStatus(3))
-        //           unsubscribe()
-        //           throw error
-        //         })
-        //     }
-        //   }) || []
-        // )
-        // data?.lineItems.map((item) => removeItem(item))
+        const collectionIds: Array<number> = []
+        data?.lineItems.forEach((item) => {
+          for (let i = 0; i < item.quantity; i += 1) {
+            collectionIds.push(getCollectionId(item.path))
+          }
+        })
 
         const { promise, unsubscribe } = await purchaseOrder({
           account,
           orderNumber: order_number,
           crypto,
-          cryptoPrice: (data?.lineItems[0].variant.price || 0) * cryptoPrice,
-          collectionId: getCollectionId(data?.lineItems[0].path || ''),
+          collectionIds,
           shippingPrice: 0,
         })
+
         await promise
           .then(async (hash) => {
-            removeItem((data?.lineItems || [])[0])
-            await fetch('/api/update-order', {
-              method: 'POST',
-              body: JSON.stringify({
-                orderId: id,
-                amount: data?.lineItems[0].variant.price,
-              }),
-            })
-            unsubscribe()
             dispatch(setBuyNowStatus(2))
-          })
-          .catch((error) => {
-            console.log(error)
-            toast.error(error.message)
-            dispatch(setBuyNowStatus(3))
+            await updateOrder()
+            await removeCart()
             unsubscribe()
-            throw error
+          })
+          .catch(async (err) => {
+            console.log(err)
+            unsubscribe()
+            if (err.message.includes('50 blocks')) {
+              let timeLimit = 0
+              dispatch(setBuyNowStatus(2)) /// update soon
+              const ordersTimer = setInterval(() => {
+                const getOrders = async () => {
+                  const {
+                    dripMarketplacePurchaseHistories,
+                  } = await getMarketplacePurchaseHistories(order_number)
+                  if (
+                    dripMarketplacePurchaseHistories.length ===
+                    collectionIds.length
+                  ) {
+                    clearInterval(ordersTimer)
+                    await updateOrder()
+                    await removeCart()
+                  }
+                  if (timeLimit > 300) {
+                    clearInterval(ordersTimer)
+                    await removeOrder()
+                    await removeCart()
+                  }
+                  timeLimit += 5
+                }
+
+                getOrders()
+              }, 5000)
+            } else {
+              dispatch(setBuyNowStatus(3))
+              if (err.code !== 4001) {
+                await removeCart()
+              }
+              await removeOrder()
+            }
           })
       } catch (err) {
         dispatch(setBuyNowStatus(3))

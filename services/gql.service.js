@@ -9,3 +9,13 @@ export const PAYABLE_TOKEN_REQUEST = gql`
     }
   }
 `
+
+export const DRIP_MARKETPLACE_PURCHASE_HISTORES = gql`
+  query dripMarketplacePurchaseHistories($orderId: Int) {
+    dripMarketplacePurchaseHistories(where: { orderId: $orderId }) {
+      id
+      orderId
+      buyer
+    }
+  }
+`

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import cn from 'classnames'
 import s from './styles.module.css'
 import { setWeb3Provider } from 'services/web3-provider.service'
@@ -6,13 +6,12 @@ import { connectWallet } from 'services/network.service'
 import { setAccount, setChainId, setWallet, useMain } from 'context'
 import { toast } from 'react-toastify'
 import { useUI } from '@components/ui'
-import router from 'next/router'
 
 interface Props {}
 
 const CryptoSignUpView: FC<Props> = () => {
-  const { closeModal, setModalView, openSidebar } = useUI()
-  const { dispatch, account, chainId } = useMain()
+  const { setModalView } = useUI()
+  const { dispatch, account } = useMain()
 
   const btnClasses = cn(
     'rounded-xl w-80 border-2 border-black flex items-center px-10 py-1 justify-between',
@@ -30,9 +29,8 @@ const CryptoSignUpView: FC<Props> = () => {
         window.localStorage.setItem('ACCOUNT', res.account)
         window.localStorage.setItem('CHAIN_ID', res.chainId)
         window.localStorage.setItem('WALLET', option.toString())
-        router.push('/checkout-crypto')
       }
-      closeModal()
+      setModalView('SIGNUP_VIEW')
     } catch (err) {
       toast.error(err.message)
     }

@@ -1,113 +1,123 @@
 import { FC, useEffect, useState, useCallback } from 'react'
-import { validate } from 'email-validator'
-import { Info } from '@components/icons'
 import { useUI } from '@components/ui/context'
-import { Logo, Button, Input } from '@components/ui'
-import useSignup from '@framework/auth/use-signup'
+import { Button, Input } from '@components/ui'
+import router from 'next/router'
+import { setUser, useMain } from 'context'
+import { authenticate, fetchAuthToken, signup } from 'services/api.service'
+import { handleSignMessage } from 'services/wallet.service'
 
 interface Props {}
 
 const SignUpView: FC<Props> = () => {
   // Form State
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [dirty, setDirty] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [signMsg, setSignMsg] = useState(null)
 
-  const signup = useSignup()
-  const { setModalView, closeModal, openSidebar } = useUI()
+  const { closeModal } = useUI()
+  const { account, dispatch } = useMain()
+
+  const tryToSignup = async (signMsg: any) => {
+    if (!signMsg) {
+      signMsg = await signup(account, username, email)
+    }
+
+    const { signature } = await handleSignMessage({
+      account,
+      signMsg,
+    })
+    try {
+      const data = await authenticate(account, signMsg, signature)
+      if (data) {
+        const { returnData, secret } = data
+        dispatch(setUser(returnData))
+        window.localStorage.setItem('user', JSON.stringify(returnData))
+      }
+    } catch (e) {
+      throw e
+    }
+  }
+
+  const validateUsername = () => {
+    const regEx = /^[A-Za-z0-9]*$/
+    return regEx.test(String(username))
+  }
+
+  const validateEmail = () => {
+    const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return regEx.test(String(email).toLowerCase())
+  }
 
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
+    if (!signMsg) {
+      if (validateEmail()) {
+        setMessage('User ID must contains letters and numbers only!')
+        return
+      }
 
-    if (!dirty && !disabled) {
-      setDirty(true)
-      handleValidation()
+      if (validateUsername()) {
+        setMessage('You have entered an invalid Email address!')
+        return
+      }
     }
 
     try {
       setLoading(true)
       setMessage('')
-      await signup({
-        email,
-        firstName,
-        lastName,
-        password,
-      })
+
+      await tryToSignup(signMsg)
+
       setLoading(false)
-      openSidebar()
       closeModal()
+      router.push('/checkout-crypto')
     } catch ({ errors }) {
       setMessage(errors[0].message)
       setLoading(false)
     }
   }
 
-  const handleValidation = useCallback(() => {
-    // Test for Alphanumeric password
-    const validPassword = /^(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)
-
-    // Unable to send form unless fields are valid.
-    if (dirty) {
-      setDisabled(!validate(email) || password.length < 7 || !validPassword)
-    }
-  }, [email, password, dirty])
-
   useEffect(() => {
-    handleValidation()
-  }, [handleValidation])
+    const getAuthToken = async () => {
+      const msg = await fetchAuthToken(account)
+      setSignMsg(msg)
+      setDisabled(false)
+    }
+
+    getAuthToken()
+  }, [account])
 
   return (
     <form
       onSubmit={handleSignup}
-      className="w-80 flex flex-col justify-between p-3"
+      className="w-96 flex flex-col space-y-3 justify-between p-3"
     >
-      <div className="flex justify-center pb-12 ">
-        <Logo width="64px" height="64px" />
-      </div>
-      <div className="flex flex-col space-y-4">
-        {message && (
-          <div className="text-red border border-red p-3">{message}</div>
-        )}
-        <Input placeholder="First Name" onChange={setFirstName} />
-        <Input placeholder="Last Name" onChange={setLastName} />
-        <Input type="email" placeholder="Email" onChange={setEmail} />
-        <Input type="password" placeholder="Password" onChange={setPassword} />
-        <span className="text-accents-8">
-          <span className="inline-block align-middle ">
-            <Info width="15" height="15" />
-          </span>{' '}
-          <span className="leading-6 text-sm">
-            <strong>Info</strong>: Passwords must be longer than 7 chars and
-            include numbers.{' '}
-          </span>
-        </span>
-        <div className="pt-2 w-full flex flex-col">
-          <Button
-            variant="slim"
-            type="submit"
-            loading={loading}
-            disabled={disabled}
-          >
-            Sign Up
-          </Button>
-        </div>
-
-        <span className="pt-1 text-center text-sm">
-          <span className="text-accents-7">Do you have an account?</span>
-          {` `}
-          <a
-            className="text-accent-9 font-bold hover:underline cursor-pointer"
-            onClick={() => setModalView('LOGIN_VIEW')}
-          >
-            Log In
-          </a>
-        </span>
-      </div>
+      {!disabled ? (
+        <>
+          <h3 className="text-center uppercase text-3xl font-bold">
+            {!signMsg ? 'Sign Up' : 'Welcome Back!'}
+          </h3>
+          {signMsg && <p>Wallet: {account}</p>}
+          {!signMsg && (
+            <div className="flex flex-col space-y-4">
+              {!!message.length && (
+                <div className="text-red border border-red p-3">{message}</div>
+              )}
+              <Input placeholder="UserName" onChange={setUsername} />
+              <Input type="email" placeholder="Email" onChange={setEmail} />
+            </div>
+          )}
+          <div className="pt-2 w-full flex flex-col">
+            <Button variant="slim" type="submit" loading={loading}>
+              {signMsg ? 'Sign In' : 'Sign Up'}
+            </Button>
+          </div>
+        </>
+      ) : null}
     </form>
   )
 }

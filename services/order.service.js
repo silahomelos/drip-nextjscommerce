@@ -40,7 +40,7 @@ export const createDraftOrder = async (
             financial_status: 'pending',
             transactions: [
               {
-                amount: items[0].price,
+                amount: total,
                 kind: 'authorization',
                 status: 'success',
               },
@@ -58,8 +58,6 @@ export const createDraftOrder = async (
 
 export const updateOrder = async (orderId, amount) => {
   try {
-    console.log(`${API_URL}/orders/${orderId}.json`)
-    console.log({ orderId })
     const order = await (
       await fetch(`${API_URL}/orders/${orderId}/transactions.json`, {
         method: 'GET',
@@ -79,15 +77,24 @@ export const updateOrder = async (orderId, amount) => {
             kind: 'capture',
             gateway: 'manual',
             amount: amount,
-            parent_id: order.transactions[0].id,
+            parent_id: order.transactions[order.transactions.length - 1].id,
             status: 'success',
             currency: 'USD',
           },
         }),
       })
     ).json()
-    console.log({ res })
     return res
+  } catch (err) {
+    throw err
+  }
+}
+
+export const deleteOrder = async (orderId) => {
+  try {
+    await fetch(`${API_URL}/orders/${orderId}.json`, {
+      method: 'DELETE',
+    })
   } catch (err) {
     throw err
   }
@@ -122,16 +129,15 @@ export const approveToken = async ({ account, crypto, cryptoPrice }) => {
 export const purchaseOrder = async ({
   account,
   orderNumber,
-  collectionId,
+  collectionIds,
   crypto,
-  cryptoPrice,
   shippingPrice,
 }) => {
   const contract = await getDripMarketplaceContract()
   try {
     const listener = contract.methods
-      .buyOffer(
-        collectionId,
+      .batchBuyOffer(
+        collectionIds,
         tokens[crypto].address,
         orderNumber,
         shippingPrice
@@ -145,6 +151,7 @@ export const purchaseOrder = async ({
       listener.on('error', (error) => reject(error))
       listener.on('confirmation', (transactionHash) => resolve(transactionHash))
     })
+
     return {
       promise,
       unsubscribe: () => {

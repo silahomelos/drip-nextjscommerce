@@ -18,17 +18,7 @@ import {
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
 import { NFTClaimedView } from '@components/modals'
-import {
-  setAccount,
-  setChainId,
-  setCrypto,
-  setCryptoPrice,
-  setEthPrice,
-  setWallet,
-  useMain,
-} from 'context'
-import { getPayableTokenReport } from 'services/api.service'
-import { ETH_API_URL, tokens } from '../../../constants'
+import { setChainId, setCrypto, setUser, setWallet, useMain } from 'context'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import CheckoutWarning from '@components/modals/CheckoutWarning'
 
@@ -74,16 +64,15 @@ const Layout: FC<Props> = ({
     closeSidebar,
     closeModal,
     modalView,
-    setModalView,
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
-  const { dispatch, crypto, chainId, cryptoPrice, wallet, account } = useMain()
+  const { dispatch, wallet } = useMain()
   const [param, setParam] = useState('')
 
   useEffect(() => {
-    if (window.localStorage.getItem('ACCOUNT')) {
-      dispatch(setAccount(window.localStorage.getItem('ACCOUNT') || ''))
+    if (window.localStorage.getItem('user')) {
+      dispatch(setUser(JSON.parse(window.localStorage.getItem('user') || '')))
     }
     if (window.localStorage.getItem('CHAIN_ID')) {
       dispatch(setChainId(window.localStorage.getItem('CHAIN_ID') || ''))
@@ -98,48 +87,17 @@ const Layout: FC<Props> = ({
     }
   }, [])
 
-  // useEffect(() => {
-  //   if (
-  //     data?.lineItems.length === 0 &&
-  //     window.localStorage.getItem('CHECKING_OUT')
-  //   ) {
-  //     setModalView('CRYPTO_SUCCESS_VIEW')
-  //     window.localStorage.setItem('CHECKING_OUT', '1')
-  //   }
-  // }, [data?.lineItems.length])
-
   useEffect(() => {
-    if (wallet && account) {
+    if (wallet) {
       setWeb3Provider(wallet)
     }
-  }, [wallet, account])
+  }, [wallet])
 
   useEffect(() => {
     if (asPath) {
       setParam(asPath)
     }
   }, [asPath])
-
-  // useEffect(() => {
-  //   if (crypto) {
-  //     const fetchCryptoPrice = async () => {
-  //       if (chainId && crypto) {
-  //         const { payableTokenReport } = await getPayableTokenReport(
-  //           tokens[crypto].address
-  //         )
-  //         const updatedPrice = payableTokenReport.payload / 1e18
-  //         if (updatedPrice !== cryptoPrice) {
-  //           dispatch(setCryptoPrice(updatedPrice))
-  //         }
-  //       }
-  //     }
-
-  //     fetchCryptoPrice()
-  //     const interval = setInterval(fetchCryptoPrice, 10000)
-
-  //     return () => clearInterval(interval)
-  //   }
-  // }, [crypto])
 
   const getMainWrapperClassName = () => {
     if (param.includes('marketplace')) {
