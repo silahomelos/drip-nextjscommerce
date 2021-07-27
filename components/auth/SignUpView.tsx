@@ -16,7 +16,6 @@ const SignUpView: FC<Props> = () => {
   const [message, setMessage] = useState('')
   const [disabled, setDisabled] = useState(true)
   const [signMsg, setSignMsg] = useState(null)
-
   const { closeModal } = useUI()
   const { account, dispatch, fromSignin } = useMain()
 
