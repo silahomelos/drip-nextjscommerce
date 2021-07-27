@@ -14,12 +14,11 @@ const SignUpView: FC<Props> = () => {
   const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [dirty, setDirty] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [signMsg, setSignMsg] = useState(null)
 
   const { closeModal } = useUI()
-  const { account, dispatch } = useMain()
+  const { account, dispatch, fromSignin } = useMain()
 
   const tryToSignup = async (signMsg: any) => {
     if (!signMsg) {
@@ -74,10 +73,12 @@ const SignUpView: FC<Props> = () => {
 
       setLoading(false)
       closeModal()
-      router.push('/checkout-crypto')
-    } catch ({ errors }) {
-      setMessage(errors[0].message)
+      if (!fromSignin) {
+        router.push('/checkout-crypto')
+      }
+    } catch (errors) {
       setLoading(false)
+      setMessage(errors.message)
     }
   }
 

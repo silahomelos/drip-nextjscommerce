@@ -39,3 +39,9 @@
 .avatarButton:focus {
   @apply outline-none;
 }
+
+.signinBtn {
+  padding: .5rem 1rem;
+  border: 1px solid white;
+  text-transform: uppercase;
+}
