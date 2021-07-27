@@ -18,7 +18,14 @@ import {
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
 import { NFTClaimedView } from '@components/modals'
-import { setChainId, setCrypto, setUser, setWallet, useMain } from 'context'
+import {
+  setAccount,
+  setChainId,
+  setCrypto,
+  setUser,
+  setWallet,
+  useMain,
+} from 'context'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import CheckoutWarning from '@components/modals/CheckoutWarning'
 
@@ -73,6 +80,9 @@ const Layout: FC<Props> = ({
   useEffect(() => {
     if (window.localStorage.getItem('user')) {
       dispatch(setUser(JSON.parse(window.localStorage.getItem('user') || '')))
+    }
+    if (window.localStorage.getItem('ACCOUNT')) {
+      dispatch(setAccount(window.localStorage.getItem('ACCOUNT') || ''))
     }
     if (window.localStorage.getItem('CHAIN_ID')) {
       dispatch(setChainId(window.localStorage.getItem('CHAIN_ID') || ''))

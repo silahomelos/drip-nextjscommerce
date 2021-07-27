@@ -10,6 +10,7 @@ export interface State {
   authOption: number
   ethPrice: number
   buyNowStatus: number
+  fromSignin: boolean
   // temporary
   productId: string
   variantId: string
@@ -28,6 +29,7 @@ const initialState = {
   authOption: null,
   ethPrice: 0,
   buyNowStatus: 0,
+  fromSignin: false,
   // temporary
   productId: '',
   variantId: '',
@@ -64,6 +66,8 @@ export const setAuthOption = (authOption: number) =>
 export const setBuyNowStatus = (status: number) =>
   createAction('SET_BUY_NOW_STATUS', status)
 export const setUser = (user: object | null) => createAction('SET_USER', user)
+export const setFromSignin = (value: boolean) =>
+  createAction('SET_FROM_SIGNIN', value)
 
 // temporary
 export const setProductId = (productId: string) =>
@@ -144,6 +148,12 @@ function mainReducer(state: State, action: Action) {
       return {
         ...state,
         user: action.payload,
+      }
+    }
+    case 'SET_FROM_SIGNIN': {
+      return {
+        ...state,
+        fromSignin: action.payload,
       }
     }
   }
