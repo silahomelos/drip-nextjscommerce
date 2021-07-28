@@ -67,7 +67,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                   className={s.twitterIcon}
                 />
               </a>
-              <a href="https://www.instagram.com/digitalax_" target="_blank">
+              <a href="https://www.instagram.com/_digitalax" target="_blank">
                 <img
                   src="/images/instagram.svg"
                   alt=""
