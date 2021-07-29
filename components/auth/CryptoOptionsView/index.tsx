@@ -137,7 +137,11 @@ const CryptoOptionsView: FC<Props> = () => {
             } ${loading && s.disabled}`}
             onClick={() => onCryptoOptionSelect('pickle')}
           >
-            <img src="/cryptos/options/pickle.png" className="m-auto" />
+            <img
+              src="/cryptos/options/pickle.png"
+              style={{ borderRadius: '100%', border: '1px solid black' }}
+              className="m-auto"
+            />
             <span className="text-xs"> Pickle </span>
           </div>
           <div
