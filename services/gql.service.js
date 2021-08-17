@@ -19,3 +19,5 @@ export const DRIP_MARKETPLACE_PURCHASE_HISTORES = gql`
     }
   }
 `
+
+export const DIGITALAX_GARMENT_V2_COLLECTION_BY_ID = gql``

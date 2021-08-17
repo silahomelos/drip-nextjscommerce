@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './ProductView.module.scss'
 
 import { Swatch, ProductSlider } from '@components/product'
@@ -17,6 +17,9 @@ import ProductDetailTabs from './ProductDetailTabs'
 import ProductTopBanner from '@components/common/ProductTopBanner'
 import { useRouter } from 'next/router'
 import { setProductId, setVariantId, useMain } from 'context'
+import ImageCard from './ImageCard'
+import InfoCard from './InfoCard'
+import FashionList from './FashionLIst'
 
 interface Props {
   className?: string
@@ -39,9 +42,38 @@ const ProductView: FC<Props> = ({ product }) => {
     color: null,
     size: null,
   })
+  const fashionData = [
+    {
+      title: 'DeFi Staking Functionality',
+      description: `All NFTs can be staked in the DIGITALAX NFT Staking Contracts on Polygon for $MONA yield. This forms part of the broader Fashion x DeFi merger that DIGITALAX has undertaken to bring greater utility to metaversal fashion and also welcome multitudes more into web3 and DeFi. 
+
+      What if you could earn more from what you wear? Wear to DeFi lets you put your fashion to work for you. We are melting the centralised exploitative crown to weave the fabric of a generative ecosystem.
+      `,
+    },
+    {
+      title: 'Unique PFP Collectible Avatar W/ In-Game Utility',
+      description: `With every NFT enjoy a custom unique PFP Collectible Avatar that can be taken into The First Dungeon— an open source 2D battle royale game developed by Thijmen Happy. The game is launching through DIGITALAX’s ESPA esports platform mid September. 
+
+      Take your character in-game to engage in The First Dungeon casual esports battles, rank on the leaderboard and earn $MONA as you level up from 0 to 1.  
+
+      See more about The First Dungeon here. `,
+    },
+    {
+      title: '3D Model FBX File Included',
+      description: `All of the DIGITALAX digital fashion garment and accessory ERC-721 NFTs are backed by the underlying 3D model FBX file, stored in IPFS. This forms part of the platform’s broader pursuit for decentralising content distribution and access to it. The FBX file is one of the most popular and widely used 3D data interchange formats between 3D editors and game engines. There are still efficiency problems that exist with it, which DIGITALAX is working to solve through it’s DASH File Format architecture. `,
+    },
+    {
+      title: 'Fractional Garment ERC-1155 Open Source Pattern',
+      description: `Fractional Garment Ownership (FGO) sets forth the standard and dress code for the manufacture of digital fashion along the content supply chain. FGO leverages ERC Protocol standards across the Ethereum Blockchain and Polygon (Matic Network) for breaking down a master ERC-721 digital garment into its programmable and composable ERC-1155 elements of materials, patterns and textures.
+
+      Here, we are using a variant on the ERC-998 standard, where each ERC-721 token can hold a balance of ERC-1155 NFTs. We coin this respectively the Parent and Child NFTs. This allows for other designers to leverage off of the open source digital libraries, incorporating the patterns, materials and textures into their master garments.`,
+    },
+  ]
   const { dispatch } = useMain()
   const [curImgIndex, setCurImgIndex] = useState(0)
   const { asPath } = useRouter()
+
+  const collectionId = asPath.split('/')[2].split('-')[1]
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
@@ -77,6 +109,8 @@ const ProductView: FC<Props> = ({ product }) => {
       asPath.includes('metameme')
     )
   }
+
+  useEffect(() => {}, [])
 
   return (
     <>
@@ -228,6 +262,28 @@ const ProductView: FC<Props> = ({ product }) => {
           )} */}
         </div>
       </Container>
+      <section className={s.designerSection}>
+        <video autoPlay loop muted className={s.video}>
+          <source src="/images/designer-bg.mp4" type="video/mp4" />
+        </video>
+        <Container>
+          <div className={s.designerBody}>
+            <div className={s.title}> designer </div>
+            <div className={s.data}>
+              <ImageCard imgUrl={product?.designer?.image} />
+              <div className={s.infoWrapper}>
+                <InfoCard libon="./images/metaverse/party_glasses.png">
+                  <div className={s.name}> {product?.designer?.name} </div>
+                  <div className={s.description}>
+                    {product?.designer?.description}
+                  </div>
+                </InfoCard>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+      <FashionList fashionData={fashionData} collections={[]} />
     </>
   )
 }

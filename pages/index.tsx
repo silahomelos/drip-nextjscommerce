@@ -49,7 +49,7 @@ const Home = () => {
     <>
       <div className="relative bg-black">
         <video className="w-full hidden md:block" autoPlay muted loop>
-          <source src="/landing-video.mp4" type="video/mp4" />
+          <source src="/Web Fashion Week.mp4" type="video/mp4" />
         </video>
         <div className="relative md:absolute top-0 w-full">
           <LandingNavbar />
@@ -64,7 +64,7 @@ const Home = () => {
               </h1>
             </div>
             <video className="w-screen block md:hidden" autoPlay muted loop>
-              <source src="/landing-video.mp4" type="video/mp4" />
+              <source src="/Web Fashion Week.mp4" type="video/mp4" />
             </video>
             <div className="bg-transparent text-center text-center py-10 md:mt-2 md:mb-20 md:text-left md:p-0">
               <Link href="/marketplace">

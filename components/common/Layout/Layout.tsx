@@ -114,49 +114,49 @@ const Layout: FC<Props> = ({
       return s.marketplace
     }
     if (param.includes('minecraft')) {
-      return s.collection2
+      return s.marketplace
     }
     if (param.includes('aave')) {
-      return s.aave
+      return s.marketplace
     }
     if (param.includes('instadapp')) {
-      return s.instadapp
+      return s.marketplace
     }
     if (param.includes('ruler')) {
-      return s.ruler
+      return s.marketplace
     }
     if (param.includes('poap')) {
-      return s.poap
+      return s.marketplace
     }
     if (param.includes('force')) {
-      return s.force
+      return s.marketplace
     }
     if (param.includes('zerion')) {
-      return s.zerion
+      return s.marketplace
     }
     if (param.includes('zapper')) {
-      return s.zapper
+      return s.marketplace
     }
     if (param.includes('polygon')) {
-      return s.polyon
+      return s.marketplace
     }
     if (param.includes('opyn')) {
-      return s.opyn
+      return s.marketplace
     }
     if (param.includes('pickle')) {
-      return s.pickle
+      return s.marketplace
     }
     if (param.includes('rari')) {
-      return s.rari
+      return s.marketplace
     }
     if (param.includes('maker')) {
-      return s.maker
+      return s.marketplace
     }
     if (param.includes('bancor')) {
-      return s.bancor
+      return s.marketplace
     }
     if (param.includes('metameme')) {
-      return s.collection1
+      return s.marketplace
     }
   }
   return (

@@ -17,11 +17,7 @@ const TextContent: React.FC<Props> = ({ onSelectText }) => {
   }
   return (
     <div className={s.textContentContainer}>
-      <h1 className={s.title}>
-        {' '}
-        Wear to Defi. <br />
-        Mod your way into metaverse fashion & Gaming.{' '}
-      </h1>
+      <img src="/images/Group 1210.png" className={s.titleImage} />
       <div className={s.subtitleBar}>
         {subTitleList.map((text, index) => (
           <h3
