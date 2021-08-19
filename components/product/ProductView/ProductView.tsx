@@ -136,11 +136,21 @@ const ProductView: FC<Props> = ({ product }) => {
     }
   }
 
+  const openDigifizzyWeb3FashionPage = () => {
+    window.open('https://digifizzy.xyz/magazines/4/45/', '_blank')
+  }
+
   const isOriginal = () => {
     return (
       asPath.includes('marketplace') ||
       asPath.includes('minecraft') ||
       asPath.includes('metameme')
+    )
+  }
+
+  const isWeb3Url = () => {
+    return (
+      asPath.includes('web3')
     )
   }
 
@@ -263,28 +273,40 @@ const ProductView: FC<Props> = ({ product }) => {
               </div>
               <div>
                 <p className={s.openCollection}>Open Collection</p>
-                <Button
-                  aria-label="Add to Cart"
-                  type="button"
-                  className={s.button}
-                  onClick={addToCart}
-                  loading={loading}
-                  disabled={!variant && product.options.length > 0}
-                >
-                  <div>
-                    ADD TO CART
-                    <p className={s.buttonSubTitle}>FIAT & CRYPTO</p>
-                  </div>
-                </Button>
+                <div className={s.openCollectionButtonWrapper}>
+                  <Button
+                    aria-label="Add to Cart"
+                    type="button"
+                    className={s.button}
+                    onClick={addToCart}
+                    loading={loading}
+                    disabled={!variant && product.options.length > 0}
+                  >
+                    <div>
+                      ADD TO CART
+                      <p className={s.buttonSubTitle}>FIAT & CRYPTO</p>
+                    </div>
+                  </Button>
+                  {isWeb3Url() && <Button
+                    aria-label="Read More"
+                    type="button"
+                    className={s.web3ExtraButton}
+                    onClick={openDigifizzyWeb3FashionPage}
+                  >
+                    <div>
+                      Your NFT COntains more web3 fashion treasures! CHECK HERE!
+                    </div>
+                  </Button>}
+                </div>
+                {isOriginal() ? (
+                  <ProductDetailTabs description={product.description} />
+                ) : (
+                  <DefiProductDetailTabs
+                    description={product.description}
+                    title={product.name}
+                  />
+                )}
               </div>
-              {isOriginal() ? (
-                <ProductDetailTabs description={product.description} />
-              ) : (
-                <DefiProductDetailTabs
-                  description={product.description}
-                  title={product.name}
-                />
-              )}
             </section>
           </div>
           {/* {process.env.COMMERCE_WISHLIST_ENABLED && (
