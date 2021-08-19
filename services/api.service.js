@@ -2,6 +2,7 @@ import request from 'graphql-request'
 import { GRAPH_API_URL } from '../constants'
 import { post } from './request.service'
 import {
+  DIGITALAX_GARMENT_V2_COLLECTION_BY_ID,
   DRIP_MARKETPLACE_PURCHASE_HISTORES,
   PAYABLE_TOKEN_REQUEST,
 } from './gql.service'
@@ -12,6 +13,10 @@ export const getPayableTokenReport = async (id) => {
 
 export const getMarketplacePurchaseHistories = async (orderId) => {
   return request(GRAPH_API_URL, DRIP_MARKETPLACE_PURCHASE_HISTORES, { orderId })
+}
+
+export const getDigitalaxGarmentV2CollectionById = async (id) => {
+  return request(GRAPH_API_URL, DIGITALAX_GARMENT_V2_COLLECTION_BY_ID, { id })
 }
 
 export const fetchAuthToken = async (account) => {

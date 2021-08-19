@@ -66,6 +66,7 @@ export default function Home({
     'Hybrid Fashion',
   ]
   const order = [
+    'web3',
     'Instadapp',
     'Bancor',
     'Maker',

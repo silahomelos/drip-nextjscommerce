@@ -20,6 +20,8 @@ import { setProductId, setVariantId, useMain } from 'context'
 import ImageCard from './ImageCard'
 import InfoCard from './InfoCard'
 import FashionList from './FashionLIst'
+import { getDigitalaxGarmentV2CollectionById } from 'services/api.service'
+import { TextSlider } from '@components/common'
 
 interface Props {
   className?: string
@@ -27,16 +29,29 @@ interface Props {
   product: Product
 }
 
+interface Designer {
+  id: number
+  image: string
+  description: string
+  name: string
+  instagram?: string
+  twitter?: string
+}
+
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem()
-  const { data } = useCart()
-  const removeItem = useRemoveItem()
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   })
   const { openSidebar, openModal, setModalView } = useUI()
+  const [designer, setDesigner] = useState<Designer>({
+    id: 0,
+    image: '',
+    description: '',
+    name: '',
+  })
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
     color: null,
@@ -47,7 +62,7 @@ const ProductView: FC<Props> = ({ product }) => {
       title: 'DeFi Staking Functionality',
       description: `All NFTs can be staked in the DIGITALAX NFT Staking Contracts on Polygon for $MONA yield. This forms part of the broader Fashion x DeFi merger that DIGITALAX has undertaken to bring greater utility to metaversal fashion and also welcome multitudes more into web3 and DeFi. 
 
-      What if you could earn more from what you wear? Wear to DeFi lets you put your fashion to work for you. We are melting the centralised exploitative crown to weave the fabric of a generative ecosystem.
+      What if you could earn more from what you wear? Wear to DeFi lets you put your fashion to work for you. We are melting the centralised exploitative crown to weave the fabric of a generative ecosystem.      
       `,
     },
     {
@@ -55,8 +70,8 @@ const ProductView: FC<Props> = ({ product }) => {
       description: `With every NFT enjoy a custom unique PFP Collectible Avatar that can be taken into The First Dungeon— an open source 2D battle royale game developed by Thijmen Happy. The game is launching through DIGITALAX’s ESPA esports platform mid September. 
 
       Take your character in-game to engage in The First Dungeon casual esports battles, rank on the leaderboard and earn $MONA as you level up from 0 to 1.  
-
-      See more about The First Dungeon here. `,
+      
+      See more about The First Dungeon here. Your collectible is airdropped to you within 12 hours of purchase. `,
     },
     {
       title: '3D Model FBX File Included',
@@ -68,8 +83,15 @@ const ProductView: FC<Props> = ({ product }) => {
 
       Here, we are using a variant on the ERC-998 standard, where each ERC-721 token can hold a balance of ERC-1155 NFTs. We coin this respectively the Parent and Child NFTs. This allows for other designers to leverage off of the open source digital libraries, incorporating the patterns, materials and textures into their master garments.`,
     },
+    {
+      title: 'DressX Try On Functionality',
+      description: `Take your digital fashion item and wear across the social media metaverse. DressX’s try on technology allows you to overlay your digital fashion itme onto a photo of your choosing. It’s the outift that doesn’t exist— physically at least! `,
+    },
+    {
+      title: 'Decentraland In-Game Digital Fashion Outfit',
+      description: `Exclusive W3FW Decentraland In-Game Digital Fashion Memorabilia Bomber Jacket! View it also through the DressX AR Try On filter and head over to DRIP to purchase the physical varsity jacket version to rep IRL!`,
+    },
   ]
-  const { dispatch } = useMain()
   const [curImgIndex, setCurImgIndex] = useState(0)
   const { asPath } = useRouter()
 
@@ -81,6 +103,18 @@ const ProductView: FC<Props> = ({ product }) => {
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
   }
+
+  useEffect(() => {
+    const fetchDesignerInfo = async () => {
+      const {
+        digitalaxGarmentV2Collection,
+      } = await getDigitalaxGarmentV2CollectionById(collectionId)
+      console.log({ digitalaxGarmentV2Collection })
+      setDesigner(digitalaxGarmentV2Collection.designer)
+    }
+
+    fetchDesignerInfo()
+  }, [])
 
   const addToCart = async () => {
     setLoading(true)
@@ -262,28 +296,34 @@ const ProductView: FC<Props> = ({ product }) => {
           )} */}
         </div>
       </Container>
-      <section className={s.designerSection}>
-        <video autoPlay loop muted className={s.video}>
-          <source src="/images/designer-bg.mp4" type="video/mp4" />
-        </video>
-        <Container>
-          <div className={s.designerBody}>
-            <div className={s.title}> designer </div>
-            <div className={s.data}>
-              <ImageCard imgUrl={product?.designer?.image} />
-              <div className={s.infoWrapper}>
-                <InfoCard libon="./images/metaverse/party_glasses.png">
-                  <div className={s.name}> {product?.designer?.name} </div>
-                  <div className={s.description}>
-                    {product?.designer?.description}
+      {designer ? (
+        <>
+          <section className={s.designerSection}>
+            <video autoPlay loop muted className={s.video}>
+              <source src="/images/designer-bg.mp4" type="video/mp4" />
+            </video>
+            <Container>
+              <div className={s.designerBody}>
+                <div className={s.title}> designer </div>
+                <div className={s.data}>
+                  <ImageCard imgUrl={designer.image} />
+                  <div className={s.infoWrapper}>
+                    <InfoCard>
+                      <div className={s.name}> {designer.name} </div>
+                      <div className={s.description}>
+                        {designer.description}
+                      </div>
+                    </InfoCard>
                   </div>
-                </InfoCard>
+                </div>
               </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-      <FashionList fashionData={fashionData} collections={[]} />
+            </Container>
+          </section>
+          <FashionList fashionData={fashionData} />
+        </>
+      ) : (
+        <TextSlider black />
+      )}
     </>
   )
 }

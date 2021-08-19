@@ -20,4 +20,18 @@ export const DRIP_MARKETPLACE_PURCHASE_HISTORES = gql`
   }
 `
 
-export const DIGITALAX_GARMENT_V2_COLLECTION_BY_ID = gql``
+export const DIGITALAX_GARMENT_V2_COLLECTION_BY_ID = gql`
+  query digitalaxGarmentV2Collection($id: ID!) {
+    digitalaxGarmentV2Collection(id: $id) {
+      id
+      designer {
+        id
+        description
+        name
+        instagram
+        twitter
+        image
+      }
+    }
+  }
+`

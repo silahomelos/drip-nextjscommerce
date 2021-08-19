@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import FashionImageCard from '../FashionImageCard'
 
-const FashionCard = ({ products, rarity, leftImage, item }) => {
+const FashionCard = ({ image, leftImage, item }) => {
   const [selected, setSelected] = useState(0)
 
   return (
@@ -11,7 +11,7 @@ const FashionCard = ({ products, rarity, leftImage, item }) => {
         <div className={styles.bodyWrapper}>
           <div className={styles.imageCardWrapper}>
             <div className={styles.imageInnerWrapper}>
-              <FashionImageCard blue={false} data={products[selected]} />
+              <FashionImageCard videoUrl={image} />
             </div>
           </div>
           <div className={styles.descriptionWrapper}>
@@ -36,7 +36,7 @@ const FashionCard = ({ products, rarity, leftImage, item }) => {
           </div>
           <div className={styles.imageCardWrapper}>
             <div className={styles.imageInnerWrapper}>
-              <FashionImageCard blue={false} data={products[selected]} />
+              <FashionImageCard videoUrl={image} />
             </div>
           </div>
         </div>

@@ -3,7 +3,16 @@ import styles from './styles.module.scss'
 import FashionCard from '@components/product/ProductView/fashion-card'
 import { Container } from '@components/ui'
 
-const FashionList = ({ fashionData, collections }) => {
+const FashionList = ({ fashionData }) => {
+  const videoUrls = [
+    '/images/product_detail1.mp4',
+    '/images/product_detail2.mp4',
+    '/images/product_detail6.png',
+    '/images/product_detail3.mp4',
+    '/images/product_detail4.mp4',
+    '/images/product_detail5.mp4',
+  ]
+
   return (
     <div>
       <section className={styles.bgBotSection}>
@@ -19,7 +28,7 @@ const FashionList = ({ fashionData, collections }) => {
               <FashionCard
                 item={item}
                 leftImage={index % 2 == 0 ? true : false}
-                products={collections}
+                image={videoUrls[index]}
                 rarity={'Semi-Rare'}
               />
             </div>

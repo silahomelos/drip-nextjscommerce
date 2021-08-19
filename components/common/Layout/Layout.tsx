@@ -110,54 +110,55 @@ const Layout: FC<Props> = ({
   }, [asPath])
 
   const getMainWrapperClassName = () => {
-    if (param.includes('marketplace')) {
+    if (param.includes('marketplace') || param.includes('web3-fashion-week')) {
       return s.marketplace
     }
     if (param.includes('minecraft')) {
-      return s.marketplace
+      return s.collection2
     }
     if (param.includes('aave')) {
-      return s.marketplace
+      return s.aave
     }
     if (param.includes('instadapp')) {
-      return s.marketplace
+      return s.instadapp
     }
     if (param.includes('ruler')) {
-      return s.marketplace
+      return s.ruler
     }
     if (param.includes('poap')) {
-      return s.marketplace
+      return s.poap
     }
     if (param.includes('force')) {
-      return s.marketplace
+      return s.force
     }
     if (param.includes('zerion')) {
-      return s.marketplace
+      return s.zerion
     }
     if (param.includes('zapper')) {
-      return s.marketplace
+      return s.zapper
     }
     if (param.includes('polygon')) {
-      return s.marketplace
+      return s.polygon
     }
     if (param.includes('opyn')) {
-      return s.marketplace
+      return s.opyn
     }
     if (param.includes('pickle')) {
-      return s.marketplace
+      return s.pickle
     }
     if (param.includes('rari')) {
-      return s.marketplace
+      return s.rari
     }
     if (param.includes('maker')) {
-      return s.marketplace
+      return s.maker
     }
     if (param.includes('bancor')) {
-      return s.marketplace
+      return s.bancor
     }
     if (param.includes('metameme')) {
-      return s.marketplace
+      return s.collection1
     }
+    return s.marketplace
   }
   return (
     <CommerceProvider locale={locale}>
@@ -168,7 +169,8 @@ const Layout: FC<Props> = ({
         >
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
-          {!pathname.includes('shippingandreturns') && <TextSlider black />}
+          {!pathname.includes('shippingandreturns') &&
+            !pathname.includes('product') && <TextSlider black />}
         </div>
         <Footer pages={pageProps.pages} />
 
