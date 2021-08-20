@@ -14,6 +14,7 @@ import { useAddItem, useCart, useRemoveItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
 import DefiProductDetailTabs from './DefiProductDetailTabs'
 import ProductDetailTabs from './ProductDetailTabs'
+import Web3ProductDetailTabs from './Web3ProductDetailTabs'
 import ProductTopBanner from '@components/common/ProductTopBanner'
 import { useRouter } from 'next/router'
 import { setProductId, setVariantId, useMain } from 'context'
@@ -298,14 +299,23 @@ const ProductView: FC<Props> = ({ product }) => {
                     </div>
                   </Button>}
                 </div>
-                {isOriginal() ? (
-                  <ProductDetailTabs description={product.description} />
-                ) : (
-                  <DefiProductDetailTabs
-                    description={product.description}
-                    title={product.name}
-                  />
-                )}
+                {
+                  isOriginal()
+                  ? (
+                    <ProductDetailTabs description={product.description} />
+                  ) 
+                  : (
+                    isWeb3Url()
+                      ? <Web3ProductDetailTabs 
+                        description={product.description}
+                        title={'About this NFT. '}
+                        />
+                      : <DefiProductDetailTabs
+                          description={product.description}
+                          title={product.name}
+                        />
+                  )
+                }
               </div>
             </section>
           </div>
