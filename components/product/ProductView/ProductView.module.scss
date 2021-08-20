@@ -324,6 +324,45 @@
   }
 }
 
+.openCollectionButtonWrapper {
+  display: flex;
+
+  .web3ExtraButton {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(190, 0, 221, 0.5);
+    margin-left: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem 1rem;
+
+    &:hover {
+      color: white;
+      background: rgba(190, 0, 221, 0.8);
+    }
+  }
+
+  @media (max-width: 540px) {
+    flex-direction: column;
+
+    button {
+      height: 60px;
+    }
+
+    .web3ExtraButton {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+}
+
 .previewImages {
   display: flex;
   z-index: 30;
