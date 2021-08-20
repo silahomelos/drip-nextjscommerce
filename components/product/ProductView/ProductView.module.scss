@@ -348,6 +348,19 @@
       background: rgba(190, 0, 221, 0.8);
     }
   }
+
+  @media (max-width: 540px) {
+    flex-direction: column;
+
+    button {
+      height: 60px;
+    }
+
+    .web3ExtraButton {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
 }
 
 .previewImages {
