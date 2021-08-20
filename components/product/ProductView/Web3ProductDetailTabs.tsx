@@ -112,7 +112,7 @@ const Web3ProductDetailTabs: FC<Props> = ({ description, title }) => {
   return (
     <div className={s.tabSection}>
       <Tabs>
-        <Tab title="WEAR TO DEFI">
+        <Tab title="W3FW">
           <div className={s.web3TabRow}>
             {/* <img src={(info[index] || {}).icon} className={s.tabRowImage} /> */}
             <div className={s.text}>
