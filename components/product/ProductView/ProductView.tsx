@@ -76,7 +76,7 @@ const ProductView: FC<Props> = ({ product }) => {
     },
     {
       title: '3D Model File Included',
-      description: `All of the DIGITALAX digital fashion garment and accessory ERC-721 NFTs are backed by the underlying 3D model file, stored in IPFS. This forms part of the platform’s broader pursuit for decentralising content distribution and access to it. The FBX file is one of the most popular and widely used 3D data interchange formats between 3D editors and game engines. There are still efficiency problems that exist with it, which DIGITALAX is working to solve through it’s DASH File Format architecture. `,
+      description: `All of the DIGITALAX digital fashion garment and accessory ERC-721 NFTs are backed by the underlying 3D model file, stored in IPFS. This forms part of the platform’s broader pursuit for decentralising content distribution and access to it. The interchange of 3D files across different platforms and applications is still inefficient in holding source file fidelity. DIGITALAX is working to solve through it’s DASH File Format architecture.`,
     },
     {
       title: 'Fractional Garment ERC-1155 Open Source Pattern',
