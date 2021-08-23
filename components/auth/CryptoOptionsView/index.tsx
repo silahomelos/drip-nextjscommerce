@@ -6,13 +6,21 @@ import { approveToken, getAllowance } from 'services/order.service'
 import { tokens } from '../../../constants'
 import { getPayableTokenReport } from 'services/api.service'
 import { useCart } from '@framework/cart'
+import { useRouter } from 'next/router'
 
 interface Props {}
 
 const CryptoOptionsView: FC<Props> = () => {
   const { setModalView } = useUI()
   const { data } = useCart()
-  const { dispatch, account, buyNowStatus, cryptoPrice, crypto } = useMain()
+  const {
+    dispatch,
+    account,
+    buyNowStatus,
+    cryptoPrice,
+    crypto,
+    collectionId,
+  } = useMain()
   const [loading, setLoading] = useState(false)
   const [approved, setApproved] = useState(false)
   const onCryptoOptionSelect = (option: string) => {
@@ -46,7 +54,11 @@ const CryptoOptionsView: FC<Props> = () => {
     if (buyNowStatus === 2) {
       dispatch(setBuyNowStatus(0))
       setLoading(false)
-      setModalView('CRYPTO_SUCCESS_VIEW')
+      if (collectionId === '250' || collectionId === '251') {
+        setModalView('PURCHASE_SUCCESS_VIEW')
+      } else {
+        setModalView('CRYPTO_SUCCESS_VIEW')
+      }
     } else if (buyNowStatus === 3) {
       dispatch(setBuyNowStatus(0))
       setLoading(false)

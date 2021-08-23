@@ -1,13 +1,15 @@
 import { FC } from 'react'
 import { Button, useUI } from '@components/ui'
-import { setAuthOption, useMain } from 'context'
-import router from 'next/router'
+import { setAuthOption, setCollectionId, useMain } from 'context'
+import router, { useRouter } from 'next/router'
 
 interface Props {}
 
 const AuthOptionsView: FC<Props> = () => {
   const { closeModal, setModalView, closeSidebar } = useUI()
   const { dispatch, user } = useMain()
+  const { asPath } = useRouter()
+  const collectionId = asPath.split('/')[1].split('-')[1]
 
   const onOptionClick = async (option: number) => {
     if (option === 0) {
@@ -16,6 +18,7 @@ const AuthOptionsView: FC<Props> = () => {
         closeModal()
         setModalView('')
         closeSidebar()
+        dispatch(setCollectionId(collectionId))
         router.push('/checkout-crypto')
       } else {
         setModalView('CRYPTO_SIGNUP_VIEW')

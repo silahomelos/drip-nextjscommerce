@@ -14,6 +14,7 @@ export interface State {
   // temporary
   productId: string
   variantId: string
+  collectionId: string
 }
 
 interface Props {}
@@ -33,6 +34,7 @@ const initialState = {
   // temporary
   productId: '',
   variantId: '',
+  collectionId: '',
 }
 
 export const MainContext = React.createContext<State | any>(initialState)
@@ -74,6 +76,8 @@ export const setProductId = (productId: string) =>
   createAction('SET_PRODUCT_ID', productId)
 export const setVariantId = (variantId: string) =>
   createAction('SET_VARIANT_ID', variantId)
+export const setCollectionId = (collectionId: string) =>
+  createAction('SET_COLLECTION_ID', collectionId)
 
 function mainReducer(state: State, action: Action) {
   switch (action.type) {
@@ -154,6 +158,12 @@ function mainReducer(state: State, action: Action) {
       return {
         ...state,
         fromSignin: action.payload,
+      }
+    }
+    case 'SET_COLLECTION_ID': {
+      return {
+        ...state,
+        collectionId: action.payload,
       }
     }
   }
