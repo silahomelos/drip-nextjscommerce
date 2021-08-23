@@ -450,6 +450,51 @@
       }
     }
   }
+
+  .web3TabRow {
+    align-items: center;
+    margin-bottom: 3rem;
+
+    .text {
+      @media (max-width: 576px) {
+        text-align: center !important;
+      }
+
+      .title {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 18px;
+        color: black;
+        // text-decoration: underline;
+        padding-bottom: 5px;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid black;
+        width: 200px;
+      }
+
+      .description {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        color: black;
+
+        word-wrap: break-word;
+      }
+
+      .icons {
+        @media (max-width: 576px) {
+          justify-content: space-around;
+        }
+
+        img {
+          width: 30px;
+        }
+      }
+    }    
+  }
 }
 
 .tabListContentTitle {

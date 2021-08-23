@@ -14,6 +14,7 @@ import { useAddItem, useCart, useRemoveItem } from '@framework/cart'
 import { getVariant, SelectedOptions } from '../helpers'
 import DefiProductDetailTabs from './DefiProductDetailTabs'
 import ProductDetailTabs from './ProductDetailTabs'
+import Web3ProductDetailTabs from './Web3ProductDetailTabs'
 import ProductTopBanner from '@components/common/ProductTopBanner'
 import { useRouter } from 'next/router'
 import { setProductId, setVariantId, useMain } from 'context'
@@ -74,8 +75,8 @@ const ProductView: FC<Props> = ({ product }) => {
       See more about The First Dungeon here. Your collectible is airdropped to you within 12 hours of purchase. `,
     },
     {
-      title: '3D Model FBX File Included',
-      description: `All of the DIGITALAX digital fashion garment and accessory ERC-721 NFTs are backed by the underlying 3D model FBX file, stored in IPFS. This forms part of the platform’s broader pursuit for decentralising content distribution and access to it. The FBX file is one of the most popular and widely used 3D data interchange formats between 3D editors and game engines. There are still efficiency problems that exist with it, which DIGITALAX is working to solve through it’s DASH File Format architecture. `,
+      title: '3D Model File Included',
+      description: `All of the DIGITALAX digital fashion garment and accessory ERC-721 NFTs are backed by the underlying 3D model file, stored in IPFS. This forms part of the platform’s broader pursuit for decentralising content distribution and access to it. The interchange of 3D files across different platforms and applications is still inefficient in holding source file fidelity. DIGITALAX is working to solve through it’s DASH File Format architecture.`,
     },
     {
       title: 'Fractional Garment ERC-1155 Open Source Pattern',
@@ -298,14 +299,23 @@ const ProductView: FC<Props> = ({ product }) => {
                     </div>
                   </Button>}
                 </div>
-                {isOriginal() ? (
-                  <ProductDetailTabs description={product.description} />
-                ) : (
-                  <DefiProductDetailTabs
-                    description={product.description}
-                    title={product.name}
-                  />
-                )}
+                {
+                  isOriginal()
+                  ? (
+                    <ProductDetailTabs description={product.description} />
+                  ) 
+                  : (
+                    isWeb3Url()
+                      ? <Web3ProductDetailTabs 
+                        description={product.description}
+                        title={'About this NFT. '}
+                        />
+                      : <DefiProductDetailTabs
+                          description={product.description}
+                          title={product.name}
+                        />
+                  )
+                }
               </div>
             </section>
           </div>
