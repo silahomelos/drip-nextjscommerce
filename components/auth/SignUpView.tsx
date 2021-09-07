@@ -20,15 +20,15 @@ const SignUpView: FC<Props> = () => {
   const { account, dispatch, fromSignin } = useMain()
 
   const tryToSignup = async (signMsg: any) => {
-    if (!signMsg) {
-      signMsg = await signup(account, username, email)
-    }
-
-    const { signature } = await handleSignMessage({
-      account,
-      signMsg,
-    })
     try {
+      if (!signMsg) {
+        signMsg = await signup(account, username, email)
+      }
+
+      const { signature } = await handleSignMessage({
+        account,
+        signMsg,
+      })
       const data = await authenticate(account, signMsg, signature)
       if (data) {
         const { returnData, secret } = data
@@ -36,6 +36,7 @@ const SignUpView: FC<Props> = () => {
         window.localStorage.setItem('user', JSON.stringify(returnData))
       }
     } catch (e) {
+      console.log({ e })
       throw e
     }
   }
@@ -77,7 +78,11 @@ const SignUpView: FC<Props> = () => {
       }
     } catch (errors) {
       setLoading(false)
-      setMessage(errors.message)
+      if (errors?.response && errors.response.data) {
+        setMessage(errors.response.data)
+      } else {
+        setMessage(errors.message)
+      }
     }
   }
 

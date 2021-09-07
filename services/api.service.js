@@ -30,7 +30,7 @@ export const fetchAuthToken = async (account) => {
     }
     return data
   } catch (err) {
-    return null
+    throw err
   }
 }
 
@@ -44,7 +44,7 @@ export const signup = async (account, username, email) => {
     })
     return message
   } catch (err) {
-    return null
+    throw err
   }
 }
 
@@ -57,6 +57,6 @@ export const authenticate = async (account, signMsg, signature) => {
     })
     return data
   } catch (e) {
-    return null
+    throw err
   }
 }

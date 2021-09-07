@@ -22,6 +22,7 @@ const CryptoSignUpView: FC<Props> = () => {
     setWeb3Provider(option)
     try {
       const res = await connectWallet(option)
+      console.log({ account })
       if (!account) {
         dispatch(setWallet(option))
         dispatch(setAccount(res.account))
