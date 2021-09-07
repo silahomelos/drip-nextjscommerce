@@ -21,10 +21,12 @@ export const getDigitalaxGarmentV2CollectionById = async (id) => {
 
 export const fetchAuthToken = async (account) => {
   try {
+    console.log('this is inside fetch auth token', account)
     if (!account) return null
     const data = await post('/account-exists', {
       wallet: account,
     })
+    console.log('this is after post account-exists')
     if (data === 0) {
       return null
     }

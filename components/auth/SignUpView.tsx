@@ -87,8 +87,11 @@ const SignUpView: FC<Props> = () => {
   }
 
   useEffect(() => {
+    console.log('this is sign up view use Effect')
     const getAuthToken = async () => {
+      console.log('this is before fetching auth token')
       const msg = await fetchAuthToken(account)
+      console.log('this is after fetching auth token')
       setSignMsg(msg)
       setDisabled(false)
     }
