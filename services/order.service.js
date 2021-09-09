@@ -133,8 +133,11 @@ export const purchaseOrder = async ({
   crypto,
   shippingPrice,
 }) => {
+  console.log('this is before getting marktetplace offer')
   const contract = await getDripMarketplaceContract()
+  console.log('this is after getting marketplace offer')
   try {
+    console.log('this is before calling batchBuyoffer')
     const listener = contract.methods
       .batchBuyOffer(
         collectionIds,

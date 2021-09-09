@@ -109,6 +109,7 @@ const Checkout: FC<Props> = () => {
   useEffect(() => {
     const order = async () => {
       // setWeb3Provider(wallet)
+      console.log('this is before creating order')
       const { order } = await (
         await fetch('/api/order', {
           method: 'POST',
@@ -138,6 +139,7 @@ const Checkout: FC<Props> = () => {
           }),
         })
       ).json()
+      console.log('this is after creating order')
       const { id, order_number } = order
       const promises = []
 
@@ -172,7 +174,7 @@ const Checkout: FC<Props> = () => {
             collectionIds.push(getCollectionId(item.path))
           }
         })
-
+        console.log('this is before purhcasing order')
         const { promise, unsubscribe } = await purchaseOrder({
           account,
           orderNumber: order_number,
@@ -181,8 +183,11 @@ const Checkout: FC<Props> = () => {
           shippingPrice: 0,
         })
 
+        console.log('this is after purchasing order')
+
         await promise
           .then(async (hash) => {
+            console.log('this is after calling buy offer')
             dispatch(setBuyNowStatus(2))
             await updateOrder()
             await removeCart()

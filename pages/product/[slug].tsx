@@ -20,12 +20,15 @@ export async function getStaticProps({
   preview,
 }: GetStaticPropsContext<{ slug: string }>) {
   const config = getConfig({ locale })
+  console.log('this is before fetching all pages')
   const { pages } = await getAllPages({ config, preview })
+  console.log('this is after fetching all pages!!!')
   const { product } = await getProduct({
     variables: { slug: params!.slug },
     config,
     preview,
   })
+  console.log('this is after fetching product!!!!!')
 
   if (!product) {
     throw new Error(`Product with slug '${params!.slug}' not found`)
@@ -41,8 +44,9 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
+  console.log('this is after product paths')
   const { products } = await getAllProductPaths()
-
+  console.log('this is after product paths !!!!!!!!')
   return {
     paths: locales
       ? locales.reduce<string[]>((arr, locale) => {
