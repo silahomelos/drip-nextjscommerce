@@ -66,6 +66,7 @@ export default function Home({
     'Hybrid Fashion',
   ]
   const order = [
+    'look',
     'web3',
     'Instadapp',
     'Bancor',
@@ -86,6 +87,8 @@ export default function Home({
     setCardTextIndex(index)
     setRandomStr(shortid.generate())
   }
+
+  console.log({ collections })
 
   return (
     <>

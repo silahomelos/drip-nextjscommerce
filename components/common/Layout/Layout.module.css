@@ -65,6 +65,10 @@
   background-image: url('../../../public/images/bancor.png');
 }
 
+.look {
+  background-image: url('../../../public/images/look.png');
+}
+
 .marketplace {
   background-image: url('../../../public/images/marketplace.gif');
   background-size: 100% !important;

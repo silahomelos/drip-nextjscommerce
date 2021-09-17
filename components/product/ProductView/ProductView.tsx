@@ -23,6 +23,7 @@ import InfoCard from './InfoCard'
 import FashionList from './FashionLIst'
 import { getDigitalaxGarmentV2CollectionById } from 'services/api.service'
 import { TextSlider } from '@components/common'
+import LookProductDetailTabs from './LookProductDetailsTabs'
 
 interface Props {
   className?: string
@@ -150,9 +151,15 @@ const ProductView: FC<Props> = ({ product }) => {
   }
 
   const isWeb3Url = () => {
-    return (
-      asPath.includes('web3')
-    )
+    return asPath.includes('web3')
+  }
+
+  const isLookUrl = () => {
+    return asPath.includes('look')
+  }
+
+  const isDefiUrl = () => {
+    return !(isLookUrl() || isOriginal() || isWeb3Url())
   }
 
   useEffect(() => {}, [])
@@ -288,34 +295,36 @@ const ProductView: FC<Props> = ({ product }) => {
                       <p className={s.buttonSubTitle}>FIAT & CRYPTO</p>
                     </div>
                   </Button>
-                  {isWeb3Url() && <Button
-                    aria-label="Read More"
-                    type="button"
-                    className={s.web3ExtraButton}
-                    onClick={openDigifizzyWeb3FashionPage}
-                  >
-                    <div>
-                      Your NFT COntains more web3 fashion treasures! CHECK HERE!
-                    </div>
-                  </Button>}
+                  {isWeb3Url() && (
+                    <Button
+                      aria-label="Read More"
+                      type="button"
+                      className={s.web3ExtraButton}
+                      onClick={openDigifizzyWeb3FashionPage}
+                    >
+                      <div>
+                        Your NFT COntains more web3 fashion treasures! CHECK
+                        HERE!
+                      </div>
+                    </Button>
+                  )}
                 </div>
-                {
-                  isOriginal()
-                  ? (
-                    <ProductDetailTabs description={product.description} />
-                  ) 
-                  : (
-                    isWeb3Url()
-                      ? <Web3ProductDetailTabs 
-                        description={product.description}
-                        title={'About this NFT. '}
-                        />
-                      : <DefiProductDetailTabs
-                          description={product.description}
-                          title={product.name}
-                        />
-                  )
-                }
+                {isOriginal() && (
+                  <ProductDetailTabs description={product.description} />
+                )}
+                {isWeb3Url() && (
+                  <Web3ProductDetailTabs
+                    description={product.description}
+                    title={'About this NFT. '}
+                  />
+                )}
+                {isLookUrl() && <LookProductDetailTabs />}
+                {isDefiUrl() && (
+                  <DefiProductDetailTabs
+                    description={product.description}
+                    title={product.name}
+                  />
+                )}
               </div>
             </section>
           </div>

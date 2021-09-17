@@ -159,6 +159,9 @@ const Layout: FC<Props> = ({
     if (param.includes('metameme')) {
       return s.collection1
     }
+    if (param.includes('look')) {
+      return s.look
+    }
     return s.marketplace
   }
   return (
