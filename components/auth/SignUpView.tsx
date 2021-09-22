@@ -54,12 +54,17 @@ const SignUpView: FC<Props> = () => {
   const handleSignup = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
     if (!signMsg) {
-      if (!validateEmail()) {
-        setMessage('User ID must contains letters and numbers only!')
+      if (username.length > 10) {
+        setMessage('User ID must be less than 10 characters!')
         return
       }
 
       if (!validateUsername()) {
+        setMessage('User ID must contains letters and numbers only!')
+        return
+      }
+
+      if (!validateEmail()) {
         setMessage('You have entered an invalid Email address!')
         return
       }
@@ -87,7 +92,6 @@ const SignUpView: FC<Props> = () => {
   }
 
   useEffect(() => {
-    console.log('this is sign up view use Effect')
     const getAuthToken = async () => {
       console.log('this is before fetching auth token')
       const msg = await fetchAuthToken(account)

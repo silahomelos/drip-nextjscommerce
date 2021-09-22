@@ -6,11 +6,8 @@ import { Container } from '@components/ui'
 const FashionList = ({ fashionData }) => {
   const videoUrls = [
     '/images/product_detail1.mp4',
-    '/images/product_detail2.mp4',
-    '/images/product_detail6.png',
     '/images/product_detail3.mp4',
-    '/images/product_detail4.mp4',
-    '/images/product_detail5.mp4',
+    '/images/product_detail6.png',
   ]
 
   return (
