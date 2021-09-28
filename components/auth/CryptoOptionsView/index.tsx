@@ -37,7 +37,8 @@ const CryptoOptionsView: FC<Props> = () => {
           tokens[crypto].address
         )
 
-        const updatedPrice = payableTokenReport.payload / 1e18
+        const updatedPrice =
+          crypto === 'matic' ? 1 : payableTokenReport.payload / 1e18
         if (updatedPrice !== cryptoPrice) {
           dispatch(setCryptoPrice(updatedPrice))
         }

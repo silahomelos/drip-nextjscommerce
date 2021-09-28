@@ -138,6 +138,7 @@ export const purchaseOrder = async ({
   console.log('this is after getting marketplace offer')
   try {
     console.log('this is before calling batchBuyoffer')
+    console.log({ collectionIds })
     const listener = contract.methods
       .batchBuyOffer(
         collectionIds,
