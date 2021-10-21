@@ -5,9 +5,11 @@ import DesignerSlider from './DesignerSlider'
 import PatternSlider from './PatternSlider'
 import styles from './ProductView.module.scss'
 
-interface Props {}
+interface Props {
+  description: string
+}
 
-const GlitchProductDetailTabs: FC<Props> = ({}) => {
+const GlitchProductDetailTabs: FC<Props> = ({ description }) => {
   const router = useRouter()
 
   return (
@@ -15,17 +17,7 @@ const GlitchProductDetailTabs: FC<Props> = ({}) => {
       <Tabs>
         <Tab title="glitched series">
           <div className={styles.web3TabRow}>
-            <div className={styles.text}>
-              LOOK is generative composable fashion look book text. How you wear
-              it is up to you. It’s an experiment in web3 metaverse and
-              composable on-chain fashion. If you own a LOOK NFT you will be
-              able to purchase a physical varsity jacket that includes your
-              on-chain NFT text in the design.{' '}
-              <b>
-                Make sure to connect the wallet that is holding your LOOK NFT so
-                we can verify your purchase and include the correct metadata!
-              </b>
-            </div>
+            <div className={styles.text}>{description}</div>
           </div>
         </Tab>
         <Tab title="fractional garment ownership">

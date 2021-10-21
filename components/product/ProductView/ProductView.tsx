@@ -308,7 +308,9 @@ const ProductView: FC<Props> = ({ product }) => {
                   />
                 )}
                 {isLookUrl() && <LookProductDetailTabs />}
-                {isGlitch() && <GlitchProductDetailTabs />}
+                {isGlitch() && (
+                  <GlitchProductDetailTabs description={product.description} />
+                )}
                 {isDefiUrl() && (
                   <DefiProductDetailTabs
                     description={product.description}

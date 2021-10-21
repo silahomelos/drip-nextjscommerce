@@ -162,6 +162,9 @@ const Layout: FC<Props> = ({
     if (param.includes('look')) {
       return s.look
     }
+    if (param.includes('glitch')) {
+      return s.glitch
+    }
     return s.marketplace
   }
   return (
