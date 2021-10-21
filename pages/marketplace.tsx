@@ -66,6 +66,7 @@ export default function Home({
     'Hybrid Fashion',
   ]
   const order = [
+    'glitched',
     'look',
     'web3',
     'Instadapp',
