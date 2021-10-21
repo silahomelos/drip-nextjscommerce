@@ -69,6 +69,10 @@
   background-image: url('../../../public/images/look.png');
 }
 
+.glitch {
+  background-image: url('../../../public/images/glitched.png');
+}
+
 .marketplace {
   background-image: url('../../../public/images/marketplace.gif');
   background-size: 100% !important;

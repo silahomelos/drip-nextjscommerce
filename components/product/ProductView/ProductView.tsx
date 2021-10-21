@@ -24,6 +24,7 @@ import FashionList from './FashionLIst'
 import { getDigitalaxGarmentV2CollectionById } from 'services/api.service'
 import { TextSlider } from '@components/common'
 import LookProductDetailTabs from './LookProductDetailsTabs'
+import GlitchProductDetailTabs from './GlitchProductDetailTabs'
 
 interface Props {
   className?: string
@@ -138,12 +139,16 @@ const ProductView: FC<Props> = ({ product }) => {
     return asPath.includes('web3')
   }
 
+  const isGlitch = () => {
+    return asPath.includes('glitch')
+  }
+
   const isLookUrl = () => {
     return asPath.includes('look')
   }
 
   const isDefiUrl = () => {
-    return !(isLookUrl() || isOriginal() || isWeb3Url())
+    return !(isLookUrl() || isOriginal() || isWeb3Url() || isGlitch())
   }
 
   useEffect(() => {}, [])
@@ -303,6 +308,9 @@ const ProductView: FC<Props> = ({ product }) => {
                   />
                 )}
                 {isLookUrl() && <LookProductDetailTabs />}
+                {isGlitch() && (
+                  <GlitchProductDetailTabs description={product.description} />
+                )}
                 {isDefiUrl() && (
                   <DefiProductDetailTabs
                     description={product.description}
