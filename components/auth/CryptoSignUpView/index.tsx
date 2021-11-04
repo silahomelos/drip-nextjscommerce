@@ -32,8 +32,8 @@ const CryptoSignUpView: FC<Props> = () => {
         window.localStorage.setItem('WALLET', option.toString())
       }
       setModalView('SIGNUP_VIEW')
-    } catch (err) {
-      toast.error(err.message)
+    } catch (error) {
+      toast.error((error as any).message)
     }
   }
 
