@@ -81,7 +81,7 @@ const SignUpView: FC<Props> = () => {
       if (!fromSignin) {
         router.push('/checkout-crypto')
       }
-    } catch (errors) {
+    } catch (errors: any) {
       setLoading(false)
       if (errors?.response && errors.response.data) {
         setMessage(errors.response.data)
