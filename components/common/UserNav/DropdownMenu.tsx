@@ -47,7 +47,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
       window.localStorage.removeItem('CHAIN_ID')
       window.localStorage.removeItem('CRYPTO_OPTION')
       window.localStorage.removeItem('WALLET')
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err.message)
     }
   }
