@@ -33,8 +33,7 @@ const CryptoSignUpView: FC<Props> = () => {
       }
       setModalView('SIGNUP_VIEW')
     } catch (error) {
-      console.log({ error })
-      toast.error('Sign up failed.')
+      toast.error((error as any).message)
     }
   }
 

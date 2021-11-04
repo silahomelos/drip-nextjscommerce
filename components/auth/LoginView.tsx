@@ -37,7 +37,7 @@ const LoginView: FC<Props> = () => {
       closeModal()
       openSidebar()
     } catch ({ errors }) {
-      setMessage(errors[0].message)
+      setMessage((errors as any)[0].message)
       setLoading(false)
     }
   }
