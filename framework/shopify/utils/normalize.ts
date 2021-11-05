@@ -11,7 +11,7 @@ import {
   MoneyV2,
   ProductOption,
 } from '../schema'
-
+import collectionDesigners from '@data/collection-designers.json'
 import type { Cart, LineItem } from '../types'
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
@@ -75,8 +75,9 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
 
 export function normalizeProduct(productNode: ShopifyProduct): Product {
   const {
-    id,
+    id,    
     title: name,
+    collections,
     vendor,
     images,
     variants,
@@ -87,11 +88,17 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     ...rest
   } = productNode
 
+  const collection: any = collections?.edges[0]?.node || {}
+  const designers: string[] | null
+   = collectionDesigners.find(item => item?.handle?.toLowerCase() === collection?.handle?.toLowerCase())?.designers || null
+   
   const product = {
     id,
     name,
     vendor,
     description,
+    collection,
+    designers,
     path: `/${handle}`,
     slug: handle?.replace(/^\/+|\/+$/g, ''),
     price: money(priceRange?.minVariantPrice),
@@ -126,15 +133,18 @@ export function normalizeCollection(
   //   ...rest,
   // }
 
+  // console.log('collectionNode: ', collectionNode)
+
   return {
     id: collectionNode.id,
     name: collectionNode.title,
     description: collectionNode.description,
     path: `/${collectionNode.handle}`,
+    handle: collectionNode.handle,
     image: {
       url: collectionNode.image?.originalSrc,
       alt: collectionNode.image?.altText ?? '',
-    },
+    }
   }
 }
 

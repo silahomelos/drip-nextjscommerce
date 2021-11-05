@@ -148,7 +148,8 @@ export default function Home({
   })
 
   const filteredProducts = filterProducts([...wrappedCollections], filter, sortBy, true) || [];
-
+  console.log('collections: ', collections)
+  console.log('dripMarketplaceOffers: ', dripMarketplaceOffers)
   return (
     <>
       <ProductTopBanner showFilterbar filter={filter} setFilter={setFilter} setSortBy={setSortBy} />

@@ -59,7 +59,7 @@ export async function getStaticProps({
   return {
     props: {
       products: wrappedProducts,
-      // dripMarketplaceOffers
+      dripMarketplaceOffers
       // pages,
     },
     revalidate: 14400,
@@ -68,12 +68,13 @@ export async function getStaticProps({
 
 export default function Home ({
   products,
-  // dripMarketplaceOffers
+  dripMarketplaceOffers
 }: InferGetStaticPropsType<typeof getStaticProps>)  {
 
   const [email, setEmail] = useState('')
   const [filter, setFilter] = useState('')
   const [sortBy, setSortBy] = useState('')
+  
 
   const addEmail = () => {
     fetch(endpoint, {
@@ -110,9 +111,9 @@ export default function Home ({
   }
 
   const filteredProducts = filterProducts(products, filter, sortBy) || [];
-  // console.log('dripMarketplaceOffer: ', dripMarketplaceOffers)
+  console.log('dripMarketplaceOffer: ', dripMarketplaceOffers)
   console.log('filteredProducts: ', filteredProducts)
-
+  
   return (
     <>
       <div className="relative bg-black">

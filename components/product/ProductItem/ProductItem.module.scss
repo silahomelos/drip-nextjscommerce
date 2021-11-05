@@ -57,6 +57,32 @@
       }
     }
 
+    .designer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .profilePicContainer {
+        width: 50px !important;
+        height: 50px !important;
+        min-width: 50px !important;
+        min-height: 50px !important;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      span {
+        color: white;
+        font-family: Gilroy;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 22px;
+        line-height: 27px;
+        margin-left: 10px;
+      }
+    }
+
     .root {
       @apply relative max-h-full w-full box-border overflow-hidden
       bg-no-repeat bg-center bg-cover transition-transform

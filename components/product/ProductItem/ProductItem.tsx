@@ -6,6 +6,7 @@ import Image, { ImageProps } from 'next/image'
 import type { Product } from '@commerce/types'
 import PriceTag from '../PriceTag'
 import s from './ProductItem.module.scss'
+import { useMain } from 'context'
 
 interface Props {
   className?: string
@@ -23,6 +24,19 @@ const ProductItem: FC<Props> = ({
   imgProps,
   ...props
 }) => {
+
+  const { monaPrice, designers } = useMain()
+
+  const firstDesigner = designers.find((item: any) => {
+    const productDesigner: string | null
+      = product.designers?.length
+        ? product.designers[0]?.toLowerCase()
+        : null
+
+    return item.designerId?.toLowerCase() === productDesigner
+    || item.newDesignerID?.toLowerCase() === productDesigner
+  })
+
   const [isJson, setIsJson] = useState(false)
   const [descContent, setDescContent] = useState(() => {
     try {
@@ -34,12 +48,36 @@ const ProductItem: FC<Props> = ({
     }
   })
 
+  console.log('firstDesigner: ', firstDesigner)
+
   return (
     <div className={s.productItemContainer}>
       <div className={s.productContent}>
         <h3 className={s.productTitle}>
           <span>{product.name}</span>
         </h3>
+
+        {firstDesigner &&
+          <a
+            href={`https://designers.digitalax.xyz/designers/${firstDesigner.designerId}`}
+            target='_blank'
+            className={s.designer}
+          >
+            <div className={s.profilePicContainer}>
+              <Image
+                alt={firstDesigner.designerId || 'designer'}
+                className={s.designerImage}
+                src={firstDesigner.image_url || placeholderImg}
+                height={30}
+                width={30}
+                quality="85"
+                layout="responsive"
+                // {...imgProps}
+              />
+            </div>
+            <span>{firstDesigner.designerId}</span>
+          </a>
+        }
 
         <Link href={`/product/${product.slug}`} {...props}>
           <a className={cn(s.root, className)}>
@@ -64,7 +102,7 @@ const ProductItem: FC<Props> = ({
 
         <div className={s.productPriceSection}>
           <PriceTag
-            monaPrice={`${product.price.value}`}
+            monaPrice={`${(product.price.value * monaPrice).toFixed(2)}`}
             dollarPrice={`${product.price.value}`}
             description={'SALE PRICE'}
           />

@@ -170,6 +170,15 @@ class DigitalaxApiService {
       throw e
     }
   }
+
+  async getAllDesigners() {
+    try {
+      const designers = await get('/get-all-designers');
+      return designers ? designers.data : [];
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 export default new DigitalaxApiService()

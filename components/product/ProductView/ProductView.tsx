@@ -1,7 +1,7 @@
+import { FC, useEffect, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import { FC, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import s from './ProductView.module.scss'
@@ -74,7 +74,7 @@ const ProductView: FC<Props> = ({ product }) => {
     size: null,
   })
 
-  const { user, account } = useMain()
+  const { user, account, monaPrice } = useMain()
   const [loveCount, setLoveCount] = useState(0)
   const [viewCount, setViewCount] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
@@ -146,49 +146,16 @@ const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true)
     try {
-      // dispatch(setProductId(String(product.id)))
-      // dispatch(
-      //   setVariantId(String(variant ? variant.id : product.variants[0].id))
-      // )
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
       })
-      // setModalView('AUTH_OPTIONS_VIEW')
-      // openModal()
+
       openSidebar()
       setLoading(false)
     } catch (err) {
       setLoading(false)
     }
-  }
-
-  const openDigifizzyWeb3FashionPage = () => {
-    window.open('https://digifizzy.xyz/magazines/4/45/', '_blank')
-  }
-
-  const isOriginal = () => {
-    return (
-      asPath.includes('marketplace') ||
-      asPath.includes('minecraft') ||
-      asPath.includes('metameme')
-    )
-  }
-
-  const isWeb3Url = () => {
-    return asPath.includes('web3')
-  }
-
-  const isGlitch = () => {
-    return asPath.includes('glitch')
-  }
-
-  const isLookUrl = () => {
-    return asPath.includes('look')
-  }
-
-  const isDefiUrl = () => {
-    return !(isLookUrl() || isOriginal() || isWeb3Url() || isGlitch())
   }
 
   const addLove = async () => {
@@ -303,11 +270,12 @@ const ProductView: FC<Props> = ({ product }) => {
                     </a>
                   </div>
                   <div className={s.childrenWrapper}>
-                    {garmentChildren.map((child: any) => {
+                    {garmentChildren.map((child: any, index: number) => {
                       return (
                         <a
                           href={`https://opensea.io/assets/matic/0x567c7b3364ba2903a80ecbad6c54ba8c0e1a069e/${child.id}`}
                           target="_blank"
+                          key={index}
                         >
                           {child.image_url ? (
                             <img src={reviseUrl(child.image_url)} />
@@ -360,8 +328,6 @@ const ProductView: FC<Props> = ({ product }) => {
                     if (nameA > nameB) {
                       return 1;
                     }
-                  
-                    // names must be equal
                     return 0;
                   }).map((opt) => (
                     <div className="pb-4 pr-6" key={opt.displayName}>
@@ -413,7 +379,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   <PriceTag
                     backImageSrc='/images/black_update/gray_button3.png'
                     withoutDollarSign={true}
-                    monaPrice={'0.5'}
+                    monaPrice={`${(monaPrice * Number(price.replaceAll('$', ''))).toFixed(2)}`}
                     dollarPrice={price}
                     description={'SALE PRICE'}
                   />

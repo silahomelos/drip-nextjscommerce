@@ -2,7 +2,7 @@ import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
 import Image, { ImageProps } from 'next/image'
-// import { useMain } from 'context'
+import { useMain } from 'context'
 
 import PriceTag from '../PriceTag'
 import s from './Collection.module.scss'
@@ -21,6 +21,8 @@ const Collection: FC<Props> = ({
   imgProps,
   ...props
 }) => {
+
+  const { monaPrice } = useMain()
   // const { cryptoPrice } = useMain()
   // console.log('collection: ', collection)
   // console.log('cryptoPrice: ', cryptoPrice)
@@ -64,7 +66,7 @@ const Collection: FC<Props> = ({
             </span>
           </a>
           <PriceTag
-            monaPrice={collection.totalSold}
+            monaPrice={(collection.totalSold * monaPrice).toFixed(2)}
             dollarPrice={collection.totalSold}
             description={'TOTAL SOLD'}
           />

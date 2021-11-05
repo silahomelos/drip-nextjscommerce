@@ -32,6 +32,9 @@ module.exports = withCommerceConfig({
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ['espa.s3.eu-central-1.amazonaws.com'],
+  },
   rewrites() {
     return [
       (isBC || isShopify) && {
