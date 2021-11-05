@@ -1,15 +1,13 @@
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
+import shortid from 'shortid'
 
 import { Layout } from '@components/common'
 import { Container, GridContainer } from '@components/ui'
 import { ProductItem } from '@components/product'
-import Banner from '@components/ui/Banner'
-import StackedCard from '@components/ui/StackedCard'
-import SliderTicker from '@components/common/SliderTicker'
-import TextContent from '@components/ui/TextContent'
-import shortid from 'shortid'
+import ProductTopBanner from '@components/common/ProductTopBanner'
+
 
 import { getConfig } from '@framework/api'
 import useSearch from '@framework/product/use-search'
@@ -18,9 +16,10 @@ import getSiteInfo from '@framework/common/get-site-info'
 
 // TODO(bc) Remove this. This should come from the API
 import getSlug from '@lib/get-slug'
-
 import { useSearchMeta } from '@lib/search'
-import ProductTopBanner from '@components/common/ProductTopBanner'
+import { filterProducts } from '@lib/filter'
+
+import { getDripMarketplaceOffers } from 'services/api.service'
 
 export async function getStaticProps({
   preview,
@@ -29,11 +28,16 @@ export async function getStaticProps({
   const config = getConfig({ locale })
   const { pages } = await getAllPages({ config, preview })
   const { categories, brands } = await getSiteInfo({ config, preview })
+  const {
+    dripMarketplaceOffers,
+  } = await getDripMarketplaceOffers()
+
   return {
     props: {
       pages,
       categories,
       brands,
+      dripMarketplaceOffers
     },
   }
 }
@@ -41,6 +45,7 @@ export async function getStaticProps({
 export default function Collectionpage({
   categories,
   brands,
+  dripMarketplaceOffers
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   // `q` can be included but because categories and designers can't be searched
   // in the same way of products, it's better to ignore the search input if one
@@ -73,6 +78,10 @@ export default function Collectionpage({
 
   const [countProductGroup, setCountProductGroup] = useState<Array<number>>()
   const [randomStr, setRandomStr] = useState('')
+
+  const [filter, setFilter] = useState('')
+  const [sortBy, setSortBy] = useState('')
+
   const contentEl = useRef(null)
 
   useEffect(() => {
@@ -85,16 +94,38 @@ export default function Collectionpage({
     setCountProductGroup(arr)
   }, [data])
 
+  const wrappedProducts = data?.products.map(item => {
+    const collectionId = item?.slug?.split('-')[1]
+    if (collectionId) {
+      const foundDripItem = dripMarketplaceOffers.find((dripItem: any) => dripItem?.id === collectionId)
+      
+      if (foundDripItem && foundDripItem != undefined) {
+        return {
+          ...item,
+          amountSold: foundDripItem.amountSold,
+          startTime: foundDripItem.startTime,
+          endTime: foundDripItem.endTime,
+          rarity: foundDripItem.garmentCollection?.rarity
+        }
+      }
+    }
+    
+    return item
+  })
+
+  console.log('data.products: ', wrappedProducts)
+  const filteredProducts = filterProducts(wrappedProducts || [], filter, sortBy) || [];
+
   return (
     <>
-      <ProductTopBanner showSlider />
+      <ProductTopBanner showFilterbar filter={filter} setFilter={setFilter} setSortBy={setSortBy} />
       {countProductGroup &&
         countProductGroup.map((item, index) => (
           <div>
             <Container>
               <GridContainer>
-                {data &&
-                  data.products
+                {filteredProducts &&
+                  filteredProducts
                     .slice(index * 4, (index + 1) * 4)
                     .map((product, i) => (
                       <ProductItem

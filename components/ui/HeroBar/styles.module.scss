@@ -1,0 +1,89 @@
+@import '../../../assets/grid.scss';
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  background-color: black;
+  background-size: cover;
+  padding: 1.5rem 5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.isHomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: flex-start;
+    padding-bottom: 0;
+    width: 100%;
+
+    @include lg-width {
+      width: fit-content;
+    }
+  }
+
+  .leftPane {
+    font-family: Gilroy;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 115%;
+    align-items: center;
+
+    color: #FFFFFF;
+
+    span {
+      font-weight: 600;
+
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 1rem;
+
+    .leftPane {
+      text-align: center;
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+
+    .leftPane {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .back {
+    width: 100%;
+    height: 100%;
+  }
+
+  .viewAllFashion {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 54px;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+
+    @include lg-width {
+      font-size: 1.875vw;
+    }
+  }
+
+  .filter {
+    // position: absolute;
+    // right: 100px;
+    // top: 50%;
+    // transform: translateY(-50%);
+  }
+}

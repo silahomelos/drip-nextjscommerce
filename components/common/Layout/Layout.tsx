@@ -29,6 +29,7 @@ import {
 import { setWeb3Provider } from 'services/web3-provider.service'
 import CheckoutWarning from '@components/modals/CheckoutWarning'
 import PurchaseSuccessView from '@components/modals/PurchaseSuccess'
+import BespokeView from '@components/modals/Bespoke'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -176,8 +177,8 @@ const Layout: FC<Props> = ({
         >
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
-          {!pathname.includes('shippingandreturns') &&
-            !pathname.includes('product') && <TextSlider black />}
+          {/* {!pathname.includes('shippingandreturns') &&
+            !pathname.includes('product') && <TextSlider black />} */}
         </div>
         <Footer pages={pageProps.pages} />
 
@@ -191,6 +192,7 @@ const Layout: FC<Props> = ({
           {modalView === 'CRYPTO_SIGNUP_VIEW' && <CryptoSignUpView />}
           {modalView === 'CHECKOUT_WARNING' && <CheckoutWarning />}
           {modalView === 'PURCHASE_SUCCESS_VIEW' && <PurchaseSuccessView />}
+          {modalView === 'BESPOKE_VIEW' && <BespokeView />}
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>

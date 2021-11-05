@@ -12,7 +12,7 @@ import { LoadingDots } from '@components/ui'
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
   className?: string
-  variant?: 'flat' | 'slim'
+  variant?: 'flat' | 'slim' | 'new-slim'
   active?: boolean
   type?: 'submit' | 'reset' | 'button'
   Component?: string | JSXElementConstructor<any>
@@ -39,6 +39,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
   const rootClassName = cn(
     s.root,
     {
+      [s.newSlim]: variant === 'new-slim',
       [s.slim]: variant === 'slim',
       [s.loading]: loading,
       [s.disabled]: disabled,
@@ -61,7 +62,7 @@ const Button: React.FC<ButtonProps> = forwardRef((props, buttonRef) => {
     >
       {children}
       {loading && (
-        <i className="pl-2 m-0 flex">
+        <i className="pl-2 m-0 absolute" style={{zIndex: 10}}>
           <LoadingDots />
         </i>
       )}

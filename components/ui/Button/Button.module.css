@@ -22,6 +22,21 @@
   @apply py-2 transform-none normal-case;
 }
 
+.newSlim{
+  background: white;
+  color: black;
+  text-transform: uppercase;
+  border: none;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.newSlim:hover {
+  background-color: #222;
+  color: #fff;
+  border: none;
+}
+
 .disabled,
 .disabled:hover {
   @apply text-accents-4 border-accents-2 bg-accents-1 cursor-not-allowed;

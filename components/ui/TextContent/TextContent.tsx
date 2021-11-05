@@ -1,44 +1,26 @@
-import React, { FunctionComponent } from 'react'
-import cn from 'classnames'
-import s from './TextContent.module.scss'
+import React from 'react'
 import { useRouter } from 'next/router'
+import s from './TextContent.module.scss'
 
 type Props = {
-  onSelectText: (index: number) => void
+  pageType?: number,
 }
 
-const TextContent: React.FC<Props> = ({ onSelectText }) => {
+const TextContent: React.FC<Props> = ({ pageType = 'collection' }) => {
   const { asPath } = useRouter()
-  const subTitleList = [
-    'NFT FASHION',
-    'GLOBAL DESIGNER NETWORK',
-    'FASHION X DEFI',
-  ]
-  const selectText = (index: number) => {
-    onSelectText(index)
-  }
+
   return (
     <div className={s.textContentContainer}>
       {asPath.includes('web3') ? (
         <img src="/images/Group 1210.png" className={s.titleImage} />
       ) : (
-        <h1 className={s.title}>
-          {' '}
-          Wear to Defi. <br />
-          Mod your way into metaverse fashion & Gaming.{' '}
-        </h1>
+        <div className={s.titleWrapper}>
+          <div className={s.title}>
+            PHYSICAL
+          </div>
+          <div className={s.subTitle}>INDIE WEB3 FASHION</div>
+        </div>
       )}
-      <div className={s.subtitleBar}>
-        {subTitleList.map((text, index) => (
-          <h3
-            key={index}
-            className={s.subtitle}
-            onClick={() => selectText(index)}
-          >
-            {text}
-          </h3>
-        ))}
-      </div>
     </div>
   )
 }

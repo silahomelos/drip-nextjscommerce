@@ -1,9 +1,11 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
-import s from './Collection.module.scss'
 import Image, { ImageProps } from 'next/image'
+// import { useMain } from 'context'
+
+import PriceTag from '../PriceTag'
+import s from './Collection.module.scss'
 
 interface Props {
   className?: string
@@ -18,52 +20,58 @@ const Collection: FC<Props> = ({
   collection,
   imgProps,
   ...props
-}) => (
-  <div className={s.collectionItemContainer}>
-    <div className="flex flex-row justify-between box-border w-full">
-      <div className="">
+}) => {
+  // const { cryptoPrice } = useMain()
+  // console.log('collection: ', collection)
+  // console.log('cryptoPrice: ', cryptoPrice)
+
+  return (
+    <div className={s.collectionItemContainer}>
+      <div className={s.collectionContent}>
         <h3 className={s.collectionTitle}>
           <span>{collection.name}</span>
         </h3>
-        <div className={s.userSection}>
-          <div className="user-avatar">
-            <img src={`/logo.jpg` || placeholderImg} alt="" />
-          </div>
-          <p>DIGITALAX</p>
+
+        <Link href={`/collection${collection.path}`} {...props}>
+          <a className={cn(s.root, className)}>
+            <>
+              <div className={s.imageContainer}>
+                {collection?.image && (
+                  <Image
+                    alt={collection.name || 'Collection Image'}
+                    className={s.collectionImage}
+                    src={collection.image.url || placeholderImg}
+                    height={540}
+                    width={540}
+                    quality="85"
+                    layout="responsive"
+                    {...imgProps}
+                  />
+                )}
+              </div>
+            </>
+          </a>
+        </Link>
+
+        <div className={s.collectionPriceSection}>
+          <a
+            className={s.btnPrice}
+            href={`/collection${collection.path}`}
+          >
+            <img src='/images/black_update/gray_button.png' />
+            <span>
+              VIEW COLLECTION
+            </span>
+          </a>
+          <PriceTag
+            monaPrice={collection.totalSold}
+            dollarPrice={collection.totalSold}
+            description={'TOTAL SOLD'}
+          />
         </div>
       </div>
     </div>
-    <div className={s.collectionContent}>
-      <Link href={`/collection${collection.path}`} {...props}>
-        <a className={cn(s.root, className)}>
-          <>
-            <div className={s.squareBg} />
-            <div className={s.imageContainer}>
-              {collection?.image && (
-                <Image
-                  alt={collection.name || 'Collection Image'}
-                  className={s.collectionImage}
-                  src={collection.image.url || placeholderImg}
-                  height={540}
-                  width={540}
-                  quality="85"
-                  layout="responsive"
-                  {...imgProps}
-                />
-              )}
-            </div>
-          </>
-        </a>
-      </Link>
-      <div className={s.collectionPriceSection}>
-        <span className={s.collectionPrice}></span>
-        <div className={s.btnPrice}>
-          <p>Open Collection</p>
-          <a href={`/collection${collection.path}`}>VIEW COLLECTION</a>
-        </div>
-      </div>
-    </div>
-  </div>
-)
+  )
+}
 
 export default Collection

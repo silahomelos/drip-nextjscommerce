@@ -8,7 +8,7 @@ const reviseUrl = (url) => {
   return url
 }
 
-const ImageCard = ({ imgUrl = null }) => {
+const ImageCard = ({ imgUrl }) => {
   return (
     <>
       <div className={styles.wrapper}>

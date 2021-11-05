@@ -11,13 +11,15 @@ import React, {
 import cn from 'classnames'
 
 import s from './ProductSlider.module.css'
+import "keen-slider/keen-slider.min.css"
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   imageId: number
+  onSlide(value: number): void
 }
 
-const ProductSlider: FC<Props> = ({ children, imageId }) => {
+const ProductSlider: FC<Props> = ({ children, imageId, onSlide }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
@@ -28,6 +30,7 @@ const ProductSlider: FC<Props> = ({ children, imageId }) => {
     mounted: () => setIsMounted(true),
     slideChanged(s) {
       setCurrentSlide(s.details().relativeSlide)
+      onSlide(s.details().relativeSlide)
     },
   })
 
@@ -66,7 +69,8 @@ const ProductSlider: FC<Props> = ({ children, imageId }) => {
   }, [])
 
   useEffect(() => {
-    if (slider) {
+    // console.log('imageId: ', imageId)
+    if (slider && imageId !== currentSlide) {
       slider.moveToSlideRelative(imageId)
     }
   }, [imageId])
@@ -85,7 +89,7 @@ const ProductSlider: FC<Props> = ({ children, imageId }) => {
       />
       <div
         ref={ref}
-        className="keen-slider h-full transition-opacity duration-150"
+        className="keen-slider h-full transition-opacity"
         style={{ opacity: isMounted ? 1 : 0 }}
       >
         {Children.map(children, (child) => {

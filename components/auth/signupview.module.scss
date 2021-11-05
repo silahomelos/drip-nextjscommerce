@@ -1,0 +1,25 @@
+.wrapper {
+  margin: auto;
+  .label {
+    
+  }
+
+  .button {
+    width: 200px !important;
+    margin: auto;
+    margin-top: 20px !important;
+  }
+
+  label {
+    margin-top: 10px !important;
+  }
+
+  input {
+    border-radius: 20px;
+    color: black;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
