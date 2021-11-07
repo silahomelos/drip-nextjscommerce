@@ -17,7 +17,7 @@ const HomeContent: React.FC<Props> = ({ pageType = 'collection' }) => {
             PHYSICAL INDIE <br />WEB3 FASHION
           </div>
           <div className={s.subTitle}>
-            Powered by the <a href='/marketplace' target='_self'>Global Designer Network</a> on Polygon Network.
+            Powered by the <a href='https://designers.digitalax.xyz/global/' target='_self'>Global Designer Network</a> on Polygon Network.
           </div>
         </div>
       }

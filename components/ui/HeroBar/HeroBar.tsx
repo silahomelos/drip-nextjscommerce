@@ -17,7 +17,7 @@ const HeroBar: FC<Props> = ({ className, isHomePage = false, filter, setFilter, 
     <div className={[classes, isHomePage ? styles.isHomePage : ''].join(' ')}>
       {isHomePage
         ? <div className={styles.viewAllFashion}>
-            <a href='' target='_blank'>
+            <a href='/marketplace' target='_self'>
               {`VIEW ALL FASHION >`}
             </a>
           </div>

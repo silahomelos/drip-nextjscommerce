@@ -110,7 +110,7 @@ const CartSidebarView: FC = () => {
             </ul>
           </div>
 
-          <div className="flex-shrink-0 px-4  py-5 sm:px-6">
+          <div className="flex-shrink-0 px-4 py-5 sm:px-6 bg-black">
             <div className="border-t border-accents-3">
               <ul className="py-3">
                 <li className="flex justify-between py-1">

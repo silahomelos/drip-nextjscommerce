@@ -24,6 +24,10 @@
   }
 }
 
+.cart {
+  min-width: 25px;
+}
+
 .bagCount {
   @apply border border-accents-1 bg-secondary text-secondary absolute rounded-full left-3 bottom-3 flex items-center justify-center font-bold text-xs;
   padding-left: 2.5px;
@@ -44,4 +48,5 @@
   padding: .5rem 1rem;
   border: 1px solid white;
   text-transform: uppercase;
+  white-space: nowrap;
 }
