@@ -384,7 +384,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   <PriceTag
                     backImageSrc='/images/black_update/gray_button3.png'
                     withoutDollarSign={true}
-                    monaPrice={`${(monaPrice * Number(price.replaceAll('$', ''))).toFixed(2)}`}
+                    monaPrice={`${(monaPrice * Number(price?.replaceAll('$', ''))).toFixed(2)}`}
                     dollarPrice={price}
                     description={'SALE PRICE'}
                   />

@@ -113,7 +113,7 @@ const CartItem = ({
       <div className="flex-1 flex flex-col text-base">
         <Link href={`/product/${item.path}`}>
           <span
-            className="font-bold text-lg cursor-pointer leading-6"
+            className="font-bold text-lg cursor-pointer leading-6 text-white"
             onClick={() => closeSidebarIfPresent()}
           >
             {item.name}
@@ -124,7 +124,7 @@ const CartItem = ({
             {options.map((option: ItemOption, i: number) => (
               <span
                 key={`${item.id}-${option.name}`}
-                className="text-sm font-semibold text-accents-7"
+                className="text-sm font-semibold text-white"
               >
                 {option.value}
                 {i === options.length - 1 ? '' : ', '}
@@ -133,8 +133,12 @@ const CartItem = ({
           </div>
         ) : null}
         <div className="flex items-center mt-3">
-          <button type="button" onClick={() => increaseQuantity(-1)}>
-            <Minus width={18} height={18} />
+          <button
+            type="button"
+            onClick={() => increaseQuantity(-1)}
+            className="border border-white rounded-full"
+          >
+            <Minus width={18} height={18} color="white" />
           </button>
           <label>
             <input
@@ -147,20 +151,24 @@ const CartItem = ({
               onBlur={handleBlur}
             />
           </label>
-          <button type="button" onClick={() => increaseQuantity(1)}>
-            <Plus width={18} height={18} />
+          <button
+            type="button"
+            onClick={() => increaseQuantity(1)}
+            className="border border-white rounded-full"
+          >
+            <Plus width={18} height={18} color="white" />
           </button>
         </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
-        <span>
+        <span className="text-white">
           {price} {cryptoPrice ? <>({ethValue.toFixed(2)})</> : null}
         </span>
         <button
           className="flex justify-end outline-none"
           onClick={handleRemove}
         >
-          <Trash />
+          <Trash color='white' />
         </button>
       </div>
     </li>

@@ -46,9 +46,9 @@ const CartSidebarView: FC = () => {
             <button
               onClick={handleClose}
               aria-label="Close panel"
-              className="hover:text-gray-500 transition ease-in-out duration-150"
+              className="hover:font-bold transition ease-in-out duration-150"
             >
-              <Cross className="h-6 w-6" />
+              <Cross className="h-6 w-6" color='white' />
             </button>
           </div>
           <div className="space-y-1">
@@ -93,10 +93,10 @@ const CartSidebarView: FC = () => {
           <div className="px-4 sm:px-6 flex-1">
             <Link href="/cart">
               <h2
-                className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide cursor-pointer inline-block"
+                className="w-full pt-1 pb-4 text-2xl leading-7 font-bold tracking-wide cursor-pointer inline-block text-white text-center"
                 onClick={handleClose}
               >
-                My Cart
+                DRIP Inventory
               </h2>
             </Link>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
@@ -114,8 +114,8 @@ const CartSidebarView: FC = () => {
             <div className="border-t border-accents-3">
               <ul className="py-3">
                 <li className="flex justify-between py-1">
-                  <span>Subtotal</span>
-                  <span>
+                  <span className="text-white">Subtotal</span>
+                  <span className="text-white">
                     {subTotal}
                     {cryptoPrice ? (
                       <>
@@ -127,7 +127,7 @@ const CartSidebarView: FC = () => {
                   </span>
                 </li>
               </ul>
-              <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
+              <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10 text-white">
                 <span>Total</span>
                 <span>
                   {total}{' '}
@@ -144,6 +144,7 @@ const CartSidebarView: FC = () => {
                 setModalView('AUTH_OPTIONS_VIEW')
                 openModal()
               }}
+              variant="new-slim"
               width="100%"
             >
               Proceed to Checkout

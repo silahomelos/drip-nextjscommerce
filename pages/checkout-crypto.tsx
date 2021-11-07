@@ -3,7 +3,7 @@ import { CheckoutLayout } from '@components/common/Layout'
 
 export default function CheckoutCart() {
   return (
-    <div>
+    <div className="bg-black text-white">
       <Checkout />
     </div>
   )

@@ -212,7 +212,7 @@ const CryptoOptionsView: FC<Props> = () => {
         </div>
       </div>
       <Button
-        variant="slim"
+        variant="new-slim"
         onClick={onApprove}
         disabled={!crypto.length && cryptoPrice === 0.0}
         loading={loading}
