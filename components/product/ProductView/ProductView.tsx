@@ -182,6 +182,11 @@ const ProductView: FC<Props> = ({ product }) => {
   console.log('product.designers: ', product.designers)
   console.log('designers: ', designers)
   console.log('currentDesigners: ', currentDesigners)
+  console.log('price: ', price)
+
+  const monaAmount = !price || price === undefined
+    ? '0.00'
+    : `${(monaPrice * Number(price?.replace(/$/g, '') || '0')).toFixed(2)}`
 
   return (
     <>
@@ -384,7 +389,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   <PriceTag
                     backImageSrc='/images/black_update/gray_button3.png'
                     withoutDollarSign={true}
-                    monaPrice={`${(monaPrice * Number(price?.replaceAll('$', ''))).toFixed(2)}`}
+                    monaPrice={monaAmount}
                     dollarPrice={price}
                     description={'SALE PRICE'}
                   />
