@@ -524,9 +524,9 @@
   }
 }
 
-
-
-
+.margin50 {
+  margin-top: 50px;
+}
 
 .img {
   @apply w-full h-auto max-h-full object-cover;
@@ -645,26 +645,75 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 5rem;
-      
-      @media (min-width: 992px) {
+
+      @include lg-width {
         grid-template-columns: auto 40%;
+      }
+
+      @include lg-width {
         padding: 3rem 0rem;
         gap: 5rem;
       }
 
-      @media (min-width: 1200px) {
+      @include xl-width {
         padding: 3rem 0rem;
         gap: 7.5rem;
       }
 
-      @media (min-width: 1400px) {
+      @include xxl-width {
         padding: 3rem 0rem;
         gap: 10rem;
       }
 
       .infoWrapper {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
+  
+        .wearersLabel {
+          text-transform: uppercase;
+          font-family: Gilroy;
+          font-weight: 800;
+          font-size: 10px;
+          line-height: 18px;
+          letter-spacing: 0.12em;
+          color: white;
+          margin-left: 10px;
+          margin-bottom: 2px;
+        }
+  
+        .userList {
+          margin-bottom: 40px;
+          margin-left: 10px;
+        }
+  
+        a {
+          margin-top: 20px;
+  
+          .getDressedButton {
+            background: #bd3da9;
+            border: none;
+            font-family: Gilroy;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+  
+            padding: 12px 10px;
+  
+            transition: 0.3s all;
+  
+            &:hover {
+              transform: scale(1.1);
+              transition: 0.3s all;
+            }
+          }
+        }
+      }
+
+      a:hover {
+        opacity: 0.9;
       }
 
       .name {
@@ -682,6 +731,24 @@
         font-size: 1rem;
         line-height: 18px;
         color: white;
+      }
+
+      .profileButton {
+        background: #000000;
+        border-radius: 29px;
+        color: white;
+
+        font-family: Gilroy;
+        font-weight: 800;
+        font-size: 15px;
+        line-height: 18px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        border: none;
+        padding: 7px 12px;
+        margin-top: 10px;
       }
     }
   }

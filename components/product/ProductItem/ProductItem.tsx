@@ -48,8 +48,6 @@ const ProductItem: FC<Props> = ({
     }
   })
 
-  console.log('firstDesigner: ', firstDesigner)
-
   return (
     <div className={s.productItemContainer}>
       <div className={s.productContent}>

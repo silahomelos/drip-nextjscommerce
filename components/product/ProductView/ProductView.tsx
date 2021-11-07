@@ -8,6 +8,7 @@ import s from './ProductView.module.scss'
 
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, useUI } from '@components/ui'
+import BannerBar from '@components/product/ProductView/BannerBar'
 
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
@@ -62,19 +63,13 @@ const ProductView: FC<Props> = ({ product }) => {
     currencyCode: product.price.currencyCode!,
   })
   const { openSidebar, openModal, setModalView } = useUI()
-  const [designer, setDesigner] = useState<Designer>({
-    id: 0,
-    image: '',
-    description: '',
-    name: '',
-  })
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
     color: null,
     size: null,
   })
 
-  const { user, account, monaPrice } = useMain()
+  const { user, account, monaPrice, designers } = useMain()
   const [loveCount, setLoveCount] = useState(0)
   const [viewCount, setViewCount] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
@@ -91,6 +86,13 @@ const ProductView: FC<Props> = ({ product }) => {
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
+
+  const currentDesigners = product.designers?.map((designerId: string) => {
+    return designers.find((item: any) => {
+      return item.designerId?.toLowerCase() === designerId.toLowerCase()
+        || item.newDesignerID?.toLowerCase() === designerId.toLowerCase()
+    })
+  }) || []
 
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
@@ -177,6 +179,9 @@ const ProductView: FC<Props> = ({ product }) => {
   useEffect(() => {}, [])
 
   console.log('product: ', product)
+  console.log('product.designers: ', product.designers)
+  console.log('designers: ', designers)
+  console.log('currentDesigners: ', currentDesigners)
 
   return (
     <>
@@ -398,7 +403,79 @@ const ProductView: FC<Props> = ({ product }) => {
           </div>
         </div>
       </Container>
-      {designer && (
+      <BannerBar className={s.homeHeroBar} type={2} />
+      {
+        currentDesigners.map((designerItem: any, index: number) => {
+          if (!designerItem || designerItem == undefined) return null
+          return (
+            <>
+              <section className={[s.designerSection, index > 0 ? s.margin50 : ''].join(' ')}>
+                <video autoPlay loop muted className={s.video}>
+                  <source src="/images/designer-bg.mp4" type="video/mp4" />
+                </video>
+                <Container>
+                  <div className={s.designerBody}>
+                    <div className={s.title}> designer </div>
+                    <div className={s.data}>
+                      <a
+                        href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                        target="_blank"
+                      >
+                        <ImageCard imgUrl={designerItem.image_url} noShadow />
+                      </a>
+                      <div className={s.infoWrapper}>
+                        {/* {owners.length ? (
+                          <div className={s.wearersLabel}>current wearer/S</div>
+                        ) : (
+                          <></>
+                        )}
+                        {owners.length ? (
+                          <UserList
+                            className={s.userList}
+                            userLimit={7}
+                            users={owners}
+                            onClickSeeAll={onClickSeeAllWearers}
+                          />
+                        ) : (
+                          <></>
+                        )} */}
+                        <InfoCard
+                          // libon="./images/metaverse/party_glasses.png"
+                          borderColor='#c52081'
+                          boxShadow='rgba(197, 32, 129, 0.5)'
+                          mainColor='rgba(189, 61, 169, 0.47)'
+                        >
+                          <a
+                            href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                            target="_blank"
+                          >
+                            <div className={s.name}> {designerItem.designerId} </div>
+                          </a>
+                          <div className={s.description}>{designerItem.description}</div>
+                          <a
+                            href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                            target="_blank"
+                          >
+                            <button type="button" className={s.profileButton}>
+                              View Full Profile
+                            </button>
+                          </a>
+                        </InfoCard>
+                        <a href="https://designers.digitalax.xyz/getdressed" target="_blank">
+                          <button type="button" className={s.getDressedButton}>
+                            GET BESPOKE DRESSED BY THIS DESIGNER!
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </Container>
+              </section>
+            </>
+          )
+        })
+      }
+      {/* {designer && (
         <>
           <section className={s.designerSection}>
             <video autoPlay loop muted className={s.video}>
@@ -422,7 +499,7 @@ const ProductView: FC<Props> = ({ product }) => {
             </Container>
           </section>
         </>
-      )}
+      )} */}
     </>
   )
 }
