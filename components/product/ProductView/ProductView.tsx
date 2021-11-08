@@ -475,31 +475,6 @@ const ProductView: FC<Props> = ({ product }) => {
           )
         })
       }
-      {/* {designer && (
-        <>
-          <section className={s.designerSection}>
-            <video autoPlay loop muted className={s.video}>
-              <source src="/images/designer-bg.mp4" type="video/mp4" />
-            </video>
-            <Container>
-              <div className={s.designerBody}>
-                <div className={s.title}> designer </div>
-                <div className={s.data}>
-                  <ImageCard imgUrl={designer.image} />
-                  <div className={s.infoWrapper}>
-                    <InfoCard>
-                      <div className={s.name}> {designer.name} </div>
-                      <div className={s.description}>
-                        {designer.description}
-                      </div>
-                    </InfoCard>
-                  </div>
-                </div>
-              </div>
-            </Container>
-          </section>
-        </>
-      )} */}
     </>
   )
 }
