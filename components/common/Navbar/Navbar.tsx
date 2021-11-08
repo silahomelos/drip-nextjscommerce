@@ -26,12 +26,12 @@ const Navbar: FC = () => (
                 PHYSICAL WEB3 FASHION
               </a>
             </Link>
-            <Link href="https://skins.digitalax.xyz/">
+            <Link href="https://fashion.digitalax.xyz/">
               <a className={s.link} target="_blank">
                 DIGITAL WEB3 FASHION
               </a>
             </Link>
-            <Link href="http://globaldesignernetwork.xyz/global">
+            <Link href="https://designers.digitalax.xyz/global/">
               <a className={s.link} target="_blank">
                 GLOBAL DESIGNER NETWORK
               </a>
@@ -41,7 +41,7 @@ const Navbar: FC = () => (
                 STAKE FASHION NFT
               </a>
             </Link>
-            <Link href="https://skins.digitalax.xyz/bridge/">
+            <Link href="https://fashion.digitalax.xyz/bridge/">
               <a className={s.link} target="_blank">BRIDGE MONA </a>
             </Link>
           </nav>
