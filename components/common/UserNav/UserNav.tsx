@@ -44,7 +44,7 @@ const UserNav: FC<Props> = ({ className }) => {
             </li>
           )}
           <li className={s.item} onClick={toggleSidebar}>
-            <Bag />
+            <Bag className={s.cart} />
             {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
           </li>
         </ul>

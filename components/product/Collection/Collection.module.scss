@@ -1,237 +1,151 @@
-.root {
-    @apply relative max-h-full w-full box-border overflow-hidden
-    bg-no-repeat bg-center bg-cover transition-transform
-    ease-linear cursor-pointer;
-    height: 100% !important;
+@import '../../../assets/grid.scss';
   
-    &:hover {
-      & .squareBg:before {
-        transform: scale(0.98);
-      }
-  
-      & .productImage {
-        transform: scale(1.2625);
-      }
-  
-      & .productTitle > span,
-      & .productPrice,
-      & .wishlistButton {
-        @apply bg-secondary text-secondary;
-      }
-  
-      &:nth-child(6n + 1) .productTitle > span,
-      &:nth-child(6n + 1) .productPrice,
-      &:nth-child(6n + 1) .wishlistButton {
-        @apply bg-violet text-white;
-      }
-  
-      &:nth-child(6n + 5) .productTitle > span,
-      &:nth-child(6n + 5) .productPrice,
-      &:nth-child(6n + 5) .wishlistButton {
-        @apply bg-blue text-white;
-      }
-  
-      &:nth-child(6n + 3) .productTitle > span,
-      &:nth-child(6n + 3) .productPrice,
-      &:nth-child(6n + 3) .wishlistButton {
-        @apply bg-pink text-white;
-      }
-  
-      &:nth-child(6n + 6) .productTitle > span,
-      &:nth-child(6n + 6) .productPrice,
-      &:nth-child(6n + 6) .wishlistButton {
-        @apply bg-cyan text-white;
-      }
-    }
-  
-    &:nth-child(6n + 1) .squareBg {
-      @apply bg-violet;
-    }
-  
-    &:nth-child(6n + 5) .squareBg {
-      @apply bg-blue;
-    }
-  
-    &:nth-child(6n + 3) .squareBg {
-      @apply bg-pink;
-    }
-  
-    &:nth-child(6n + 6) .squareBg {
-      @apply bg-cyan;
-    }
-  }
-  
-  .squareBg,
-  .productTitle > span,
-  .productPrice,
-  .wishlistButton {
-    @apply transition-colors ease-in-out duration-500;
-  }
-  
-  .squareBg {
-    @apply transition-colors absolute inset-0 z-0;
-    background-color: #212529;
-  }
-  
-  .squareBg:before {
-    @apply transition ease-in-out duration-500 bg-repeat-space w-full h-full block;
-    background-image: url('/bg-products.svg');
-    content: '';
-  }
+.collectionItemContainer {
+  margin-bottom: 100px;
+  margin-left: 5%;
+  margin-right: 5%;
 
-.collectionItemContainer{
-    max-width: 618px;
-    width: 100%;
-    margin-bottom: 100px;
-}
-  
-  .simple {
-    & .squareBg {
-      @apply bg-accents-0;
-      background-image: url('/bg-products.svg');
-    }
-  
-    & .productTitle {
-
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 900;
-        font-size: 24px;
-        line-height: 24px;
-  
-      & span {
-        @apply leading-extra-loose;
-      }
-    }
-  
-    & .productPrice {
-      @apply text-sm;
-    }
-  }
-  
-  .collectionTitle {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 24px;
-    letter-spacing: 0.4px;
-    background-color: transparent;
-
-    
-    text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.3);
-  
-    & span {
-      @apply bg-primary text-primary;
-      font-size: inherit;
-      letter-spacing: inherit;
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
-      background-color: transparent;
-      color: white;
-      -webkit-text-stroke: 0.5px black;
-      text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.3);
-    }
-  }
-  
-  .imageContainer {
-    @apply flex items-center justify-center;
-    overflow: hidden;
-  
-    & > div {
-      min-width: 100%;
-    }
-  }
-  
-  .collectionImage {
-    @apply transform transition-transform duration-500 object-cover scale-120;
-  }
-  
-
-.userSection{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 14px;
-
-    & > div{
-        border-radius: 18px;
-    }
-
-    img{
-        height: 36px;
-        width: 36px;
-        border-radius: 50%;
-    }
-
-    p{
-        margin-left: 15px;
-        color: #FFFFFF;
-
-        -webkit-text-stroke: 0.3px solid #000000;
-        text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.3);
-    }
-}
-
-.collectionContent{
-    background-color: #F7F7F7;
+  .collectionContent {
+    position: relative;
     padding: 12px;
-    margin-top: 20px;
-}
 
-.collectionPriceSection{
-    margin-top: 20px;
-    width: 100%;
-    background-color: white;
-    padding: 16px 18px;
-}
-
-.collectionPrice {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
+    .collectionTitle {
+      font-family: Gilroy;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 36px;
+      line-height: 44px;
+      background-color: transparent;
+      margin-bottom: 20px;
     
-    @media (max-width: 540px) {
-      font-size: 18px;
-      line-height: 25px;
-    }
-  }
-
-.btnPrice{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-
-    &> p {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 22px;
-        line-height: 27px;
-        color: #999;
-
-        @media (max-width: 540px) {
-          font-size: 15px;
-          line-height: 25px;
-        }
-    }
-    & > a{
-        width: 188px;
-        height: 40px;
-        background-color: black;
+      & span {
+        @apply bg-primary text-primary;
+        font-size: inherit;
+        letter-spacing: inherit;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        background-color: transparent;
         color: white;
-        line-height: 40px;
-        text-align: center;
-        font-weight: 700;
-        font-size: 12px;
-
-        @media (max-width: 540px) {
-          width: 118px;
-          height: 35px;
-          line-height: 35px;
-          font-size: 11px;
-        }
+      }
     }
+
+    .root {
+      @apply relative max-h-full w-full box-border overflow-hidden
+      bg-no-repeat bg-center bg-cover transition-transform
+      ease-linear cursor-pointer;
+      height: 100% !important;
+  
+      .imageContainer {
+        @apply flex items-center justify-center;
+        padding: 1rem;
+        border-radius: 2rem;
+      
+        & > div {
+          min-width: 100%;
+        }
+      
+        width: 300px;
+        position: relative;
+        z-index: 100;
+        border: 3px solid #C2EABA;
+        &:before {
+          content: "";
+          position: absolute;
+          border-radius: 2rem;
+          background: linear-gradient(319deg, #C2EABA 0%, #C5F4E0 37%, #EFC2CF 100%);
+          z-index: -1;
+          left: -2%;
+          top: -2%;
+          height: 104%;
+          width: 104%;
+          filter: blur(15px);
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          border-radius: 2rem;
+          background: black;
+          z-index: -1;
+          left: 2%;
+          top: 2%;
+          height: 96%;
+          width: 96%;
+          filter: blur(10px);
+        }
+      
+        @include sm-width {
+          width: 400px;
+        }
+      
+        @include md-width {
+          width: 500px;
+        }
+      
+        @include lg-width {
+          width: 350px;
+        }
+      
+        @include xl-width {
+          width: 400px;
+        }
+      
+        @include xxl-width {
+          width: 500px;
+        }
+  
+        .collectionImage {
+          @apply transform transition-transform duration-500 object-cover scale-120;
+        }
+      }
+    }
+  
+    .collectionPriceSection {
+      margin-top: 20px;
+      width: 100%;
+      background-color: transparent;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      .btnPrice {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        position: relative;
+      
+        span {
+          position: absolute;
+          font-family: Oswald;
+          font-style: italic;
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 136%;
+          text-align: center;
+      
+          color: #FFFFFF;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+  
+        img {
+          width: 200px;
+        }
+  
+        @include lg-width {
+          img {
+            width: 350px;
+          }
+  
+          span {
+            font-size: 36px;
+          }
+        }
+      }
+    }
+      
+  }
 }

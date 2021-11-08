@@ -76,7 +76,7 @@ export default function Cart() {
         ) : (
           <div className="px-4 sm:px-6 flex-1">
             <Text variant="pageHeading">My Cart</Text>
-            <Text variant="sectionHeading">Review your Order</Text>
+            <Text variant="sectionHeading" className="text-white">Review your Order</Text>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-b border-accents-2">
               {data!.lineItems.map((item) => (
                 <CartItem
@@ -87,7 +87,7 @@ export default function Cart() {
               ))}
             </ul>
             <div className="my-6">
-              <Text>
+              <Text className="text-white">
                 Before you leave, take a look at these items. We picked them
                 just for you
               </Text>
@@ -136,7 +136,7 @@ export default function Cart() {
           )}
           <div className="border-t border-accents-2">
             <ul className="py-3">
-              <li className="flex justify-between py-1">
+              <li className="flex justify-between py-1 text-white">
                 <span>Subtotal</span>
                 <span>
                   {subTotal} (
@@ -144,7 +144,7 @@ export default function Cart() {
                 </span>
               </li>
             </ul>
-            <div className="flex justify-between border-t border-accents-2 py-3 font-bold mb-10">
+            <div className="flex justify-between border-t border-accents-2 py-3 font-bold mb-10 text-white">
               <span>Total</span>
               <span>
                 {total} ({(Number(data?.totalPrice) / cryptoPrice).toFixed(2)})
@@ -154,11 +154,11 @@ export default function Cart() {
           <div className="flex flex-row justify-end">
             <div className="w-full lg:w-72">
               {isEmpty ? (
-                <Button href="/" Component="a" width="100%">
+                <Button variant="new-slim" href="/" Component="a" width="100%">
                   Continue Shopping
                 </Button>
               ) : (
-                <Button href="/checkout" Component="a" width="100%">
+                <Button variant="new-slim" href="/checkout" Component="a" width="100%">
                   Proceed to Checkout
                 </Button>
               )}

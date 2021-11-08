@@ -1,0 +1,61 @@
+@import '../../../assets/grid.scss';
+
+.homeTitleContainer {
+  max-width: 1320px;
+  padding-top: 100px;
+  margin: auto;
+  position: relative;
+
+  @include lg-width {
+
+    margin-left: 5rem;
+
+  }
+
+  .titleWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+  
+    .title {
+      font-family: Orbitron;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 34px;      
+      line-height: 125%;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      width: 100%;
+      text-align: center;
+    
+      @include lg-width {
+        font-size: 4.16vw;
+        text-align: left;
+      }
+    
+      margin: auto;
+    }
+    
+    .subTitle {
+      font-family: Gilroy;
+      font-size: 15px;
+      line-height: 125%;
+      color: #FFFFFF;
+      text-align: left;
+      margin-top: 20px;
+
+      a {
+        text-decoration: underline;
+      }
+
+      @include lg-width {
+        font-size: 1.56vw;
+        text-align: left;
+      }
+    }
+        
+  }
+}
+
+

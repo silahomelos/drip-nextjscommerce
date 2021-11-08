@@ -15,6 +15,13 @@ module.exports = withCommerceConfig({
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
   },
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
@@ -24,6 +31,9 @@ module.exports = withCommerceConfig({
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
+  },
+  images: {
+    domains: ['espa.s3.eu-central-1.amazonaws.com'],
   },
   rewrites() {
     return [

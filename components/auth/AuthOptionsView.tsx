@@ -36,16 +36,16 @@ const AuthOptionsView: FC<Props> = () => {
     <div className="flex flex-col space-y-3 items-center">
       <h1 className="uppercase text-center text-3xl font-bold">
         {' '}
-        start repping{' '}
+        USE CRYPTO OR FIAT.{' '}
       </h1>
-      <p className="my-4">
+      <p className="my-4 pb-4">
         {' '}
         Take Your Drip Across The Realms. Claim Your NFT.{' '}
       </p>
-      <Button variant="slim" width="200px" onClick={() => onOptionClick(0)}>
+      <Button variant="new-slim" width="200px" onClick={() => onOptionClick(0)}>
         <span className="uppercase">use crypto</span>
       </Button>
-      <Button variant="slim" width="200px" onClick={() => onOptionClick(1)}>
+      <Button variant="new-slim" width="200px" onClick={() => onOptionClick(1)}>
         <span className="uppercase">use fiat</span>
       </Button>
     </div>

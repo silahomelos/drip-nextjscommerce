@@ -1,4 +1,7 @@
 export { default as Hero } from './Hero'
+export { default as HeroBar } from './HeroBar'
+export { default as FilterBar } from './FilterBar'
+export { default as Filters } from './Filters'
 export { default as Logo } from './Logo'
 export { default as Grid } from './Grid'
 export { default as GridContainer } from './GridContainer'

@@ -5,6 +5,8 @@ import {
   DIGITALAX_GARMENT_V2_COLLECTION_BY_ID,
   DRIP_MARKETPLACE_PURCHASE_HISTORES,
   PAYABLE_TOKEN_REQUEST,
+  DRIP_MARKETPLACE_OFFERS,
+  DRIP_MARKETPLACE_OFFER_BY_ID
 } from './gql.service'
 
 export const getPayableTokenReport = async (id) => {
@@ -17,6 +19,14 @@ export const getMarketplacePurchaseHistories = async (orderId) => {
 
 export const getDigitalaxGarmentV2CollectionById = async (id) => {
   return request(GRAPH_API_URL, DIGITALAX_GARMENT_V2_COLLECTION_BY_ID, { id })
+}
+
+export const getDripMarketplaceOffers = async () => {
+  return request(GRAPH_API_URL, DRIP_MARKETPLACE_OFFERS)
+}
+
+export const getDripMarketplaceOfferById = async (id) => {
+  return request(GRAPH_API_URL, DRIP_MARKETPLACE_OFFER_BY_ID, { id })
 }
 
 export const fetchAuthToken = async (account) => {

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import cn from 'classnames'
-import s from './styles.module.css'
+import styles from './styles.module.css'
 import { setWeb3Provider } from 'services/web3-provider.service'
 import { connectWallet } from 'services/network.service'
 import { setAccount, setChainId, setWallet, useMain } from 'context'
@@ -14,8 +14,8 @@ const CryptoSignUpView: FC<Props> = () => {
   const { dispatch, account } = useMain()
 
   const btnClasses = cn(
-    'rounded-xl w-80 border-2 border-black flex items-center px-10 py-1 justify-between',
-    s.walletBtn
+    'rounded-xl w-80 border-2 border-white flex items-center px-6 py-1 justify-between',
+    styles.walletBtn
   )
 
   const onConnect = async (option: number) => {
@@ -40,6 +40,9 @@ const CryptoSignUpView: FC<Props> = () => {
   return (
     <div className="flex flex-col space-y-3 items-center">
       <h1 className="text-center text-3xl font-bold"> Connect Your Wallet </h1>
+      <h2 className={styles.description}>
+        If you are new to crypto please sign up/sign in with a Venly Wallet!
+      </h2>
       <div className={btnClasses} onClick={() => onConnect(2)}>
         <span> Venly Wallet </span>
         <img src="/images/arkane.png" className="w-11" />

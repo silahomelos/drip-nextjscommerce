@@ -243,21 +243,23 @@ const Checkout: FC<Props> = () => {
   }, [buyNowStatus])
 
   return (
-    <div className="container mx-auto h-screen">
-      <div className="flex h-full">
-        <div className="w-3/5 p-10">
-          <div className="uppercase text-3xl">digitalax drip</div>
+    <div className="container mx-auto md:h-screen">
+      <div className="flex flex-col md:flex-row h-full">
+        <div className="w-full md:w-3/5 p-10">
+          <div className="uppercase text-3xl font-bold" style={{
+            fontFamily: 'Orbitron'
+          }}>Shipping Information</div>
           <div className="flex flex-col space-y-3 mb-5">
-            <h1 className="text-lg"> Contact information </h1>
-            <div className="w-full">
+            <br />
+            <div className="w-1/2">
               <label
-                className="block tracking-wide text-gray-700 text-xs font-bold"
+                className="block tracking-wide  text-white text-md mb-3 font-bold"
                 htmlFor="grid-email"
               >
                 Email
               </label>
               <input
-                className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
+                className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 id="grid-email"
@@ -275,17 +277,17 @@ const Checkout: FC<Props> = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-3 mb-5">
-            <h1 className="text-lg"> Shipping address </h1>
+            {/* <h1 className="text-lg"> Shipping address </h1> */}
             <div className="w-full flex space-x-2">
               <div className="w-1/2">
                 <label
-                  className="block tracking-wide text-gray-700 text-xs font-bold"
+                  className="block tracking-wide text-white text-md mb-3 font-bold"
                   htmlFor="grid-first-name"
                 >
                   First Name
                 </label>
                 <input
-                  className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
                   id="grid-first-name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
@@ -298,13 +300,13 @@ const Checkout: FC<Props> = () => {
               </div>
               <div className="w-1/2">
                 <label
-                  className="block tracking-wide text-gray-700 text-xs font-bold"
+                  className="block tracking-wide text-white text-md mb-3 font-bold"
                   htmlFor="grid-last-name"
                 >
                   Last Name
                 </label>
                 <input
-                  className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
                   id="grid-last-name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -316,87 +318,71 @@ const Checkout: FC<Props> = () => {
                 ) : null}
               </div>
             </div>
-            <div className="w-full">
-              <label
-                className="block tracking-wide text-gray-700 text-xs font-bold"
-                htmlFor="grid-address"
-              >
-                Address1
-              </label>
-              <input
-                className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
-                id="grid-address"
-                value={address1}
-                onChange={(e) => setAddress1(e.target.value)}
-              />
-              {valid.includes('address1') ? (
-                <span className="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </span>
-              ) : null}
-            </div>
-            <div className="w-full">
-              <label
-                className="block tracking-wide text-gray-700 text-xs font-bold"
-                htmlFor="grid-address"
-              >
-                Address2
-              </label>
-              <input
-                className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
-                id="grid-address"
-                value={address2}
-                onChange={(e) => setAddress2(e.target.value)}
-              />
-            </div>
-            <div className="w-full">
-              <label
-                className="block tracking-wide text-gray-700 text-xs font-bold"
-                htmlFor="grid-city"
-              >
-                City
-              </label>
-              <input
-                className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
-                id="grid-city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-              {valid.includes('city') ? (
-                <span className="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </span>
-              ) : null}
-            </div>
+            <h1 className="text-md font-bold pt-6"> Shipping address </h1>
             <div className="w-full flex space-x-2">
-              <div className="w-1/3">
+              <div className="w-1/2">
                 <label
-                  className="block tracking-wide text-gray-700 text-xs font-bold"
-                  htmlFor="grid-country"
+                  className="block tracking-wide text-white text-md mb-3"
+                  htmlFor="grid-address"
                 >
-                  Country
+                  Address1
                 </label>
                 <input
-                  className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
-                  id="grid-country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
+                  id="grid-address"
+                  value={address1}
+                  onChange={(e) => setAddress1(e.target.value)}
                 />
-                {valid.includes('country') ? (
+                {valid.includes('address1') ? (
                   <span className="text-red-500 text-xs italic">
                     Please fill out this field.
                   </span>
                 ) : null}
               </div>
-              <div className="w-1/3">
+              <div className="w-1/2">
                 <label
-                  className="block tracking-wide text-gray-700 text-xs font-bold"
+                  className="block tracking-wide text-white text-md mb-3"
+                  htmlFor="grid-address"
+                >
+                  Address2
+                </label>
+                <input
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
+                  id="grid-address"
+                  value={address2}
+                  onChange={(e) => setAddress2(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="w-full flex space-x-2">
+              <div className="w-1/2">
+                <label
+                  className="block tracking-wide text-white text-md mb-3"
+                  htmlFor="grid-city"
+                >
+                  City
+                </label>
+                <input
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
+                  id="grid-city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                {valid.includes('city') ? (
+                  <span className="text-red-500 text-xs italic">
+                    Please fill out this field.
+                  </span>
+                ) : null}
+              </div>
+              <div className="w-1/2">
+                <label
+                  className="block tracking-wide text-white text-md mb-3"
                   htmlFor="grid-province"
                 >
                   State
                 </label>
                 <input
-                  className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
                   id="grid-province"
                   value={province}
                   onChange={(e) => setProvince(e.target.value)}
@@ -407,15 +393,36 @@ const Checkout: FC<Props> = () => {
                   </span>
                 ) : null}
               </div>
-              <div className="w-1/3">
+            </div>
+            <div className="w-full flex space-x-2">
+              <div className="w-1/2">
                 <label
-                  className="block tracking-wide text-gray-700 text-xs font-bold"
-                  htmlFor="grid-code"
+                  className="block tracking-wide text-white text-md mb-3"
+                  htmlFor="grid-country"
                 >
-                  Postal code
+                  Country
                 </label>
                 <input
-                  className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 leading-tight"
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
+                  id="grid-country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+                {valid.includes('country') ? (
+                  <span className="text-red-500 text-xs italic">
+                    Please fill out this field.
+                  </span>
+                ) : null}
+              </div>
+              <div className="w-1/2">
+                <label
+                  className="block tracking-wide text-white text-md mb-3"
+                  htmlFor="grid-code"
+                >
+                  ZIP code
+                </label>
+                <input
+                  className="appearance-none block w-full text-white bg-black border border-gray rounded py-3 px-4 leading-tight"
                   id="grid-code"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
@@ -428,11 +435,12 @@ const Checkout: FC<Props> = () => {
               </div>
             </div>
           </div>
-          <Button variant="slim" onClick={onConfirm}>
+          <Button variant="new-slim" onClick={onConfirm}>
             Confirm Shipping Address
           </Button>
         </div>
-        <div className="w-2/5 bg-gray-100 p-10 flex flex-col space-3 h-full">
+        <div className="w-full md:w-2/5 bg-black text-white p-10 flex flex-col space-3 h-full">
+        <div className="text-center text-3xl font-bold" >DRIP Inventory</div>
           <ul className="py-6 flex-grow overflow-auto space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-2 border-b border-accents-2">
             {data?.lineItems.map((item) => (
               <CartItem

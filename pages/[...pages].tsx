@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type {
   GetStaticPathsContext,
   GetStaticPropsContext,
@@ -11,6 +12,7 @@ import { getConfig } from '@framework/api'
 import getPage from '@framework/common/get-page'
 import getAllPages from '@framework/common/get-all-pages'
 import { defaultPageProps } from '@lib/defaults'
+
 
 export async function getStaticProps({
   preview,

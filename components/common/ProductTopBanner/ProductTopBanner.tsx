@@ -1,115 +1,43 @@
+import { FC, useState } from 'react'
 import { Banner } from '@components/ui'
-import { FC, useRef, useState } from 'react'
 import { TextSlider } from '..'
 import TextContent from '@components/ui/TextContent'
+import HomeTitle from '@components/ui/HomeTitle'
+import { HeroBar } from '@components/ui'
 import Container from '@components/ui/Container'
-import StackedCard from '@components/ui/StackedCard'
 import styles from './ProductTopBanner.module.scss'
-import shortid from 'shortid'
 
 interface Props {
-  showSlider: boolean
+  showSlider?: boolean
+  showFilterbar?: boolean
+  isHomePage?: boolean
+  filter?: string
+  setFilter(value: string): void
+  setSortBy(sort: string): void
 }
 
-const ProductTopBanner: FC<Props> = ({ showSlider }) => {
-  const contentEl = useRef(null)
-  const [cardTextIndex, setCardTextIndex] = useState(0)
-  const [randomStr, setRandomStr] = useState('')
-
-  const onSelectCard = (index: number) => {
-    setCardTextIndex(index)
-    setRandomStr(shortid.generate())
-  }
-
+const ProductTopBanner: FC<Props> = ({
+  showSlider = false,
+  showFilterbar = false,
+  isHomePage = false,
+  filter,
+  setFilter,
+  setSortBy
+}) => {
   return (
     <div className={styles.wrapper}>
       <Banner>
-        <Container>
-          <div className="contentContainer">
-            <div className="content" ref={contentEl}>
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-              <img
-                className="content__img"
-                src="/images/tile.png"
-                alt="Some image"
-              />
-            </div>
-          </div>
-          <TextContent onSelectText={onSelectCard} />
-          <StackedCard
-            index={cardTextIndex}
-            random={randomStr}
-            contentRef={contentEl}
-          />
+        <Container
+          className={isHomePage ? styles.homePageContainer : ''}
+        >
+          {isHomePage
+            ? <HomeTitle />
+            : <TextContent />
+          }
+          {
+          showFilterbar && 
+            <HeroBar isHomePage={isHomePage} filter={filter || ''} setFilter={setFilter} setSortBy={setSortBy} />
+          }
         </Container>
       </Banner>
       {showSlider && <TextSlider black={false} />}

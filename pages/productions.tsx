@@ -1,16 +1,13 @@
-import { Layout } from '@components/common'
-import { Grid, GridContainer, Hero, Container } from '@components/ui'
-import { ProductCard, ProductItem } from '@components/product'
-import TextContent from '@components/ui/TextContent'
-
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+
+import { Layout } from '@components/common'
+import { GridContainer, Container } from '@components/ui'
+import { ProductItem } from '@components/product'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
 import getSiteInfo from '@framework/common/get-site-info'
 import getAllPages from '@framework/common/get-all-pages'
-import getAllCollections from '@framework/product/get-all-collections'
 
 export async function getStaticProps({
   preview,

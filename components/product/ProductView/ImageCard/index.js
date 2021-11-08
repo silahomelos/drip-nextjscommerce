@@ -8,11 +8,11 @@ const reviseUrl = (url) => {
   return url
 }
 
-const ImageCard = ({ imgUrl = null }) => {
+const ImageCard = ({ imgUrl, noShadow = false }) => {
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.bodyWrapper}>
+        <div className={[styles.bodyWrapper, noShadow ? styles.noShadow : ''].join(' ')}>
           {imgUrl ? (
             <img src={reviseUrl(imgUrl)} className={styles.image} />
           ) : null}

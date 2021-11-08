@@ -1,23 +1,30 @@
-import cn from 'classnames'
-import dynamic from 'next/dynamic'
-import s from './Layout.module.css'
-import { useRouter } from 'next/router'
 import React, { FC, useEffect, useState } from 'react'
+
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import cn from 'classnames'
+
+import s from './Layout.module.css'
+
 import { useUI } from '@components/ui/context'
 import { Navbar, Footer, TextSlider } from '@components/common'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
 import { Sidebar, Button, Modal, LoadingDots } from '@components/ui'
 import CartSidebarView from '@components/cart/CartSidebarView'
-
 import {
   LoginView,
   AuthOptionsView,
   CryptoOptionsView,
   CryptoSignUpView,
 } from '@components/auth'
+import { NFTClaimedView } from '@components/modals'
+import CheckoutWarning from '@components/modals/CheckoutWarning'
+import PurchaseSuccessView from '@components/modals/PurchaseSuccess'
+import BespokeView from '@components/modals/Bespoke'
+
 import { CommerceProvider } from '@framework'
 import type { Page } from '@framework/common/get-all-pages'
-import { NFTClaimedView } from '@components/modals'
+
 import {
   setAccount,
   setChainId,
@@ -25,10 +32,15 @@ import {
   setUser,
   setWallet,
   useMain,
+  setMonaPrice,
+  setDesigners
 } from 'context'
 import { setWeb3Provider } from 'services/web3-provider.service'
-import CheckoutWarning from '@components/modals/CheckoutWarning'
-import PurchaseSuccessView from '@components/modals/PurchaseSuccess'
+
+import { getPayableTokenReport } from 'services/api.service'
+import digitalaxApi from 'services/digitalaxApi.service'
+
+import { tokens } from '../../../constants'
 
 const Loading = () => (
   <div className="w-80 h-80 flex items-center text-center justify-center p-3">
@@ -75,7 +87,7 @@ const Layout: FC<Props> = ({
   } = useUI()
   const { acceptedCookies, onAcceptCookies } = useAcceptCookies()
   const { locale = 'en-US', pathname, asPath } = useRouter()
-  const { dispatch, wallet } = useMain()
+  const { dispatch, wallet, monaPrice, designers } = useMain()
   const [param, setParam] = useState('')
 
   useEffect(() => {
@@ -96,6 +108,29 @@ const Layout: FC<Props> = ({
         setWallet(parseInt(window.localStorage.getItem('WALLET') || '0'))
       )
     }
+
+    const fetchMonaPrice = async () => {
+      const { payableTokenReport } = await getPayableTokenReport(
+        tokens['mona'].address
+      )
+
+      const updatedMonaPrice = payableTokenReport.payload / 1e18
+
+      if (updatedMonaPrice !== monaPrice) {
+        dispatch(setMonaPrice(updatedMonaPrice))
+      }
+    }
+
+    fetchMonaPrice()
+
+    const fetchDesigners = async () => {
+      if (!designers || designers.length <= 0) {
+        const allDesigners = (await digitalaxApi.getAllDesigners()) || []
+        dispatch(setDesigners(allDesigners))
+      }
+    }
+
+    fetchDesigners()
   }, [])
 
   useEffect(() => {
@@ -176,8 +211,8 @@ const Layout: FC<Props> = ({
         >
           {!pathname.includes('ambassadors') ? <Navbar /> : null}
           <main className="fit">{children}</main>
-          {!pathname.includes('shippingandreturns') &&
-            !pathname.includes('product') && <TextSlider black />}
+          {/* {!pathname.includes('shippingandreturns') &&
+            !pathname.includes('product') && <TextSlider black />} */}
         </div>
         <Footer pages={pageProps.pages} />
 
@@ -191,6 +226,7 @@ const Layout: FC<Props> = ({
           {modalView === 'CRYPTO_SIGNUP_VIEW' && <CryptoSignUpView />}
           {modalView === 'CHECKOUT_WARNING' && <CheckoutWarning />}
           {modalView === 'PURCHASE_SUCCESS_VIEW' && <PurchaseSuccessView />}
+          {modalView === 'BESPOKE_VIEW' && <BespokeView />}
         </Modal>
 
         <Sidebar open={displaySidebar} onClose={closeSidebar}>

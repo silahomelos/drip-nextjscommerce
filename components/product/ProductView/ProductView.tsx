@@ -1,30 +1,44 @@
+import { FC, useEffect, useState } from 'react'
 import cn from 'classnames'
 import Image from 'next/image'
 import { NextSeo } from 'next-seo'
-import { FC, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+
 import s from './ProductView.module.scss'
 
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, useUI } from '@components/ui'
+import BannerBar from '@components/product/ProductView/BannerBar'
 
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
-import { useAddItem, useCart, useRemoveItem } from '@framework/cart'
+import { useAddItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
-import DefiProductDetailTabs from './DefiProductDetailTabs'
-import ProductDetailTabs from './ProductDetailTabs'
-import Web3ProductDetailTabs from './Web3ProductDetailTabs'
-import ProductTopBanner from '@components/common/ProductTopBanner'
-import { useRouter } from 'next/router'
-import { setProductId, setVariantId, useMain } from 'context'
+
 import ImageCard from './ImageCard'
 import InfoCard from './InfoCard'
-import FashionList from './FashionLIst'
-import { getDigitalaxGarmentV2CollectionById } from 'services/api.service'
-import { TextSlider } from '@components/common'
-import LookProductDetailTabs from './LookProductDetailsTabs'
-import GlitchProductDetailTabs from './GlitchProductDetailTabs'
+import PriceTag from '../PriceTag'
+
+import { getDripMarketplaceOfferById } from 'services/api.service'
+import digitalaxApi from 'services/digitalaxApi.service'
+import { useMain } from 'context'
+
+const fetchTokenUri = async (tokenUri: string) => {
+  return fetch(tokenUri)
+    .then((res) => res.json())
+    .then((res) => {
+      return res
+    })
+}
+
+const reviseUrl = (url: string) => {
+  if (url?.includes('gateway.pinata')) {
+    return url.replace('gateway.pinata', 'digitalax.mypinata');
+  }
+  return url
+}
+
 
 interface Props {
   className?: string
@@ -49,73 +63,96 @@ const ProductView: FC<Props> = ({ product }) => {
     currencyCode: product.price.currencyCode!,
   })
   const { openSidebar, openModal, setModalView } = useUI()
-  const [designer, setDesigner] = useState<Designer>({
-    id: 0,
-    image: '',
-    description: '',
-    name: '',
-  })
   const [loading, setLoading] = useState(false)
   const [choices, setChoices] = useState<SelectedOptions>({
     color: null,
     size: null,
   })
-  const fashionData = [
-    {
-      title: 'DeFi Staking Functionality',
-      description: `All NFTs can be staked in the DIGITALAX NFT Staking Contracts on Polygon for $MONA yield. This forms part of the broader Fashion x DeFi merger that DIGITALAX has undertaken to bring greater utility to metaversal fashion and also welcome multitudes more into web3 and DeFi. 
 
-      What if you could earn more from what you wear? Wear to DeFi lets you put your fashion to work for you. We are melting the centralised exploitative crown to weave the fabric of a generative ecosystem.            
-      `,
-    },
-    {
-      title: 'Fractional Garment ERC-1155 Open Source Pattern',
-      description: `Fractional Garment Ownership (FGO) sets forth the standard and dress code for the manufacture of digital fashion along the content supply chain. FGO leverages ERC Protocol standards across the Ethereum Blockchain and Polygon (Matic Network) for breaking down a master ERC-721 digital garment into its programmable and composable ERC-1155 elements of materials, patterns and textures.
+  const { user, account, monaPrice, designers } = useMain()
+  const [loveCount, setLoveCount] = useState(0)
+  const [viewCount, setViewCount] = useState(0)
+  const [totalAmount, setTotalAmount] = useState(0)
+  const [soldAmount, setSoldAmount] = useState(0)
+  const [rarity, setRarity] = useState('')
+  const [garmentChildren, setGarmentChildren] = useState([])
+  const [isFetchedViewCount, setIsFetchedViewCount] = useState(false)
 
-      Here, we are using a variant on the ERC-998 standard, where each ERC-721 token can hold a balance of ERC-1155 NFTs. We coin this respectively the Parent and Child NFTs. This allows for other designers to leverage off of the open source digital libraries, incorporating the patterns, materials and textures into their master garments.`,
-    },
-    {
-      title: '3D Model File Included',
-      description: `All of the DIGITALAX digital fashion garment and accessory ERC-721 NFTs are backed by the underlying 3D model FBX file, stored in IPFS. This forms part of the platform’s broader pursuit for decentralising content distribution and access to it. The FBX file is one of the most popular and widely used 3D data interchange formats between 3D editors and game engines. There are still efficiency problems that exist with it, which DIGITALAX is working to solve through it’s DASH File Format architecture. `,
-    },
-  ]
   const [curImgIndex, setCurImgIndex] = useState(0)
   const { asPath } = useRouter()
 
-  const collectionId = asPath.split('/')[2].split('-')[1]
+  const productId = asPath.split('/')[2]
+  const collectionId = productId.split('-')[1]
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
+
+  const currentDesigners = product.designers?.map((designerId: string) => {
+    return designers.find((item: any) => {
+      return item.designerId?.toLowerCase() === designerId.toLowerCase()
+        || item.newDesignerID?.toLowerCase() === designerId.toLowerCase()
+    })
+  }) || []
 
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
   }
 
   useEffect(() => {
-    const fetchDesignerInfo = async () => {
+    const fetchDripInfo = async () => {
       const {
-        digitalaxGarmentV2Collection,
-      } = await getDigitalaxGarmentV2CollectionById(collectionId)
-      console.log({ digitalaxGarmentV2Collection })
-      setDesigner(digitalaxGarmentV2Collection.designer)
+        dripMarketplaceOffer,
+      } = await getDripMarketplaceOfferById(collectionId)
+      console.log('dripMarketplaceOffer: ', dripMarketplaceOffer)
+
+      setTotalAmount(dripMarketplaceOffer.garmentCollection?.garments?.length)
+      setSoldAmount(dripMarketplaceOffer.amountSold)
+      setRarity(dripMarketplaceOffer.garmentCollection?.rarity)
+      const children: any = []
+
+      if (dripMarketplaceOffer.garmentCollection?.garments[0].children.length) {
+        dripMarketplaceOffer.garmentCollection?.garments[0].children.forEach(async (child: any) => {
+          const info = await fetchTokenUri(child.tokenUri)
+          children.push({
+            ...info,
+            id: child.id.split('-')[1]
+          })
+        })
+      }
+
+      setGarmentChildren(children)
+      console.log('garmentChildren: ', children.length)
+      // setDesigner(dripMarketplaceOffer.designer)
     }
 
-    fetchDesignerInfo()
+    fetchDripInfo()
+
+    const fetchViews = async () => {
+      const viewData = await digitalaxApi.getViews('product', productId)
+      setLoveCount(viewData && viewData[0] && viewData[0].loves ? viewData[0].loves.length : 0)
+      setViewCount(viewData && viewData[0] && viewData[0].viewCount ? viewData[0].viewCount : 0)
+      setIsFetchedViewCount(true)
+    };
+
+    const addViewCount = async () => {
+      const data = await digitalaxApi.addView('product', productId)
+      if (data) {
+        setViewCount(data.viewCount)
+      }
+    }
+
+    fetchViews()
+    addViewCount()
   }, [])
 
   const addToCart = async () => {
     setLoading(true)
     try {
-      // dispatch(setProductId(String(product.id)))
-      // dispatch(
-      //   setVariantId(String(variant ? variant.id : product.variants[0].id))
-      // )
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
       })
-      // setModalView('AUTH_OPTIONS_VIEW')
-      // openModal()
+
       openSidebar()
       setLoading(false)
     } catch (err) {
@@ -123,39 +160,36 @@ const ProductView: FC<Props> = ({ product }) => {
     }
   }
 
-  const openDigifizzyWeb3FashionPage = () => {
-    window.open('https://digifizzy.xyz/magazines/4/45/', '_blank')
+  const addLove = async () => {
+    const data = await digitalaxApi.addLove(account, user.randomString, 'product', productId);
+    if (data && data['success']) {
+      setLoveCount(loveCount + 1)
+    }
+  };
+
+  const onClickLove = () => {
+    addLove()
   }
 
-  const isOriginal = () => {
-    return (
-      asPath.includes('marketplace') ||
-      asPath.includes('minecraft') ||
-      asPath.includes('metameme')
-    )
-  }
-
-  const isWeb3Url = () => {
-    return asPath.includes('web3')
-  }
-
-  const isGlitch = () => {
-    return asPath.includes('glitch')
-  }
-
-  const isLookUrl = () => {
-    return asPath.includes('look')
-  }
-
-  const isDefiUrl = () => {
-    return !(isLookUrl() || isOriginal() || isWeb3Url() || isGlitch())
+  const onBespokeBtn = () => {
+    setModalView('BESPOKE_VIEW')
+    openModal()
   }
 
   useEffect(() => {}, [])
 
+  console.log('product: ', product)
+  console.log('product.designers: ', product.designers)
+  console.log('designers: ', designers)
+  console.log('currentDesigners: ', currentDesigners)
+  console.log('price: ', price)
+
+  const monaAmount = !price || price === undefined
+    ? '0.00'
+    : `${(monaPrice * Number(price?.replace(/$/g, '') || '0')).toFixed(2)}`
+
   return (
     <>
-      <ProductTopBanner showSlider={false} />
       <Container className={`${s.productViewContainer}`} clean>
         <NextSeo
           title={product.name}
@@ -174,103 +208,36 @@ const ProductView: FC<Props> = ({ product }) => {
             ],
           }}
         />
+        
         <div className={cn(s.root, 'fit')}>
-          <div className={s.leftSide}>
-            <div className={cn(s.productDisplay, 'fit')}>
-              <div className={s.nameBox}>
-                <h1 className={s.name}>{product.name}</h1>
-              </div>
-
-              <div className={s.sliderContainer}>
-                <ProductSlider key={product.id} imageId={curImgIndex}>
-                  {product.images.map((image, i) => (
-                    <div key={image.url} className={s.imageContainer}>
-                      <Image
-                        className={s.img}
-                        src={image.url!}
-                        alt={image.alt || 'Product Image'}
-                        width={780}
-                        height={1000}
-                        priority={i === 0}
-                        quality="85"
-                      />
-                    </div>
-                  ))}
-                </ProductSlider>
-              </div>
-            </div>
-
-            <div className={s.previewImages}>
-              {product.images.map((image, i) => (
-                <div key={image.url} className={s.previewImg}>
-                  <Image
-                    className={s.img}
-                    src={image.url!}
-                    alt={image.alt || 'Product Image'}
-                    width={88}
-                    height={119}
-                    priority={i === 0}
-                    quality="85"
-                    onClick={() => handleOnclick(i)}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className={s.productName}>
+            {product.name}
           </div>
-
-          <div className={s.sidebar}>
-            <section>
-              <div>
-                <h1 className={s.productName}>{product.name}</h1>
-                <div className={s.userSection}>
-                  <div className="user-avatar">
-                    <img src="/logo.jpg" />
-                  </div>
-                  <p>DIGITALAX</p>
-                </div>
-                <div className={s.price}>
-                  {price}
-                  {` `}
-                  {product.price?.currencyCode}
-                </div>
-              </div>
-              <div className={s.productAttrs}>
-                {product.options?.map((opt) => (
-                  <div className="pb-4 pr-6" key={opt.displayName}>
-                    <h2 className={`${s.optionTitle} uppercase font-medium`}>
-                      {opt.displayName}
-                    </h2>
-                    <div className="flex flex-row py-4">
-                      {opt.values.map((v, i: number) => {
-                        const active = (choices as any)[
-                          opt.displayName.toLowerCase()
-                        ]
-
-                        return (
-                          <Swatch
-                            key={`${opt.id}-${i}`}
-                            active={v.label.toLowerCase() === active}
-                            variant={opt.displayName}
-                            color={v.hexColors ? v.hexColors[0] : ''}
-                            label={v.label}
-                            onClick={() => {
-                              setChoices((choices) => {
-                                return {
-                                  ...choices,
-                                  [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
-                                }
-                              })
-                            }}
+          <div className={s.mainBody}>
+            <div className={s.leftSide}>
+              <div className={cn(s.productDisplay, 'fit')}>
+                <div className={s.sliderContainer}>
+                  <div className={s.bodyWrapper}>
+                    <ProductSlider key={product.id} imageId={curImgIndex} onSlide={setCurImgIndex}>
+                      {product.images.map((image, i) => (
+                        <div key={image.url} className={s.imageContainer}>
+                          <Image
+                            className={s.img}
+                            src={image.url!}
+                            alt={image.alt || 'Product Image'}
+                            width={780}
+                            height={1000}
+                            priority={i === 0}
+                            quality="85"
                           />
-                        )
-                      })}
-                    </div>
+                        </div>
+                      ))}
+                    </ProductSlider>
                   </div>
-                ))}
+                </div>
               </div>
-              <div>
-                <p className={s.openCollection}>Open Collection</p>
-                <div className={s.openCollectionButtonWrapper}>
+
+              <div className={s.openCollectionButtonWrapper}>
                   <Button
                     aria-label="Add to Cart"
                     type="button"
@@ -279,57 +246,241 @@ const ProductView: FC<Props> = ({ product }) => {
                     loading={loading}
                     disabled={!variant && product.options.length > 0}
                   >
-                    <div>
+                    <img src={`/images/black_update/gray_button2.png`} />
+                    <div className={s.title}>
                       ADD TO CART
-                      <p className={s.buttonSubTitle}>FIAT & CRYPTO</p>
                     </div>
                   </Button>
-                  {isWeb3Url() && (
-                    <Button
-                      aria-label="Read More"
-                      type="button"
-                      className={s.web3ExtraButton}
-                      onClick={openDigifizzyWeb3FashionPage}
-                    >
-                      <div>
-                        Your NFT COntains more web3 fashion treasures! CHECK
-                        HERE!
-                      </div>
-                    </Button>
-                  )}
                 </div>
-                {isOriginal() && (
-                  <ProductDetailTabs description={product.description} />
-                )}
-                {isWeb3Url() && (
-                  <Web3ProductDetailTabs
-                    description={product.description}
-                    title={'About this NFT. '}
-                  />
-                )}
-                {isLookUrl() && <LookProductDetailTabs />}
-                {isGlitch() && (
-                  <GlitchProductDetailTabs description={product.description} />
-                )}
-                {isDefiUrl() && (
-                  <DefiProductDetailTabs
-                    description={product.description}
-                    title={product.name}
-                  />
-                )}
+
+              <div className={s.previewImages}>
+                {product.images.map((image, i) => (
+                  <div key={image.url} className={[s.previewImg, i == curImgIndex ? s.selected : ''].join(' ')}>
+                    <Image
+                      className={s.img}
+                      src={image.url!}
+                      alt={image.alt || 'Product Image'}
+                      width={88}
+                      height={119}
+                      priority={i === 0}
+                      quality="85"
+                      onClick={() => handleOnclick(i)}
+                    />
+                  </div>
+                ))}
               </div>
-            </section>
+
+              {
+              garmentChildren?.length && (
+                <>
+                  <div className={s.childrenDescription}>
+                    Open Source{' '}
+                    <a href="https://designers.digitalax.xyz/fractional/" target="_blank">
+                      Fractional Garment Ownership
+                    </a>
+                  </div>
+                  <div className={s.childrenWrapper}>
+                    {garmentChildren.map((child: any, index: number) => {
+                      return (
+                        <a
+                          href={`https://opensea.io/assets/matic/0x567c7b3364ba2903a80ecbad6c54ba8c0e1a069e/${child.id}`}
+                          target="_blank"
+                          key={index}
+                        >
+                          {child.image_url ? (
+                            <img src={reviseUrl(child.image_url)} />
+                          ) : child.animation_url ? (
+                            <video muted autoPlay loop>
+                              <source src={reviseUrl(child.animation_url)} />
+                            </video>
+                          ) : null}
+                        </a>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className={s.sidebar}>
+              <section>
+                <div className={s.amount}>
+                  {soldAmount} of {totalAmount}
+                  <div className={s.helper}>
+                    <span className={s.questionMark}>?</span>
+                    <span className={s.description} >
+                      Shipping takes approx 2 weeks. International can be longer.
+                    </span>
+                  </div>
+                </div>
+                <div className={s.lovesWrapper}>
+                  <button type="button" className={s.loveButton} onClick={onClickLove}>
+                    <img src="/images/like_icon.png" />
+                  </button>
+
+                  <div className={s.likeCount}>
+                    {loveCount}
+                    <span>LOVES</span>
+                  </div>
+                  <img src="/images/view_icon.png" />
+                  <div className={s.viewCount}>
+                    {viewCount}
+                    <span>VIEWS</span>
+                  </div>
+                </div>
+                <div className={s.productAttrs}>
+                  {product.options?.sort((a, b) => {
+                    const nameA = a.displayName
+                    const nameB = b.displayName
+                    if (nameA < nameB) {
+                      return -1;
+                    }
+                    if (nameA > nameB) {
+                      return 1;
+                    }
+                    return 0;
+                  }).map((opt) => (
+                    <div className="pb-4 pr-6" key={opt.displayName}>
+                      <div className="flex flex-row py-4">
+                        {opt.values.map((v, i: number) => {
+                          const active = (choices as any)[
+                            opt.displayName.toLowerCase()
+                          ]
+
+                          return (
+                            <Swatch
+                              key={`${opt.id}-${i}`}
+                              active={v.label.toLowerCase() === active}
+                              variant={opt.displayName}
+                              color={v.hexColors ? v.hexColors[0] : ''}
+                              label={v.label}
+                              onClick={() => {
+                                setChoices((choices) => {
+                                  return {
+                                    ...choices,
+                                    [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
+                                  }
+                                })
+                              }}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  {/* <p className={s.openCollection}>Open Collection</p>
+                   */}
+                  <InfoCard
+                    borderColor='white'
+                    boxShadow2='inset 0px 0px 10px 10px rgba(255, 255, 255, 0.47)'
+                    mainColor='rgba(95, 95, 95, 0.47)'
+                  >
+                    <div className={s.infoCard}>
+                      <div className={s.skinName}>
+                        <div className={s.text}> {rarity} </div>
+                      </div>
+                      <div className={s.description}>{product?.description}</div>
+                    </div>
+                  </InfoCard>
+                </div>
+                <div className={s.buttonWrapper}>
+                  <PriceTag
+                    backImageSrc='/images/black_update/gray_button3.png'
+                    withoutDollarSign={true}
+                    monaPrice={monaAmount}
+                    dollarPrice={price}
+                    description={'SALE PRICE'}
+                  />
+                </div>
+
+                <button type="button" className={s.bespokeBtn} onClick={onBespokeBtn}>
+                  Want something more Bespoke?
+                </button>
+                <a href="https://staking.digitalax.xyz/" target="_blank">
+                  <button type="button" className={s.stakeBtn}>
+                    STAKE YOUR FASHION FOR $MONA YIELD
+                  </button>
+                </a>
+              </section>
+            </div>
           </div>
-          {/* {process.env.COMMERCE_WISHLIST_ENABLED && (
-            <WishlistButton
-              className={s.wishlistButton}
-              productId={product.id}
-              variant={product.variants[0]! as any}
-            />
-          )} */}
         </div>
       </Container>
-      {designer ? (
+      <BannerBar className={s.homeHeroBar} type={2} />
+      {
+        currentDesigners.map((designerItem: any, index: number) => {
+          if (!designerItem || designerItem == undefined) return null
+          return (
+            <>
+              <section className={[s.designerSection, index > 0 ? s.margin50 : ''].join(' ')}>
+                <video autoPlay loop muted className={s.video}>
+                  <source src="/images/designer-bg.mp4" type="video/mp4" />
+                </video>
+                <Container>
+                  <div className={s.designerBody}>
+                    <div className={s.title}> designer </div>
+                    <div className={s.data}>
+                      <a
+                        href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                        target="_blank"
+                      >
+                        <ImageCard imgUrl={designerItem.image_url} noShadow />
+                      </a>
+                      <div className={s.infoWrapper}>
+                        {/* {owners.length ? (
+                          <div className={s.wearersLabel}>current wearer/S</div>
+                        ) : (
+                          <></>
+                        )}
+                        {owners.length ? (
+                          <UserList
+                            className={s.userList}
+                            userLimit={7}
+                            users={owners}
+                            onClickSeeAll={onClickSeeAllWearers}
+                          />
+                        ) : (
+                          <></>
+                        )} */}
+                        <InfoCard
+                          // libon="./images/metaverse/party_glasses.png"
+                          borderColor='#c52081'
+                          boxShadow='rgba(197, 32, 129, 0.5)'
+                          mainColor='rgba(189, 61, 169, 0.47)'
+                        >
+                          <a
+                            href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                            target="_blank"
+                          >
+                            <div className={s.name}> {designerItem.designerId} </div>
+                          </a>
+                          <div className={s.description}>{designerItem.description}</div>
+                          <a
+                            href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                            target="_blank"
+                          >
+                            <button type="button" className={s.profileButton}>
+                              View Full Profile
+                            </button>
+                          </a>
+                        </InfoCard>
+                        <a href="https://designers.digitalax.xyz/getdressed" target="_blank">
+                          <button type="button" className={s.getDressedButton}>
+                            GET BESPOKE DRESSED BY THIS DESIGNER!
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </Container>
+              </section>
+            </>
+          )
+        })
+      }
+      {/* {designer && (
         <>
           <section className={s.designerSection}>
             <video autoPlay loop muted className={s.video}>
@@ -352,11 +503,8 @@ const ProductView: FC<Props> = ({ product }) => {
               </div>
             </Container>
           </section>
-          <FashionList fashionData={fashionData} />
         </>
-      ) : (
-        <TextSlider black />
-      )}
+      )} */}
     </>
   )
 }

@@ -62,6 +62,26 @@ const getProductQuery = /* GraphQL */ `
           }
         }
       }
+      collections (first: 1) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            image {
+              originalSrc
+              altText
+              width
+              height
+            }
+          }
+        }
+      }
     }
   }
 `

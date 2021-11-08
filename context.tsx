@@ -1,4 +1,7 @@
-import React, { FC, useContext, useMemo, useReducer } from 'react'
+import React, { FC, useContext, useMemo, useReducer, useEffect } from 'react'
+import { getPayableTokenReport } from 'services/api.service'
+import { tokens } from './constants'
+
 export interface State {
   wallet?: number
   account?: string
@@ -15,6 +18,8 @@ export interface State {
   productId: string
   variantId: string
   collectionId: string
+  monaPrice: number
+  designers: []
 }
 
 interface Props {}
@@ -35,6 +40,8 @@ const initialState = {
   productId: '',
   variantId: '',
   collectionId: '',
+  designers: [],
+  monaPrice: 0
 }
 
 export const MainContext = React.createContext<State | any>(initialState)
@@ -78,6 +85,11 @@ export const setVariantId = (variantId: string) =>
   createAction('SET_VARIANT_ID', variantId)
 export const setCollectionId = (collectionId: string) =>
   createAction('SET_COLLECTION_ID', collectionId)
+
+export const setMonaPrice = (monaPrice: number) =>
+  createAction('SET_MONA_PRICE', monaPrice)
+export const setDesigners = (designers: any[]) =>
+  createAction('SET_DESIGNERS', designers)
 
 function mainReducer(state: State, action: Action) {
   switch (action.type) {
@@ -123,6 +135,12 @@ function mainReducer(state: State, action: Action) {
         cryptoPrice: action.payload,
       }
     }
+    case 'SET_MONA_PRICE': {
+      return {
+        ...state,
+        monaPrice: action.payload,
+      }
+    }
     case 'SET_SIGN_MSG': {
       return {
         ...state,
@@ -166,6 +184,12 @@ function mainReducer(state: State, action: Action) {
         collectionId: action.payload,
       }
     }
+    case 'SET_DESIGNERS': {
+      return {
+        ...state,
+        designers: action.payload,
+      }
+    }
   }
 }
 
@@ -179,7 +203,6 @@ export const useMain = () => {
 
 export const MainProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer<any>(mainReducer, initialState)
-
   const value = useMemo(
     () => ({
       ...(state as object),

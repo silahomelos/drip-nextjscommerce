@@ -5,6 +5,7 @@ import router from 'next/router'
 import { setUser, useMain } from 'context'
 import { authenticate, fetchAuthToken, signup } from 'services/api.service'
 import { handleSignMessage } from 'services/wallet.service'
+import styles from './signupview.module.scss'
 
 interface Props {}
 
@@ -106,25 +107,27 @@ const SignUpView: FC<Props> = () => {
   return (
     <form
       onSubmit={handleSignup}
-      className="w-96 flex flex-col space-y-3 justify-between p-3"
+      className={[styles.wrapper, "w-72 md:w-96 flex flex-col space-y-3 justify-between p-3"].join(' ')}
     >
       {!disabled ? (
         <>
           <h3 className="text-center uppercase text-3xl font-bold">
             {!signMsg ? 'Sign Up' : 'Welcome Back!'}
           </h3>
-          {signMsg && <p>Wallet: {account}</p>}
+          {signMsg && <p>{account}</p>}
           {!signMsg && (
             <div className="flex flex-col space-y-4">
               {!!message.length && (
                 <div className="text-red border border-red p-3">{message}</div>
               )}
-              <Input placeholder="UserName" onChange={setUsername} />
-              <Input type="email" placeholder="Email" onChange={setEmail} />
+              <div className={styles.label}>Username</div>
+              <Input className={styles.input} onChange={setUsername} />
+              <div className={styles.label}>Email</div>
+              <Input className={styles.input}  type="email" onChange={setEmail} />
             </div>
           )}
           <div className="pt-2 w-full flex flex-col">
-            <Button variant="slim" type="submit" loading={loading}>
+            <Button className={styles.button} variant="new-slim" type="submit" loading={loading}>
               {signMsg ? 'Sign In' : 'Sign Up'}
             </Button>
           </div>

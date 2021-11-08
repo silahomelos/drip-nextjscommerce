@@ -1,10 +1,12 @@
 import { FC, useState } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
-import type { Product } from '@commerce/types'
-import s from './ProductItem.module.scss'
 import Image, { ImageProps } from 'next/image'
-import WishlistButton from '@components/wishlist/WishlistButton'
+
+import type { Product } from '@commerce/types'
+import PriceTag from '../PriceTag'
+import s from './ProductItem.module.scss'
+import { useMain } from 'context'
 
 interface Props {
   className?: string
@@ -22,6 +24,19 @@ const ProductItem: FC<Props> = ({
   imgProps,
   ...props
 }) => {
+
+  const { monaPrice, designers } = useMain()
+
+  const firstDesigner = designers.find((item: any) => {
+    const productDesigner: string | null
+      = product.designers?.length
+        ? product.designers[0]?.toLowerCase()
+        : null
+
+    return item.designerId?.toLowerCase() === productDesigner
+    || item.newDesignerID?.toLowerCase() === productDesigner
+  })
+
   const [isJson, setIsJson] = useState(false)
   const [descContent, setDescContent] = useState(() => {
     try {
@@ -36,11 +51,35 @@ const ProductItem: FC<Props> = ({
   return (
     <div className={s.productItemContainer}>
       <div className={s.productContent}>
+        <h3 className={s.productTitle}>
+          <span>{product.name}</span>
+        </h3>
+
+        {firstDesigner &&
+          <a
+            href={`https://designers.digitalax.xyz/designers/${firstDesigner.designerId}`}
+            target='_blank'
+            className={s.designer}
+          >
+            <div className={s.profilePicContainer}>
+              <Image
+                alt={firstDesigner.designerId || 'designer'}
+                className={s.designerImage}
+                src={firstDesigner.image_url || placeholderImg}
+                height={30}
+                width={30}
+                quality="85"
+                layout="responsive"
+                // {...imgProps}
+              />
+            </div>
+            <span>{firstDesigner.designerId}</span>
+          </a>
+        }
+
         <Link href={`/product/${product.slug}`} {...props}>
           <a className={cn(s.root, className)}>
             <>
-              <div className={s.squareBg} />
-
               <div className={s.imageContainer}>
                 {product?.images && (
                   <Image
@@ -58,24 +97,25 @@ const ProductItem: FC<Props> = ({
             </>
           </a>
         </Link>
+
         <div className={s.productPriceSection}>
-          <span className={s.productPrice}>
-            {product.price.currencyCode}
-            &nbsp;
-            {product.price.value}
-          </span>
-          <div className={s.btnPrice}>
-            <a href={`/product/${product.slug}`}>BUY NOW</a>
-          </div>
+          <PriceTag
+            monaPrice={`${(product.price.value * monaPrice).toFixed(2)}`}
+            dollarPrice={`${product.price.value}`}
+            description={'SALE PRICE'}
+          />
+          <a
+            className={s.btnPrice}
+            href={`/product/${product.slug}`}
+          >
+            <img src='/images/black_update/gray_button2.png' />
+            <span>
+              BUY NOW
+            </span>
+          </a>
         </div>
       </div>
-      <div className="flex flex-row justify-center mt-4 bg-white align-center box-border w-full">
-        <div className="">
-          <h3 className={s.productTitle}>
-            <span>{product.name}</span>
-          </h3>
-        </div>
-      </div>
+      
     </div>
   )
 }

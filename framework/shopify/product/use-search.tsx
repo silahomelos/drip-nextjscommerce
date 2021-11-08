@@ -36,6 +36,9 @@ export const handler: SWRHook<
   async fetcher({ input, options, fetch }) {
     const { categoryId, brandId } = input
 
+    // console.log('options: ', options)
+    // console.log('categoryId: ', categoryId)
+
     const data = await fetch({
       query: categoryId ? getCollectionProductsQuery : options.query,
       method: options?.method,
