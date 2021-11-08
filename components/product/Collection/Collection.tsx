@@ -23,9 +23,7 @@ const Collection: FC<Props> = ({
 }) => {
 
   const { monaPrice } = useMain()
-  // const { cryptoPrice } = useMain()
-  // console.log('collection: ', collection)
-  // console.log('cryptoPrice: ', cryptoPrice)
+
 
   return (
     <div className={s.collectionItemContainer}>
@@ -65,11 +63,11 @@ const Collection: FC<Props> = ({
               VIEW COLLECTION
             </span>
           </a>
-          <PriceTag
+          {/* <PriceTag
             monaPrice={(collection.totalSold * monaPrice).toFixed(2)}
             dollarPrice={collection.totalSold}
             description={'TOTAL SOLD'}
-          />
+          /> */}
         </div>
       </div>
     </div>

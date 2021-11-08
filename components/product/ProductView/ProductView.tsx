@@ -300,7 +300,7 @@ const ProductView: FC<Props> = ({ product }) => {
               <section>
                 <div className={s.amount}>
                   {/* {soldAmount} of {totalAmount} */}
-                  Open Collection
+                  Open Edition
                   <div className={s.helper}>
                     <span className={s.questionMark}>?</span>
                     <span className={s.description} >
