@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes'
 export interface State {
   displaySidebar: boolean
   displayDropdown: boolean
+  displayMobileMenu: boolean
   displayModal: boolean
   displayToast: boolean
   modalView: string
@@ -14,6 +15,7 @@ export interface State {
 const initialState = {
   displaySidebar: false,
   displayDropdown: false,
+  displayMobileMenu: false,
   displayModal: false,
   modalView: 'LOGIN_VIEW',
   displayToast: false,
@@ -58,6 +60,12 @@ type Action =
       type: 'SET_USER_AVATAR'
       value: string
     }
+  | {
+      type: 'OPEN_MOBILE_MENU'
+    }
+  | {
+      type: 'CLOSE_MOBILE_MENU'
+    }
 
 type MODAL_VIEWS =
   | 'SIGNUP_VIEW'
@@ -83,6 +91,18 @@ function uiReducer(state: State, action: Action) {
       return {
         ...state,
         displaySidebar: false,
+      }
+    }
+    case 'OPEN_MOBILE_MENU': {
+      return {
+        ...state,
+        displayMobileMenu: true,
+      }
+    }
+    case 'CLOSE_MOBILE_MENU': {
+      return {
+        ...state,
+        displayMobileMenu: false,
       }
     }
     case 'OPEN_DROPDOWN': {
@@ -155,6 +175,9 @@ export const UIProvider: FC = (props) => {
   const closeSidebarIfPresent = () =>
     state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' })
 
+  const openMobileMenu = () => dispatch({ type: 'OPEN_MOBILE_MENU' })
+  const closeMobileMenu = () => dispatch({ type: 'CLOSE_MOBILE_MENU' })
+
   const openDropdown = () => dispatch({ type: 'OPEN_DROPDOWN' })
   const closeDropdown = () => dispatch({ type: 'CLOSE_DROPDOWN' })
 
@@ -175,6 +198,8 @@ export const UIProvider: FC = (props) => {
       ...state,
       openSidebar,
       closeSidebar,
+      openMobileMenu,
+      closeMobileMenu,
       toggleSidebar,
       closeSidebarIfPresent,
       openDropdown,

@@ -19,7 +19,7 @@ interface DropdownMenuProps {
 
 const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
   const [display, setDisplay] = useState(false)
-  const { dispatch, wallet, account } = useMain()
+  const { dispatch, wallet, account, user} = useMain()
   const ref = useRef() as React.MutableRefObject<HTMLUListElement>
 
   useEffect(() => {
@@ -61,8 +61,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
           aria-label="Menu"
         >
           <div className="flex items-center space-x-2">
-            <Avatar />
-            <span>{account?.slice(0, 7)}...</span>
+            <Avatar>
+              <img src={user.avatar} className={s.avatarImg} alt='nav-profile-image' />
+            </Avatar>
+            <span className="hidden lg:block">{account?.slice(0, 7)}...</span>
           </div>
         </button>
         {display && (

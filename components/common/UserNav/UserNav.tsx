@@ -1,13 +1,20 @@
-import { FC } from 'react'
+import { FC, useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import cn from 'classnames'
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from 'body-scroll-lock'
+
 import type { LineItem } from '@framework/types'
 import useCart from '@framework/cart/use-cart'
 import { Bag } from '@components/icons'
 import { useUI } from '@components/ui/context'
 import DropdownMenu from './DropdownMenu'
-import s from './UserNav.module.css'
+import s from './UserNav.module.scss'
 import { setFromSignin, useMain } from 'context'
+import ClickOutside from '@lib/click-outside'
 
 interface Props {
   className?: string
@@ -20,36 +27,93 @@ const UserNav: FC<Props> = ({ className }) => {
   const { toggleSidebar, openModal, setModalView } = useUI()
   const { user, dispatch } = useMain()
   const itemsCount = data?.lineItems.reduce(countItem, 0) ?? 0
+  const [display, setDisplay] = useState(false)
+  const ref = useRef() as React.MutableRefObject<HTMLUListElement>
 
-  const signIn = () => {
+  useEffect(() => {
+    if (ref.current) {
+      if (display) {
+        disableBodyScroll(ref.current)
+      } else {
+        enableBodyScroll(ref.current)
+      }
+    }
+    return () => {
+      clearAllBodyScrollLocks()
+    }
+  }, [display])
+  
+    const signIn = () => {
     dispatch(setFromSignin(true))
     setModalView('CRYPTO_SIGNUP_VIEW')
     openModal()
   }
 
   return (
-    <nav className={cn(s.root, className)}>
-      <div className={s.mainContainer}>
-        <ul className={s.list}>
-          {user?.username ? (
-            <li className={s.item}>
-              <DropdownMenu />
+    <ClickOutside active={display} onClick={() => setDisplay(false)}>
+      <nav className={cn(s.root, className)}>
+        <div className={s.mainContainer}>
+          <ul className={s.list}>
+            {user?.username ? (
+              <li className={s.item}>
+                <DropdownMenu />
+              </li>
+            ) : (
+              <li className={s.item}>
+                <button type="button" onClick={signIn} className={s.signinBtn}>
+                  {' '}
+                  sign in{' '}
+                </button>
+              </li>
+            )}
+            <li className={s.item} onClick={toggleSidebar}>
+              <Bag className={s.cart} />
+              {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
             </li>
-          ) : (
-            <li className={s.item}>
-              <button type="button" onClick={signIn} className={s.signinBtn}>
-                {' '}
-                sign in{' '}
-              </button>
+            <li className={[s.item, s.hamburger].join(' ')} onClick={() => setDisplay(!display)}>
+              <span className="">☰</span>
             </li>
-          )}
-          <li className={s.item} onClick={toggleSidebar}>
-            <Bag className={s.cart} />
-            {itemsCount > 0 && <span className={s.bagCount}>{itemsCount}</span>}
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </ul>
+        </div>
+        {display && (
+          <ul className={s.mobileMenu} ref={ref}>
+            <li>
+              <Link href="/">
+                <a className={s.link}>
+                  PHYSICAL WEB3 FASHION
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="https://fashion.digitalax.xyz/">
+                <a className={s.link} target="_blank">
+                  DIGITAL WEB3 FASHION
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="https://designers.digitalax.xyz/global/">
+                <a className={s.link} target="_blank">
+                  GLOBAL DESIGNER NETWORK
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="https://staking.digitalax.xyz/">
+                <a className={s.link} target="_blank">
+                  STAKE FASHION NFT
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="https://fashion.digitalax.xyz/bridge/">
+                <a className={s.link} target="_blank">BRIDGE MONA </a>
+              </Link>
+            </li>
+          </ul>
+        )}
+      </nav>
+    </ClickOutside>
   )
 }
 

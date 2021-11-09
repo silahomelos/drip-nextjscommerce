@@ -22,3 +22,7 @@
 .off {
   @apply hidden;
 }
+
+.avatarImg {
+  border-radius: 50%;
+}
