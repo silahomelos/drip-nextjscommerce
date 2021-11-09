@@ -35,6 +35,7 @@ const SignUpView: FC<Props> = () => {
         const { returnData, secret } = data
         dispatch(setUser(returnData))
         window.localStorage.setItem('user', JSON.stringify(returnData))
+        window.localStorage.setItem('TOKEN', secret)
       }
     } catch (e) {
       console.log({ e })

@@ -9,16 +9,15 @@ import s from './ProductView.module.scss'
 import { Swatch, ProductSlider } from '@components/product'
 import { Button, Container, useUI } from '@components/ui'
 import BannerBar from '@components/product/ProductView/BannerBar'
+import InfoCard from '@components/ui/InfoCard'
+import ImageCard from './ImageCard'
+import PriceTag from '../PriceTag'
 
 import type { Product } from '@commerce/types'
 import usePrice from '@framework/product/use-price'
 import { useAddItem } from '@framework/cart'
 
 import { getVariant, SelectedOptions } from '../helpers'
-
-import ImageCard from './ImageCard'
-import InfoCard from './InfoCard'
-import PriceTag from '../PriceTag'
 
 import { getDripMarketplaceOfferById } from 'services/api.service'
 import digitalaxApi from 'services/digitalaxApi.service'

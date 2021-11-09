@@ -1,8 +1,13 @@
 import s from './LoadingDots.module.css'
 
-const LoadingDots: React.FC = () => {
+interface props {
+  className?: string
+  large?: boolean
+}
+
+const LoadingDots: React.FC<props> = ({ className, large }) => {
   return (
-    <span className={s.root}>
+    <span className={[s.root, className, large ? s.large : ''].join(' ')}>
       <span />
       <span />
       <span />

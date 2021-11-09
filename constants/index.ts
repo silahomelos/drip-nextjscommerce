@@ -1,13 +1,21 @@
 export const ETH_API_URL =
   'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
 
-export const GRAPH_API_URL =
+export const GRAPH_API_URL_POLYGON =
+  'https://api.thegraph.com/subgraphs/name/digitalax/digitalaxmatic'
+
+export const GRAPH_API_URL_MAINNET =
   'https://api.thegraph.com/subgraphs/name/digitalax/digitalaxmatic'
 
 export const ESPA_BACKEND_API_URL =
   'https://7kuwlltzmc.execute-api.eu-central-1.amazonaws.com/latest/'
 
 export const ESPA_BACKEND_API_KEY = 'FqpxJ2kNva6d3saeCZgx653qn6wcKGpG95lUgI7K'
+
+export const MAINNET_CHAINID = 0x1
+export const POLYGON_CHAINID = 0x89
+
+export const POLYGON_DTX_ADDRESSE = '0x7B2a989c4D1AD1B79a84CE2EB79dA5D8d9C2b7a7'
 
 export const networks = {}
 
