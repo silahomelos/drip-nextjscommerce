@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import digitalaxApi from 'services/digitalaxApi.service'
 import UserInfo from '@components/user-profile/user-info'
-// import DigitalChangingRoom from '@components/user-profile/digital-changing-room'
+import DigitalChangingRoom from '@components/user-profile/digital-changing-room'
 import LoadingDots from '@components/ui/LoadingDots'
 import { Layout } from '@components/common'
 import { useMain } from 'context'
@@ -57,7 +57,7 @@ const UserProfile = () => {
     }
 
     loadUsers()
-  }, [])
+  }, [account])
 
   if (!user || isInitLoading) {
     return (
@@ -86,7 +86,7 @@ const UserProfile = () => {
         myProfile={true}
       />
 
-      {/* <DigitalChangingRoom className={styles.digitalChangingRoom} owner={account} /> */}
+      {account && <DigitalChangingRoom className={styles.digitalChangingRoom} owner={account} />}
     </div>
   )
 }

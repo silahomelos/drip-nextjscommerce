@@ -24,15 +24,20 @@ import {
   getDigitalaxGarmentV2CollectionsByGarmentIDs,
   getDigitalaxLookGoldenTicketsByOwner,
   getGuildWhitelistedNFTStakersByStaker
-} from '@services/api/apiService'
+} from 'services/api.service'
 
 import { generateLookImage, getRarityId } from '@utils/helpers'
-import config from '@utils/config'
 
 import {
   DRIP_COLLECTION_IDS,
   DRIP_COLLECTION_NAMES
 } from '@constants/drip_collection_ids'
+
+import {
+  MAINNET_CHAINID,
+  POLYGON_CHAINID,
+  POLYGON_DTX_ADDRESSE
+} from '@constants/index'
 
 import {
   DIGITAL_CHANGING_ROOM,
@@ -43,9 +48,6 @@ import {
   PODE,
   GDN_MEMBERSHIP_NFT
 } from '@constants/nft_categories'
-
-const MAINNET_CHAINID = 0x1
-const POLYGON_CHAINID = 0x89
 
 const categories = [
   DIGITAL_CHANGING_ROOM,
@@ -142,7 +144,7 @@ const DigitalChangingRoom = props => {
       const guildWhitelistedStakedNFTsPolygon = 
       guildWhitelistedNFTStakersPolygon && guildWhitelistedNFTStakersPolygon.length > 0 
           ? guildWhitelistedNFTStakersPolygon[0].garments.filter(
-              item => item.tokenAddress == config.DTX_ADDRESSES['matic'].toLowerCase(),
+              item => item.tokenAddress == POLYGON_DTX_ADDRESSE.toLowerCase(),
             ).map(garment => {
               return {
                 ...garment,

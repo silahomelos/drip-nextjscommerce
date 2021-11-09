@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import LazyLoad from 'react-lazyload'
 import axios from 'axios'
 import styles from './styles.module.scss'
 
@@ -11,7 +10,7 @@ import {
   LOOK_FASHION_LOOT,
   PODE,
   GDN_MEMBERSHIP_NFT
-} from '@constants/nft_categories'
+} from 'constants/nft_categories'
 
 const FashionItem = props => {
   const {
@@ -39,23 +38,12 @@ const FashionItem = props => {
     <div className={[styles.wrapper, className].join(' ')}>
       {
         animation && animation != ''
-        ? <LazyLoad style={{
-            width: '100%',
-            height: '100%'
-          }}>
-            <video autoPlay muted loop className={styles.videoItem}>
-              <source src={animation} type='video/mp4' />
-            </video>
-          </LazyLoad>
+        ? <video autoPlay muted loop className={styles.videoItem}>
+            <source src={animation} type='video/mp4' />
+          </video>
         : (
           image && image != ''
-          ?
-            <LazyLoad style={{
-              width: '100%',
-              height: '100%'
-            }}>
-              <img src={image} className={styles.photoItem} />
-            </LazyLoad>
+          ? <img src={image} className={styles.photoItem} />
           : <div></div>
         )
       }
@@ -74,7 +62,7 @@ const FashionItem = props => {
           className={[styles.viewFashion].join(' ')}
           onClick={onClickViewFashion}
         >
-          <img src={'/images/metaverse/gray_button.png'} />
+          <img src={'/images/black_update/gray_button2.png'} />
           <div>VIEW FASHION</div>
         </button>
       }
