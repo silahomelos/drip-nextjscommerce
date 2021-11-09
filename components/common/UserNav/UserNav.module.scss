@@ -1,5 +1,5 @@
 .root {
-  @apply relative;
+  /* @apply relative; */
   display: flex;
 }
 
@@ -8,7 +8,7 @@
 }
 
 .item {
-  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 flex items-center outline-none text-white;
+  @apply mr-6 cursor-pointer relative transition ease-in-out duration-100 items-center outline-none text-white;
 
   &:hover {
     @apply text-accents-6 transition scale-110 duration-100;
@@ -21,6 +21,13 @@
   &:focus,
   &:active {
     @apply outline-none;
+  }
+}
+
+.hamburger {
+  display: none;
+  @media (max-width: 780px) {
+    display: flex;
   }
 }
 
@@ -49,4 +56,25 @@
   border: 1px solid white;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.mobileMenu {
+  display: none;
+  @media (max-width: 780px) {
+    display: block;
+  }
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 78px;
+  color: white;
+  background: black;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted white;
+
+  li {
+    text-align: center;
+    padding: 10px;
+  }
+  
 }
