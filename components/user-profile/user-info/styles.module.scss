@@ -23,6 +23,7 @@
       width: 257px;
       height: 257px;
       border-radius: 50%;
+      object-fit: cover;
     }
 
     .lovesWrapper {
@@ -142,6 +143,7 @@
         text-transform: uppercase;
         padding: 10px 15px;
         width: fit-content;
+        white-space: nowrap;
       }
     }
   }

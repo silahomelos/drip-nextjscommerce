@@ -19,6 +19,13 @@
   }
 }
 
+.large {
+  & span {
+    @apply h-10 w-10;
+    margin: 0 10px;
+  }
+}
+
 @keyframes blink {
   0% {
     opacity: 0.2;

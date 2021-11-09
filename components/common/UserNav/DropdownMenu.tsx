@@ -69,7 +69,15 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
           <ul className={s.dropdownMenu} ref={ref}>
             <li>
               <a
-                className={cn(s.link, 'border-t border-accents-2 mt-4')}
+                className={cn(s.link, '')}
+                href='/profile'
+              >
+                Profile
+              </a>
+            </li>
+            <li>
+              <a
+                className={cn(s.link, 'border-t border-accents-2')}
                 onClick={() => logout()}
               >
                 Logout

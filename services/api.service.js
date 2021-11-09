@@ -1,4 +1,5 @@
 import request from 'graphql-request'
+import axios from 'axios'
 import { GRAPH_API_URL } from '../constants'
 import { post } from './request.service'
 import {
@@ -72,3 +73,4 @@ export const authenticate = async (account, signMsg, signature) => {
     throw err
   }
 }
+

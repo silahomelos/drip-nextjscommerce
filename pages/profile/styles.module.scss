@@ -5,11 +5,11 @@
   position: relative;
   background: #0A0A0A;
   background-size: fill;
-  padding: 150px 1rem 100px;
+  padding: 50px 1rem 100px;
   min-height: 800px;
 
   @include sm-width {
-    padding: 170px 0 120px;
+    padding: 70px 0 120px;
     width: unset;
   }
 

@@ -1,102 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Router from 'next/router';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from 'react'
+import Router from 'next/router'
+import { toast } from 'react-toastify'
 
-import Button from '@components/buttons/button';
-import Loader from '@components/loader';
-import InfoCard from '@components/info-card';
+import { Layout } from '@components/common'
+import Button from '@components/ui/Button'
+import LoadingDots from '@components/ui/LoadingDots'
+import InfoCard from '@components/ui/InfoCard'
 
-import userActions from '@actions/user.actions';
-import { getUser, getIsLoading } from '@selectors/user.selectors';
-import { useMyIP } from '@hooks/espa/user.hooks';
+// import userActions from '@actions/user.actions'
+import { useMain, setUser } from 'context'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
+import digitalaxApi from 'services/digitalaxApi.service'
 
 const EditProfile = ({ history }) => {
-  const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
-  const profile = useSelector(getUser);
-  const isLoading = useSelector(getIsLoading);
-  const myIP = useMyIP();
+  const [currentUser, setCurrentUser] = useState(null)
+  const [isLoading, setisLoading] = useState(false)
+  const { user, dispatch } = useMain()
 
-  if (!profile) {
-    dispatch(userActions.checkStorageAuth());
+  if (!user) {
+    // digitalaxApi
+    // dispatch(userActions.checkStorageAuth())
   }
 
   useEffect(() => {
-    if (!profile) {
-      return;
+    if (!user) {
+      return
     }
 
-    setUser({
-      wallet: profile.get('wallet'),
-      email: profile.get('email'),
-      username: profile.get('username'),
-      twitter: profile.get('twitter'),
-      randomString: profile.get('randomString'),
-      avatar: profile.get('avatar'),
-      gameTags: profile.get('gameTags'),
-      ipAddrs: profile.get('ipAddrs'),
-    });
-  }, [profile]);
+    setCurrentUser(user)
+  }, [user])
 
-  if (!user || myIP === null) {
-    return <Loader size="large" className={styles.loader} />;
+  if (!currentUser) {
+    return <LoadingDots className={styles.loader} large />
+  }
+
+  const uploadAvatar = async (file) => {
+    try {
+      setisLoading(true)
+      let url = await digitalaxApi.getPresignedUrl()
+      console.log('url: ', url)
+      if (url) {
+        const result = await digitalaxApi.uploadImageToS3(url, file);
+        if (result) {
+          const queryIndex = url.indexOf('?')
+          if (queryIndex >= 0) {
+            url = url.slice(0, queryIndex)
+          }
+          currentUser.avatar = url
+          console.log('currentUser: ', currentUser)
+          localStorage.setItem('user', JSON.stringify(currentUser))
+          setCurrentUser(currentUser)
+          dispatch(setUser(currentUser))
+        }
+      }
+    } catch (e) {}
+    setisLoading(false)
+  }
+
+  const updateProfile = async () => {
+    
+    setisLoading(true)
+    try {
+      const data = await digitalaxApi.updateProfile(currentUser)
+      setisLoading(false)
+      if (data) {
+        console.log('data: ', JSON.stringify(currentUser))
+        localStorage.setItem('user', JSON.stringify(data))
+        dispatch(setUser(data))
+        toast.success('Your profile updated successfully.')
+      } else {
+      }
+    } catch (e) {
+      setisLoading(false)
+    }
   }
 
   const showBrowserForAvatar = () => {
-    document.getElementById('avatar-upload').click();
-  };
+    document.getElementById('avatar-upload').click()
+  }
 
   const onChangeFile = (e) => {
-    const files = e.target.files || e.dataTransfer.files;
+    const files = e.target.files || e.dataTransfer.files
 
     if (files.length === 0) {
-      return;
+      return
     }
-    dispatch(userActions.uploadAvatar(files[0]));
-  };
+    uploadAvatar(files[0])
+  }
 
   const onChange = (e, key) => {
-    setUser({
-      ...user,
+    setCurrentUser({
+      ...currentUser,
       [key]: e.target.value,
-    });
-  };
+    })
+  }
 
   const validateUserName = (username) => {
-    const regEx = /^[A-Za-z0-9]*$/;
-    return regEx.test(String(username));
-  };
+    const regEx = /^[A-Za-z0-9]*$/
+    return regEx.test(String(username))
+  }
 
   const validateEmail = (email) => {
     const regEx =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regEx.test(String(email).toLowerCase());
-  };
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return regEx.test(String(email).toLowerCase())
+  }
 
   const validIp = (address) => {
     const regEx =
-      /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$/;
-    return regEx.test(address);
-  };
+      /^(([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)\.){3}([1-9]?\d|1\d\d|2[0-5][0-5]|2[0-4]\d)$/
+    return regEx.test(address)
+  }
 
   const saveProfile = () => {
-    if (!validateUserName(user.username)) {
-      toast('User ID must contains letters and numbers only!');
-      return;
+    if (!validateUserName(currentUser.username)) {
+      toast('User ID must contains letters and numbers only!')
+      return
     }
-    if (!validateEmail(user.email)) {
-      toast('You have entered an invalid Email address!');
-      return;
+    if (!validateEmail(currentUser.email)) {
+      toast('You have entered an invalid Email address!')
+      return
     }
-    if (user.ipAddrs && !validIp(user.ipAddrs)) {
-      toast('You have entered an invalid IP address!');
-      return;
-    }
-    dispatch(userActions.updateProfile(user));
-  };
+    updateProfile()
+  }
 
   return (
     <div className={styles.container}>
@@ -111,7 +138,7 @@ const EditProfile = ({ history }) => {
             <div className={styles.avatarWrapper}>
               <img
                 src={
-                  user.avatar ? user.avatar : '../../../images/user-profile/user-avatar-black.svg'
+                  currentUser.avatar ? currentUser.avatar : '../../../images/user-profile/user-avatar-black.svg'
                 }
               />
               <input
@@ -133,15 +160,15 @@ const EditProfile = ({ history }) => {
             <div className={styles.detailsWrapper}>
               <div className={styles.inputSection}>
                 <span>CHANGE USER ID</span>
-                <input value={user.username} onChange={(e) => onChange(e, 'username')} />
+                <input value={currentUser.username} onChange={(e) => onChange(e, 'username')} />
               </div>
               <div className={styles.inputSection}>
                 <span>CHANGE EMAIL</span>
-                <input value={user.email} onChange={(e) => onChange(e, 'email')} />
+                <input value={currentUser.email} onChange={(e) => onChange(e, 'email')} />
               </div>
               <div className={styles.inputSection}>
                 <span>ADD TWITTER</span>
-                <input value={user.twitter} onChange={(e) => onChange(e, 'twitter')} />
+                <input value={currentUser.twitter} onChange={(e) => onChange(e, 'twitter')} />
               </div>
             </div>
           </div>
@@ -158,11 +185,13 @@ const EditProfile = ({ history }) => {
               SAVE
             </Button>
           </div>
-          {isLoading && <Loader size="large" className={styles.pageLoader} />}
+          {isLoading && <LoadingDots className={styles.pageLoader} large />}
         </InfoCard>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EditProfile;
+export default EditProfile
+
+EditProfile.Layout = Layout

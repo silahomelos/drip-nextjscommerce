@@ -9,7 +9,7 @@ class DigitalaxApiService {
         username: userName,
         email,
         ipAddrs: ip
-      });
+      })
       return message
     } catch (e) {
       return null
@@ -20,13 +20,13 @@ class DigitalaxApiService {
     try {
       const data = await post('/account-exists', {
         wallet: account,
-      });
+      })
       if (data === 0) {
-        return '';
+        return ''
       }
-      return data;
+      return data
     } catch (e) {
-      return '';
+      return ''
     }
   }
 
@@ -76,19 +76,19 @@ class DigitalaxApiService {
 
   async updateProfile(user) {
     try {
-      const data = await put('/profile', user);
-      return data;
+      const data = await put('/profile', user)
+      return data
     } catch (e) {
-      return null;
+      return null
     }
   }
 
   async getPresignedUrl() {
     try {
-      const data = await get('/presigned-url');
-      return data;
+      const data = await get('/presigned-url')
+      return data
     } catch (e) {
-      return null;
+      return null
     }
   }
 
@@ -129,7 +129,7 @@ class DigitalaxApiService {
 
   async getAllUsersName() {
     try {
-      const allUsers = await get('/get-all-users-name');
+      const allUsers = await get('/get-all-users-name')
       return allUsers
     } catch (e) {
       return []
@@ -143,7 +143,7 @@ class DigitalaxApiService {
         randomString: signMsg,
         viewsType,
         viewsId
-      });
+      })
       return data
     } catch (e) {
       return null
@@ -173,10 +173,10 @@ class DigitalaxApiService {
 
   async getAllDesigners() {
     try {
-      const designers = await get('/get-all-designers');
-      return designers ? designers.data : [];
+      const designers = await get('/get-all-designers')
+      return designers ? designers.data : []
     } catch (e) {
-      return null;
+      return null
     }
   }
 }
