@@ -5,9 +5,6 @@ import usePrice from '@commerce/product/use-price'
 import { CartItem } from '@components/cart'
 import { setBuyNowStatus, useMain } from 'context'
 import { purchaseOrder } from 'services/order.service'
-import router from 'next/router'
-import { setWeb3Provider } from 'services/web3-provider.service'
-import { toast } from 'react-toastify'
 import { getMarketplacePurchaseHistories } from 'services/api.service'
 
 interface Props {}
@@ -25,7 +22,7 @@ const Checkout: FC<Props> = () => {
   const [code, setCode] = useState('')
   const [valid, setValid] = useState<Array<string>>([])
   const { dispatch, account, crypto, cryptoPrice, buyNowStatus } = useMain()
-  const { closeSidebar, setModalView, openModal } = useUI()
+  const { setModalView, openModal } = useUI()
   const removeItem = useRemoveItem()
 
   const { price: subTotal } = usePrice(

@@ -34,8 +34,7 @@ const CartItem = ({
     currencyCode,
   })
 
-  const { setModalView, openModal } = useUI()
-  const { dispatch, cryptoPrice, authOption } = useMain()
+  const { cryptoPrice } = useMain()
   const ethValue = item.variant.price * item.quantity * cryptoPrice
 
   const updateItem = useUpdateItem({ item })
