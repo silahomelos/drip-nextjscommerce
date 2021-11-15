@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import type { MutationHook } from '@commerce/utils/types'
 import { CommerceError } from '@commerce/utils/errors'
 import useAddItem, { UseAddItem } from '@commerce/cart/use-add-item'
@@ -6,7 +7,7 @@ import { Cart, CartItemBody } from '../types'
 import { checkoutLineItemAddMutation, getCheckoutId } from '../utils'
 import { checkoutToCart } from './utils'
 import { Mutation, MutationCheckoutLineItemsAddArgs } from '../schema'
-import { useCallback } from 'react'
+
 
 export default useAddItem as UseAddItem<typeof handler>
 
