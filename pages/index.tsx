@@ -1,8 +1,8 @@
 import { useState } from 'react'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
@@ -13,7 +13,6 @@ import { ProductItem } from '@components/product'
 import ProductTopBanner from '@components/common/ProductTopBanner'
 
 import { filterProducts } from '@lib/filter'
-
 import { ESPA_BACKEND_API_URL, ESPA_BACKEND_API_KEY } from '@constants/index'
 
 import { getDripMarketplaceOffers } from 'services/api.service'
@@ -111,8 +110,8 @@ export default function Home ({
   }
 
   const filteredProducts = filterProducts(products, filter, sortBy) || [];
-  console.log('dripMarketplaceOffer: ', dripMarketplaceOffers)
-  console.log('filteredProducts: ', filteredProducts)
+  // console.log('dripMarketplaceOffer: ', dripMarketplaceOffers)
+  // console.log('filteredProducts: ', filteredProducts)
   
   return (
     <>

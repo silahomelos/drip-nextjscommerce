@@ -1,9 +1,10 @@
+
+import React, { useState } from 'react'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+
 import { Layout } from '@components/common'
-import React, { useState, useRef } from 'react'
 import { GridContainer, Container } from '@components/ui'
 import { Collection } from '@components/product'
-import shortid from 'shortid'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 
 import { getConfig } from '@framework/api'
 import getAllProducts from '@framework/product/get-all-products'
@@ -62,45 +63,8 @@ export default function Home({
   categories,
   pages,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [cardTextIndex, setCardTextIndex] = useState(0)
-  const [randomStr, setRandomStr] = useState('')
-
-
   const [filter, setFilter] = useState('')
   const [sortBy, setSortBy] = useState('')
-
-
-  const contentEl = useRef(null)
-  const sticker1 = [
-    'Rep Your Style IRL',
-    'Crossover the DigiFizzy Realms',
-    'Unlockable NFTs',
-    'DeCo',
-    'Hybrid Fashion',
-  ]
-  const order = [
-    'glitched',
-    'look',
-    'web3',
-    'Instadapp',
-    'Bancor',
-    'Maker',
-    'Aave',
-    'Pickle',
-    'Force',
-    'Polygon',
-    'Opyn',
-    'Poap',
-    'Ruler',
-    'Rari',
-    'Fei',
-    'Meta-Meme',
-    'Minecraft',
-  ]
-  const onSelectCard = (index: number) => {
-    setCardTextIndex(index)
-    setRandomStr(shortid.generate())
-  }
 
   const getPrice = (product: any) => {
     return Number(product.price?.value) * Number(product.amountSold)
@@ -148,8 +112,6 @@ export default function Home({
   })
 
   const filteredProducts = filterProducts([...wrappedCollections], filter, sortBy, true) || [];
-  console.log('collections: ', collections)
-  console.log('dripMarketplaceOffers: ', dripMarketplaceOffers)
   return (
     <>
       <ProductTopBanner showFilterbar filter={filter} setFilter={setFilter} setSortBy={setSortBy} />

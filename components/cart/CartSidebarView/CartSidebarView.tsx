@@ -1,21 +1,23 @@
 import { FC } from 'react'
 import cn from 'classnames'
 import Link from 'next/link'
+
 import CartItem from '../CartItem'
 import s from './CartSidebarView.module.css'
 import { Button } from '@components/ui'
 import { UserNav } from '@components/common'
 import { useUI } from '@components/ui/context'
 import { Bag, Cross, Check } from '@components/icons'
+
 import useCart from '@framework/cart/use-cart'
 import usePrice from '@framework/product/use-price'
+
 import { useMain } from 'context'
-import router from 'next/router'
 
 const CartSidebarView: FC = () => {
   const { closeSidebar, setModalView, openModal } = useUI()
   const { data, isLoading, isEmpty } = useCart()
-  const { account, authOption, cryptoPrice, crypto } = useMain()
+  const { cryptoPrice } = useMain()
 
   const { price: subTotal } = usePrice(
     data && {
