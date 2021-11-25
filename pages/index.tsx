@@ -111,7 +111,7 @@ export default function Home ({
 
   const filteredProducts = filterProducts(products, filter, sortBy) || [];
   // console.log('dripMarketplaceOffer: ', dripMarketplaceOffers)
-  // console.log('filteredProducts: ', filteredProducts)
+  console.log('filteredProducts: ', filteredProducts)
   
   return (
     <>
