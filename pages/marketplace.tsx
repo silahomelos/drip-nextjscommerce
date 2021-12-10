@@ -78,6 +78,9 @@ export default function Home({
     return product.startTime
   }
 
+  console.log('collections: ', collections)
+  console.log('dripMarketplaceOffers: ', dripMarketplaceOffers)
+
   const wrappedCollections = collections.map(item => {
     const { data } = useSearch({  
       categoryId: item?.id as any,
