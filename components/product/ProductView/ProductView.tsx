@@ -33,11 +33,10 @@ const fetchTokenUri = async (tokenUri: string) => {
 
 const reviseUrl = (url: string) => {
   if (url?.includes('gateway.pinata')) {
-    return url.replace('gateway.pinata', 'digitalax.mypinata');
+    return url.replace('gateway.pinata', 'digitalax.mypinata')
   }
   return url
 }
-
 
 interface Props {
   className?: string
@@ -86,12 +85,15 @@ const ProductView: FC<Props> = ({ product }) => {
   // Select the correct variant based on choices
   const variant = getVariant(product, choices)
 
-  const currentDesigners = product.designers?.map((designerId: string) => {
-    return designers.find((item: any) => {
-      return item.designerId?.toLowerCase() === designerId.toLowerCase()
-        || item.newDesignerID?.toLowerCase() === designerId.toLowerCase()
-    })
-  }) || []
+  const currentDesigners =
+    product.designers?.map((designerId: string) => {
+      return designers.find((item: any) => {
+        return (
+          item.designerId?.toLowerCase() === designerId.toLowerCase() ||
+          item.newDesignerID?.toLowerCase() === designerId.toLowerCase()
+        )
+      })
+    }) || []
 
   const handleOnclick = (i: number) => {
     setCurImgIndex(i)
@@ -99,10 +101,10 @@ const ProductView: FC<Props> = ({ product }) => {
 
   useEffect(() => {
     const fetchDripInfo = async () => {
-      const {
-        dripMarketplaceOffer,
-      } = await getDripMarketplaceOfferById(collectionId)
-      console.log('dripMarketplaceOffer: ', dripMarketplaceOffer)
+      const { dripMarketplaceOffer } = await getDripMarketplaceOfferById(
+        collectionId
+      )
+      console.log('Product: ', product)
 
       setTotalAmount(dripMarketplaceOffer.garmentCollection?.garments?.length)
       setSoldAmount(dripMarketplaceOffer.amountSold)
@@ -110,13 +112,15 @@ const ProductView: FC<Props> = ({ product }) => {
       const children: any = []
 
       if (dripMarketplaceOffer.garmentCollection?.garments[0].children.length) {
-        dripMarketplaceOffer.garmentCollection?.garments[0].children.forEach(async (child: any) => {
-          const info = await fetchTokenUri(child.tokenUri)
-          children.push({
-            ...info,
-            id: child.id.split('-')[1]
-          })
-        })
+        dripMarketplaceOffer.garmentCollection?.garments[0].children.forEach(
+          async (child: any) => {
+            const info = await fetchTokenUri(child.tokenUri)
+            children.push({
+              ...info,
+              id: child.id.split('-')[1],
+            })
+          }
+        )
       }
 
       setGarmentChildren(children)
@@ -128,10 +132,18 @@ const ProductView: FC<Props> = ({ product }) => {
 
     const fetchViews = async () => {
       const viewData = await digitalaxApi.getViews('product', productId)
-      setLoveCount(viewData && viewData[0] && viewData[0].loves ? viewData[0].loves.length : 0)
-      setViewCount(viewData && viewData[0] && viewData[0].viewCount ? viewData[0].viewCount : 0)
+      setLoveCount(
+        viewData && viewData[0] && viewData[0].loves
+          ? viewData[0].loves.length
+          : 0
+      )
+      setViewCount(
+        viewData && viewData[0] && viewData[0].viewCount
+          ? viewData[0].viewCount
+          : 0
+      )
       setIsFetchedViewCount(true)
-    };
+    }
 
     const addViewCount = async () => {
       const data = await digitalaxApi.addView('product', productId)
@@ -160,11 +172,16 @@ const ProductView: FC<Props> = ({ product }) => {
   }
 
   const addLove = async () => {
-    const data = await digitalaxApi.addLove(account, user.randomString, 'product', productId);
+    const data = await digitalaxApi.addLove(
+      account,
+      user.randomString,
+      'product',
+      productId
+    )
     if (data && data['success']) {
       setLoveCount(loveCount + 1)
     }
-  };
+  }
 
   const onClickLove = () => {
     addLove()
@@ -177,9 +194,10 @@ const ProductView: FC<Props> = ({ product }) => {
 
   useEffect(() => {}, [])
 
-  const monaAmount = !price || price === undefined
-    ? '0.00'
-    : `${(monaPrice * Number(price?.replace(/\$/g, '') || '0')).toFixed(2)}`
+  const monaAmount =
+    !price || price === undefined
+      ? '0.00'
+      : `${(monaPrice * Number(price?.replace(/\$/g, '') || '0')).toFixed(2)}`
 
   return (
     <>
@@ -201,17 +219,19 @@ const ProductView: FC<Props> = ({ product }) => {
             ],
           }}
         />
-        
+
         <div className={cn(s.root, 'fit')}>
-          <div className={s.productName}>
-            {product.name}
-          </div>
+          <div className={s.productName}>{product.name}</div>
           <div className={s.mainBody}>
             <div className={s.leftSide}>
               <div className={cn(s.productDisplay, 'fit')}>
                 <div className={s.sliderContainer}>
                   <div className={s.bodyWrapper}>
-                    <ProductSlider key={product.id} imageId={curImgIndex} onSlide={setCurImgIndex}>
+                    <ProductSlider
+                      key={product.id}
+                      imageId={curImgIndex}
+                      onSlide={setCurImgIndex}
+                    >
                       {product.images.map((image, i) => (
                         <div key={image.url} className={s.imageContainer}>
                           <Image
@@ -231,24 +251,28 @@ const ProductView: FC<Props> = ({ product }) => {
               </div>
 
               <div className={s.openCollectionButtonWrapper}>
-                  <Button
-                    aria-label="Add to Cart"
-                    type="button"
-                    className={s.button}
-                    onClick={addToCart}
-                    loading={loading}
-                    disabled={!variant && product.options.length > 0}
-                  >
-                    <img src={`/images/black_update/gray_button2.png`} />
-                    <div className={s.title}>
-                      ADD TO CART
-                    </div>
-                  </Button>
-                </div>
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className={s.button}
+                  onClick={addToCart}
+                  loading={loading}
+                  disabled={!variant && product.options.length > 0}
+                >
+                  <img src={`/images/black_update/gray_button2.png`} />
+                  <div className={s.title}>ADD TO CART</div>
+                </Button>
+              </div>
 
               <div className={s.previewImages}>
                 {product.images.map((image, i) => (
-                  <div key={image.url} className={[s.previewImg, i == curImgIndex ? s.selected : ''].join(' ')}>
+                  <div
+                    key={image.url}
+                    className={[
+                      s.previewImg,
+                      i == curImgIndex ? s.selected : '',
+                    ].join(' ')}
+                  >
                     <Image
                       className={s.img}
                       src={image.url!}
@@ -263,12 +287,14 @@ const ProductView: FC<Props> = ({ product }) => {
                 ))}
               </div>
 
-              {
-              garmentChildren?.length && (
+              {garmentChildren?.length && (
                 <>
                   <div className={s.childrenDescription}>
                     Open Source{' '}
-                    <a href="https://designers.digitalax.xyz/fractional/" target="_blank">
+                    <a
+                      href="https://designers.digitalax.xyz/fractional/"
+                      target="_blank"
+                    >
                       Fractional Garment Ownership
                     </a>
                   </div>
@@ -288,7 +314,7 @@ const ProductView: FC<Props> = ({ product }) => {
                             </video>
                           ) : null}
                         </a>
-                      );
+                      )
                     })}
                   </div>
                 </>
@@ -298,17 +324,23 @@ const ProductView: FC<Props> = ({ product }) => {
             <div className={s.sidebar}>
               <section>
                 <div className={s.amount}>
-                  {/* {soldAmount} of {totalAmount} */}
-                  Open Edition
+                  {product.limited
+                    ? `${soldAmount} of ${totalAmount}`
+                    : 'Open Edition'}
                   <div className={s.helper}>
                     <span className={s.questionMark}>?</span>
-                    <span className={s.description} >
-                      Shipping takes approx 2 weeks. International can be longer.
+                    <span className={s.description}>
+                      Shipping takes approx 2 weeks. International can be
+                      longer.
                     </span>
                   </div>
                 </div>
                 <div className={s.lovesWrapper}>
-                  <button type="button" className={s.loveButton} onClick={onClickLove}>
+                  <button
+                    type="button"
+                    className={s.loveButton}
+                    onClick={onClickLove}
+                  >
                     <img src="/images/like_icon.png" />
                   </button>
 
@@ -323,65 +355,69 @@ const ProductView: FC<Props> = ({ product }) => {
                   </div>
                 </div>
                 <div className={s.productAttrs}>
-                  {product.options?.sort((a, b) => {
-                    const nameA = a.displayName
-                    const nameB = b.displayName
-                    if (nameA < nameB) {
-                      return -1;
-                    }
-                    if (nameA > nameB) {
-                      return 1;
-                    }
-                    return 0;
-                  }).map((opt) => (
-                    <div className="pb-4 pr-6" key={opt.displayName}>
-                      <div className="flex flex-row py-4">
-                        {opt.values.map((v, i: number) => {
-                          const active = (choices as any)[
-                            opt.displayName.toLowerCase()
-                          ]
+                  {product.options
+                    ?.sort((a, b) => {
+                      const nameA = a.displayName
+                      const nameB = b.displayName
+                      if (nameA < nameB) {
+                        return -1
+                      }
+                      if (nameA > nameB) {
+                        return 1
+                      }
+                      return 0
+                    })
+                    .map((opt) => (
+                      <div className="pb-4 pr-6" key={opt.displayName}>
+                        <div className="flex flex-row py-4">
+                          {opt.values.map((v, i: number) => {
+                            const active = (choices as any)[
+                              opt.displayName.toLowerCase()
+                            ]
 
-                          return (
-                            <Swatch
-                              key={`${opt.id}-${i}`}
-                              active={v.label.toLowerCase() === active}
-                              variant={opt.displayName}
-                              color={v.hexColors ? v.hexColors[0] : ''}
-                              label={v.label}
-                              onClick={() => {
-                                setChoices((choices) => {
-                                  return {
-                                    ...choices,
-                                    [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
-                                  }
-                                })
-                              }}
-                            />
-                          )
-                        })}
+                            return (
+                              <Swatch
+                                key={`${opt.id}-${i}`}
+                                active={v.label.toLowerCase() === active}
+                                variant={opt.displayName}
+                                color={v.hexColors ? v.hexColors[0] : ''}
+                                label={v.label}
+                                onClick={() => {
+                                  setChoices((choices) => {
+                                    return {
+                                      ...choices,
+                                      [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
+                                    }
+                                  })
+                                }}
+                              />
+                            )
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
                 <div>
                   {/* <p className={s.openCollection}>Open Collection</p>
                    */}
                   <InfoCard
-                    borderColor='white'
-                    boxShadow2='inset 0px 0px 10px 10px rgba(255, 255, 255, 0.47)'
-                    mainColor='rgba(95, 95, 95, 0.47)'
+                    borderColor="white"
+                    boxShadow2="inset 0px 0px 10px 10px rgba(255, 255, 255, 0.47)"
+                    mainColor="rgba(95, 95, 95, 0.47)"
                   >
                     <div className={s.infoCard}>
                       <div className={s.skinName}>
                         <div className={s.text}> {rarity} </div>
                       </div>
-                      <div className={s.description}>{product?.description}</div>
+                      <div className={s.description}>
+                        {product?.description}
+                      </div>
                     </div>
                   </InfoCard>
                 </div>
                 <div className={s.buttonWrapper}>
                   <PriceTag
-                    backImageSrc='/images/black_update/gray_button3.png'
+                    backImageSrc="/images/black_update/gray_button3.png"
                     withoutDollarSign={true}
                     monaPrice={monaAmount}
                     dollarPrice={price}
@@ -389,7 +425,11 @@ const ProductView: FC<Props> = ({ product }) => {
                   />
                 </div>
 
-                <button type="button" className={s.bespokeBtn} onClick={onBespokeBtn}>
+                <button
+                  type="button"
+                  className={s.bespokeBtn}
+                  onClick={onBespokeBtn}
+                >
                   Want something more Bespoke?
                 </button>
                 <a href="https://staking.digitalax.xyz/" target="_blank">
@@ -403,27 +443,30 @@ const ProductView: FC<Props> = ({ product }) => {
         </div>
       </Container>
       <BannerBar className={s.homeHeroBar} type={2} />
-      {
-        currentDesigners.map((designerItem: any, index: number) => {
-          if (!designerItem || designerItem == undefined) return null
-          return (
-            <>
-              <section className={[s.designerSection, index > 0 ? s.margin50 : ''].join(' ')}>
-                <video autoPlay loop muted className={s.video}>
-                  <source src="/images/designer-bg.mp4" type="video/mp4" />
-                </video>
-                <Container>
-                  <div className={s.designerBody}>
-                    <div className={s.title}> designer </div>
-                    <div className={s.data}>
-                      <a
-                        href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
-                        target="_blank"
-                      >
-                        <ImageCard imgUrl={designerItem.image_url} noShadow />
-                      </a>
-                      <div className={s.infoWrapper}>
-                        {/* {owners.length ? (
+      {currentDesigners.map((designerItem: any, index: number) => {
+        if (!designerItem || designerItem == undefined) return null
+        return (
+          <>
+            <section
+              className={[s.designerSection, index > 0 ? s.margin50 : ''].join(
+                ' '
+              )}
+            >
+              <video autoPlay loop muted className={s.video}>
+                <source src="/images/designer-bg.mp4" type="video/mp4" />
+              </video>
+              <Container>
+                <div className={s.designerBody}>
+                  <div className={s.title}> designer </div>
+                  <div className={s.data}>
+                    <a
+                      href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                      target="_blank"
+                    >
+                      <ImageCard imgUrl={designerItem.image_url} noShadow />
+                    </a>
+                    <div className={s.infoWrapper}>
+                      {/* {owners.length ? (
                           <div className={s.wearersLabel}>current wearer/S</div>
                         ) : (
                           <></>
@@ -438,42 +481,49 @@ const ProductView: FC<Props> = ({ product }) => {
                         ) : (
                           <></>
                         )} */}
-                        <InfoCard
-                          // libon="./images/metaverse/party_glasses.png"
-                          borderColor='#c52081'
-                          boxShadow='rgba(197, 32, 129, 0.5)'
-                          mainColor='rgba(189, 61, 169, 0.47)'
+                      <InfoCard
+                        // libon="./images/metaverse/party_glasses.png"
+                        borderColor="#c52081"
+                        boxShadow="rgba(197, 32, 129, 0.5)"
+                        mainColor="rgba(189, 61, 169, 0.47)"
+                      >
+                        <a
+                          href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                          target="_blank"
                         >
-                          <a
-                            href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
-                            target="_blank"
-                          >
-                            <div className={s.name}> {designerItem.designerId} </div>
-                          </a>
-                          <div className={s.description}>{designerItem.description}</div>
-                          <a
-                            href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
-                            target="_blank"
-                          >
-                            <button type="button" className={s.profileButton}>
-                              View Full Profile
-                            </button>
-                          </a>
-                        </InfoCard>
-                        <a href="https://designers.digitalax.xyz/getdressed" target="_blank">
-                          <button type="button" className={s.getDressedButton}>
-                            GET BESPOKE DRESSED BY THIS DESIGNER!
+                          <div className={s.name}>
+                            {' '}
+                            {designerItem.designerId}{' '}
+                          </div>
+                        </a>
+                        <div className={s.description}>
+                          {designerItem.description}
+                        </div>
+                        <a
+                          href={`https://designers.digitalax.xyz/designers/${designerItem.designerId}`}
+                          target="_blank"
+                        >
+                          <button type="button" className={s.profileButton}>
+                            View Full Profile
                           </button>
                         </a>
-                      </div>
+                      </InfoCard>
+                      <a
+                        href="https://designers.digitalax.xyz/getdressed"
+                        target="_blank"
+                      >
+                        <button type="button" className={s.getDressedButton}>
+                          GET BESPOKE DRESSED BY THIS DESIGNER!
+                        </button>
+                      </a>
                     </div>
                   </div>
-                </Container>
-              </section>
-            </>
-          )
-        })
-      }
+                </div>
+              </Container>
+            </section>
+          </>
+        )
+      })}
     </>
   )
 }

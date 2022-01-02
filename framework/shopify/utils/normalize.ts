@@ -75,7 +75,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
 
 export function normalizeProduct(productNode: ShopifyProduct): Product {
   const {
-    id,    
+    id,
     title: name,
     collections,
     vendor,
@@ -89,9 +89,13 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
   } = productNode
 
   const collection: any = collections?.edges[0]?.node || {}
-  const designers: string[] | null
-   = collectionDesigners.find(item => item?.handle?.toLowerCase() === collection?.handle?.toLowerCase())?.designers || null
-   
+  const collectionInfo: any = collectionDesigners.find(
+    (item) => item?.handle?.toLowerCase() === collection?.handle?.toLowerCase()
+  )
+  const designers: string[] | null = collectionInfo?.designers || null
+
+  const limited: boolean | null = collectionInfo?.limited || null
+
   const product = {
     id,
     name,
@@ -99,6 +103,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     description,
     collection,
     designers,
+    limited,
     path: `/${handle}`,
     slug: handle?.replace(/^\/+|\/+$/g, ''),
     price: money(priceRange?.minVariantPrice),
@@ -144,7 +149,7 @@ export function normalizeCollection(
     image: {
       url: collectionNode.image?.originalSrc,
       alt: collectionNode.image?.altText ?? '',
-    }
+    },
   }
 }
 

@@ -65,6 +65,7 @@
   },
   {
     "handle": "raw-apparel",
-    "designers": ["Mo'Casso"]
+    "designers": ["Mo'Casso"],
+    "limited": true
   }
 ]
