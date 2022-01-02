@@ -32,48 +32,48 @@ export async function getStaticProps({
     preview,
   })
 
-  const {
-    dripMarketplaceOffers,
-  } = await getDripMarketplaceOffers()
+  const { dripMarketplaceOffers } = await getDripMarketplaceOffers()
 
-  const wrappedProducts = products.map(item => {
+  console.log('dripMarketplaceOffers: ', dripMarketplaceOffers)
+
+  const wrappedProducts = products.map((item) => {
     const collectionId = item?.slug?.split('-')[1]
     if (collectionId) {
-      const foundDripItem = dripMarketplaceOffers.find((dripItem: any) => dripItem?.id === collectionId)
-      
+      const foundDripItem = dripMarketplaceOffers.find(
+        (dripItem: any) => dripItem?.id === collectionId
+      )
+
       if (foundDripItem && foundDripItem != undefined) {
         return {
           ...item,
           amountSold: foundDripItem.amountSold,
           startTime: foundDripItem.startTime,
           endTime: foundDripItem.endTime,
-          rarity: foundDripItem.garmentCollection?.rarity
+          rarity: foundDripItem.garmentCollection?.rarity,
         }
       }
     }
-    
+
     return item
   })
 
   return {
     props: {
       products: wrappedProducts,
-      dripMarketplaceOffers
+      dripMarketplaceOffers,
       // pages,
     },
     revalidate: 14400,
   }
 }
 
-export default function Home ({
+export default function Home({
   products,
-  dripMarketplaceOffers
-}: InferGetStaticPropsType<typeof getStaticProps>)  {
-
+  dripMarketplaceOffers,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const [email, setEmail] = useState('')
   const [filter, setFilter] = useState('')
   const [sortBy, setSortBy] = useState('')
-  
 
   const addEmail = () => {
     fetch(endpoint, {
@@ -109,26 +109,25 @@ export default function Home ({
     })
   }
 
-  const filteredProducts = filterProducts(products, filter, sortBy) || [];
+  const filteredProducts = filterProducts(products, filter, sortBy) || []
   // console.log('dripMarketplaceOffer: ', dripMarketplaceOffers)
   console.log('filteredProducts: ', filteredProducts)
-  
+
   return (
     <>
       <div className="relative bg-black">
         <div className="relative top-0 w-full">
           <>
-            <ProductTopBanner 
-              showFilterbar 
+            <ProductTopBanner
+              showFilterbar
               isHomePage
-              filter={filter} 
-              setFilter={setFilter} 
+              filter={filter}
+              setFilter={setFilter}
               setSortBy={setSortBy}
             />
             <Container>
               <GridContainer>
-              {
-                filteredProducts.map((product, index) => {
+                {filteredProducts.map((product, index) => {
                   return (
                     <ProductItem
                       key={product.id}
@@ -139,8 +138,7 @@ export default function Home ({
                       }}
                     />
                   )
-                })
-              }
+                })}
               </GridContainer>
             </Container>
           </>

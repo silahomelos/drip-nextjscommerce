@@ -33,7 +33,7 @@ module.exports = withCommerceConfig({
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['espa.s3.eu-central-1.amazonaws.com'],
+    domains: ['espa.s3.eu-central-1.amazonaws.com', 'digitalax.mypinata.cloud'],
   },
   rewrites() {
     return [
